@@ -11,8 +11,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.mobile.gameofsecret.ui.components.Passionflower
+
+import com.mobile.gameofsecret.ui.components.WheelOfFortuneScreen
 import com.mobile.gameofsecret.ui.theme.GameofsecretTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
             GameofsecretTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                    Surface(modifier = Modifier.padding(innerPadding)) {
-Passionflower()
+WheelOfFortuneScreen()
                    }
                 }
             }
