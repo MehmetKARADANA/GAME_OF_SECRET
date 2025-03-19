@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -48,6 +49,43 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
+@Composable
+fun WheelOfFortune() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(32.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        // Çarkın dış çerçevesi
+        Canvas(modifier = Modifier.size(300.dp)) {
+            val wheelColors = listOf(
+                Color.Red, Color.Yellow, Color.Blue, Color.Green,
+                Color.Cyan, Color.Magenta, Color.Gray, Color.White
+            )
+            val segments = wheelColors.size
+            val angleStep = 360f / segments
+
+            // Çarkı çizmek
+            wheelColors.forEachIndexed { index, color ->
+                drawArc(
+                    color = color,
+                    startAngle = angleStep * index,
+                    sweepAngle = angleStep,
+                    useCenter = true
+                )
+            }
+        }
+
+        // Çarkın ortasında oku simüle eden bir ok işareti
+        Text(
+            text = "↓",
+            fontSize = 48.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black
+        )
+    }
+}
 @Composable
 fun WheelOfFortuneScreen() {
     val sections = remember {
@@ -253,3 +291,97 @@ data class WheelSection(
     val label: String,
     val color: Color
 )
+
+@Composable
+fun WheelOfFortunetest(
+    sections: List<WheelSection>,
+    rotationAngle: Float,
+    modifier: Modifier = Modifier
+) {
+    val textMeasurer = rememberTextMeasurer()
+
+    Canvas(
+        modifier = modifier
+            .aspectRatio(1f)
+            .padding(8.dp)
+    ) {
+        val center = Offset(size.width / 2, size.height / 2)
+        val radius = size.minDimension / 2
+        val sectionAngle = 360f / sections.size
+
+        // Çarkın bölümlerini çiz
+        rotate(rotationAngle) {
+            sections.forEachIndexed { index, section ->
+                val startAngle = index * sectionAngle
+
+                // Bölüm çizimi
+                drawArc(
+                    color = section.color,
+                    startAngle = startAngle,
+                    sweepAngle = sectionAngle,
+                    useCenter = true,
+                    topLeft = Offset(center.x - radius, center.y - radius),
+                    size = Size(radius * 2, radius * 2)
+                )
+
+                // Bölüm etiketlerini çiz - metin pozisyonlandırması
+                val midAngle = Math.toRadians((startAngle + sectionAngle / 2).toDouble())
+                val labelRadius = radius * 0.65f // Metni yay üzerinde düzgün yerleştirmek için
+                val x = center.x + (cos(midAngle) * labelRadius).toFloat()
+                val y = center.y + (sin(midAngle) * labelRadius).toFloat()
+
+                // Metni radial şekilde döndür (merkezden dışarıya doğru)
+                rotate(
+                    degrees = startAngle + sectionAngle / 2 + 90,
+                    pivot = Offset(x, y)
+                ) {
+                    val textLayoutResult = textMeasurer.measure(
+                        text = section.label,
+                        style = TextStyle(
+                            fontSize = 16.sp, // Font büyüklüğünü artırarak okunabilirliği artır
+                            color = Color.White,
+                            textAlign = TextAlign.Center
+                        )
+                    )
+
+                    // Metni düzgün şekilde ortalamak
+                    drawText(
+                        textLayoutResult = textLayoutResult,
+                        topLeft = Offset(
+                            x - textLayoutResult.size.width / 2,
+                            y - textLayoutResult.size.height / 2
+                        )
+                    )
+                }
+            }
+        }
+
+        // Dış çerçeveyi çiz
+        drawCircle(
+            color = Color.Black,
+            radius = radius,
+            center = center,
+            style = Stroke(width = 8f)
+        )
+
+        // İç çemberi çiz
+        drawCircle(
+            color = Color.White,
+            radius = radius * 0.1f,
+            center = center
+        )
+
+        // Çarkın üstünde bir ok (göstergesi)
+        val pointerPath = androidx.compose.ui.graphics.Path().apply {
+            moveTo(center.x, center.y - radius + 16) // Üst kısmın tam ortası
+            lineTo(center.x - 20, center.y - radius - 20) // Sol üst nokta
+            lineTo(center.x + 20, center.y - radius - 20) // Sağ üst nokta
+            close() // Üçgeni kapat
+        }
+
+        drawPath(
+            path = pointerPath,
+            color = Color.Red
+        )
+    }
+}
