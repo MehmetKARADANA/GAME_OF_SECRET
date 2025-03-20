@@ -14,18 +14,20 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mobile.gameofsecret.ui.screens.MenuScreen
+import com.mobile.gameofsecret.ui.screens.SettingScreen
 import com.mobile.gameofsecret.ui.theme.GameofsecretTheme
 
 sealed class DestinationScreen(var route : String){
-    data object menu :DestinationScreen("menu")
-    object userAdd : DestinationScreen("user_add")
+    data object Menu :DestinationScreen("menu")
+    data object UserAdd : DestinationScreen("user_add")
+    data object Settings : DestinationScreen("settings")
 
 }
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        //enableEdgeToEdge()
         setContent {
             GameofsecretTheme {
                AppNavigation()
@@ -38,10 +40,14 @@ class MainActivity : ComponentActivity() {
     fun AppNavigation(){
         val navController = rememberNavController()
 
-        NavHost(navController=navController, startDestination = DestinationScreen.menu.route){
+        NavHost(navController=navController, startDestination = DestinationScreen.Menu.route){
 
-            composable(DestinationScreen.menu.route) {
-                MenuScreen()
+            composable(DestinationScreen.Menu.route) {
+                MenuScreen(navController)
+            }
+
+            composable(DestinationScreen.Settings.route) {
+                SettingScreen()
             }
         }
 
