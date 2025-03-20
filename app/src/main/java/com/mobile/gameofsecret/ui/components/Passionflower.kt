@@ -49,243 +49,6 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
-@Composable
-fun WheelOfFortune() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(32.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        // Çarkın dış çerçevesi
-        Canvas(modifier = Modifier.size(300.dp)) {
-            val wheelColors = listOf(
-                Color.Red, Color.Yellow, Color.Blue, Color.Green,
-                Color.Cyan, Color.Magenta, Color.Gray, Color.White
-            )
-            val segments = wheelColors.size
-            val angleStep = 360f / segments
-
-            // Çarkı çizmek
-            wheelColors.forEachIndexed { index, color ->
-                drawArc(
-                    color = color,
-                    startAngle = angleStep * index,
-                    sweepAngle = angleStep,
-                    useCenter = true
-                )
-            }
-        }
-
-        // Çarkın ortasında oku simüle eden bir ok işareti
-        Text(
-            text = "↓",
-            fontSize = 48.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
-        )
-    }
-}
-@Composable
-fun WheelOfFortuneScreen() {
-    val sections = remember {
-        listOf(
-            WheelSection("500 TL", Color(0xFFE53935)),
-            WheelSection("200 TL", Color(0xFF43A047)),
-            WheelSection("1000 TL", Color(0xFF1E88E5)),
-            WheelSection("0 TL", Color(0xFFFFB300)),
-            WheelSection("100 TL", Color(0xFF8E24AA)),
-            WheelSection("300 TL", Color(0xFF00897B)),
-            WheelSection("50 TL", Color(0xFFD81B60)),
-            WheelSection("400 TL", Color(0xFF7CB342))
-        )
-    }
-
-    var spinning by remember { mutableStateOf(false) }
-    var result by remember { mutableStateOf("Çevirmeye başla!") }
-    var rotationAngle by remember { mutableStateOf(0f) }
-
-    // Animasyonun dönüş açısını hesaplamak için infiniteTransition
-    val infiniteTransition = rememberInfiniteTransition(label = "wheel_rotation")
-    val animatedRotation by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1000, easing = LinearEasing),
-        ),
-        label = "wheel_rotation"
-    )
-
-    // Çarkın toplam dönüş açısı
-    val angle = if (spinning) animatedRotation + rotationAngle else rotationAngle
-
-    // Dilim büyüklüğü
-    val sectionSize = 360f / sections.size
-
-    // Animasyonun bitiminden sonra, hangi dilimde olduğumuzu hesaplamak
-    val visibleResult = (angle % 360f).let { angleInRange ->
-        val sectionIndex = ((angleInRange / sectionSize) + sections.size) % sections.size
-        sections[(sections.size - 1 - sectionIndex).toInt()].label
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
-    ) {
-        // Sonucu göstermek
-        Text(
-            text = "Sonuç: $visibleResult",
-            style = MaterialTheme.typography.headlineMedium,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(vertical = 24.dp)
-        )
-
-        // Çarkın render edildiği Box
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            WheelOfFortune(
-                sections = sections,
-                rotationAngle = angle
-            )
-        }
-
-        // Çarkı döndürmek için buton
-        Button(
-            onClick = {
-                if (!spinning) {
-                    spinning = true
-                    // Random bir dönüş miktarı
-                    val randomSpin = (Random.nextInt(2, 6) * 360) +
-                            (Random.nextInt(0, sections.size) * (360 / sections.size)) +
-                            Random.nextInt(0, 360 / sections.size)
-
-                    // Toplam dönüş açısını güncelle
-                    rotationAngle += randomSpin.toFloat()
-
-                    // Çarkı durdurduktan sonra sonucu hesapla
-                    kotlinx.coroutines.MainScope().launch {
-                        kotlinx.coroutines.delay(2000) // 3 saniye bekle (animasyon süresi)
-                        spinning = false
-
-                        // Sonuç dilimini hesapla
-                        val normalizedAngle = (rotationAngle % 360).toInt()
-                        val sectionIndex = ((normalizedAngle / sectionSize) + sections.size) % sections.size
-                        result = "Sonuç: ${sections[(sections.size - 1 - sectionIndex).toInt()].label}"
-                    }
-                }
-            },
-            enabled = !spinning,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Text(text = if (spinning) "Dönüyor..." else "Çarkı Çevir!", fontSize = 18.sp)
-        }
-    }
-}
-
-
-
-@Composable
-fun WheelOfFortune(
-    sections: List<WheelSection>,
-    rotationAngle: Float,
-    modifier: Modifier = Modifier
-) {
-    val textMeasurer = rememberTextMeasurer()
-
-    Canvas(
-        modifier = modifier
-            .aspectRatio(1f)
-            .padding(8.dp)
-    ) {
-        val center = Offset(size.width / 2, size.height / 2)
-        val radius = size.minDimension / 2
-        val sectionAngle = 360f / sections.size
-
-        // Draw the wheel with sections
-        rotate(rotationAngle) {
-            sections.forEachIndexed { index, section ->
-                val startAngle = index * sectionAngle
-
-                // Draw section
-                drawArc(
-                    color = section.color,
-                    startAngle = startAngle,
-                    sweepAngle = sectionAngle,
-                    useCenter = true,
-                    topLeft = Offset(center.x - radius, center.y - radius),
-                    size = Size(radius * 2, radius * 2)
-                )
-
-                // Draw section labels - improved positioning
-                val midAngle = Math.toRadians((startAngle + sectionAngle / 2).toDouble())
-                val labelRadius = radius * 0.65f // Adjust this value to position text within the arc
-                val x = center.x + (cos(midAngle) * labelRadius).toFloat()
-                val y = center.y + (sin(midAngle) * labelRadius).toFloat()
-
-                // Rotate text to be radial (from center outward)
-                rotate(
-                    degrees = startAngle + sectionAngle / 2 + 90,
-                    pivot = Offset(x, y)
-                ) {
-                    val textLayoutResult = textMeasurer.measure(
-                        text = section.label,
-                        style = TextStyle(
-                            fontSize = 16.sp, // Increase font size for better visibility
-                            color = Color.White,
-                            textAlign = TextAlign.Center
-                        )
-                    )
-
-                    // Center the text properly
-                    drawText(
-                        textLayoutResult = textLayoutResult,
-                        topLeft = Offset(
-                            x - textLayoutResult.size.width / 2,
-                            y - textLayoutResult.size.height / 2
-                        )
-                    )
-                }
-            }
-        }
-
-        // Draw outer circle
-        drawCircle(
-            color = Color.Black,
-            radius = radius,
-            center = center,
-            style = Stroke(width = 8f)
-        )
-
-        // Draw center circle
-        drawCircle(
-            color = Color.White,
-            radius = radius * 0.1f,
-            center = center
-        )
-
-        val pointerPath = androidx.compose.ui.graphics.Path().apply {
-            moveTo(center.x, center.y - radius + 16) // Üst kısmın tam ortası (daha yukarıda)
-            lineTo(center.x - 20, center.y - radius - 20) // Sol üst nokta
-            lineTo(center.x + 20, center.y - radius - 20) // Sağ üst nokta
-            close() // Üçgeni kapat
-        }
-
-
-        drawPath(
-            path = pointerPath,
-            color = Color.Red
-        )
-    }
-}
 
 data class WheelSection(
     val label: String,
@@ -293,7 +56,7 @@ data class WheelSection(
 )
 
 @Composable
-fun WheelOfFortunetest(
+fun EmptyWheelOfFortune(
     sections: List<WheelSection>,
     rotationAngle: Float,
     modifier: Modifier = Modifier
@@ -303,7 +66,7 @@ fun WheelOfFortunetest(
     Canvas(
         modifier = modifier
             .aspectRatio(1f)
-            .padding(8.dp)
+            .padding(48.dp)
     ) {
         val center = Offset(size.width / 2, size.height / 2)
         val radius = size.minDimension / 2
@@ -329,7 +92,7 @@ fun WheelOfFortunetest(
                 val labelRadius = radius * 0.65f // Metni yay üzerinde düzgün yerleştirmek için
                 val x = center.x + (cos(midAngle) * labelRadius).toFloat()
                 val y = center.y + (sin(midAngle) * labelRadius).toFloat()
-
+/*
                 // Metni radial şekilde döndür (merkezden dışarıya doğru)
                 rotate(
                     degrees = startAngle + sectionAngle / 2 + 90,
@@ -342,9 +105,9 @@ fun WheelOfFortunetest(
                             color = Color.White,
                             textAlign = TextAlign.Center
                         )
-                    )
+                    )*/
 
-                    // Metni düzgün şekilde ortalamak
+                    /*// Metni düzgün şekilde ortalamak
                     drawText(
                         textLayoutResult = textLayoutResult,
                         topLeft = Offset(
@@ -352,7 +115,7 @@ fun WheelOfFortunetest(
                             y - textLayoutResult.size.height / 2
                         )
                     )
-                }
+                }*/
             }
         }
 
@@ -361,7 +124,101 @@ fun WheelOfFortunetest(
             color = Color.Black,
             radius = radius,
             center = center,
-            style = Stroke(width = 8f)
+            style = Stroke(width = 12f)
+        )
+
+        // İç çemberi çiz
+        drawCircle(
+            color = Color.White,
+            radius = radius * 0.1f,
+            center = center
+        )
+
+        // Çarkın üstünde bir ok (göstergesi)
+        val pointerPath = androidx.compose.ui.graphics.Path().apply {
+            moveTo(center.x, center.y - radius + 16) // Üst kısmın tam ortası
+            lineTo(center.x - 20, center.y - radius - 20) // Sol üst nokta
+            lineTo(center.x + 20, center.y - radius - 20) // Sağ üst nokta
+            close() // Üçgeni kapat
+        }
+
+        drawPath(
+            path = pointerPath,
+            color = Color.Red
+        )
+    }
+}
+
+@Composable
+fun WheelOfFortune(
+    sections: List<WheelSection>,
+    rotationAngle: Float,
+    modifier: Modifier = Modifier
+) {
+    val textMeasurer = rememberTextMeasurer()
+
+    Canvas(
+        modifier = modifier
+            .aspectRatio(1f)
+            .padding(48.dp)
+    ) {
+        val center = Offset(size.width / 2, size.height / 2)
+        val radius = size.minDimension / 2
+        val sectionAngle = 360f / sections.size
+
+        // Çarkın bölümlerini çiz
+        rotate(rotationAngle) {
+            sections.forEachIndexed { index, section ->
+                val startAngle = index * sectionAngle
+
+                // Bölüm çizimi
+                drawArc(
+                    color = section.color,
+                    startAngle = startAngle,
+                    sweepAngle = sectionAngle,
+                    useCenter = true,
+                    topLeft = Offset(center.x - radius, center.y - radius),
+                    size = Size(radius * 2, radius * 2)
+                )
+
+                // Bölüm etiketlerini çiz - metin pozisyonlandırması
+                val midAngle = Math.toRadians((startAngle + sectionAngle / 2).toDouble())
+                val labelRadius = radius * 0.65f // Metni yay üzerinde düzgün yerleştirmek için
+                val x = center.x + (cos(midAngle) * labelRadius).toFloat()
+                val y = center.y + (sin(midAngle) * labelRadius).toFloat()
+                /*
+                                // Metni radial şekilde döndür (merkezden dışarıya doğru)
+                                rotate(
+                                    degrees = startAngle + sectionAngle / 2 + 90,
+                                    pivot = Offset(x, y)
+                                ) {
+                                    val textLayoutResult = textMeasurer.measure(
+                                        text = section.label,
+                                        style = TextStyle(
+                                            fontSize = 16.sp, // Font büyüklüğünü artırarak okunabilirliği artır
+                                            color = Color.White,
+                                            textAlign = TextAlign.Center
+                                        )
+                                    )*/
+
+                /*// Metni düzgün şekilde ortalamak
+                drawText(
+                    textLayoutResult = textLayoutResult,
+                    topLeft = Offset(
+                        x - textLayoutResult.size.width / 2,
+                        y - textLayoutResult.size.height / 2
+                    )
+                )
+            }*/
+            }
+        }
+
+        // Dış çerçeveyi çiz
+        drawCircle(
+            color = Color.Black,
+            radius = radius,
+            center = center,
+            style = Stroke(width = 12f)
         )
 
         // İç çemberi çiz
