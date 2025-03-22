@@ -31,10 +31,11 @@ fun textFieldColor() = TextFieldDefaults.colors(
     focusedContainerColor = Color.Transparent,
     unfocusedContainerColor = Color.Transparent,
     disabledContainerColor = Color.Transparent,
-    focusedIndicatorColor = Color.Transparent,
-    unfocusedIndicatorColor = Color.Transparent,
+    focusedIndicatorColor = Color.White,
+    unfocusedIndicatorColor = Color.Gray,
     disabledIndicatorColor = Color.Transparent,
     cursorColor = Color.White, // Tamamen şeffaf bir imleç kullanıcı için kullanışsız olabilir
-    focusedLabelColor = Color.Transparent,
-    unfocusedLabelColor = Color.Transparent
+    focusedLabelColor = Color.White,
+    unfocusedLabelColor = Color.White
 )
+
