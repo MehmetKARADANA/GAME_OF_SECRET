@@ -112,7 +112,6 @@ fun MenuScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        //  Spacer(modifier = Modifier.padding(start = 12.dp).width(24.dp))
                         Icon(
                             painter = painterResource(R.drawable.information),
                             contentDescription = "information",
