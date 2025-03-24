@@ -47,54 +47,61 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
+import com.mobile.gameofsecret.data.model.Gamer
 import com.mobile.gameofsecret.ui.components.EmptyWheelOfFortune
 import com.mobile.gameofsecret.ui.components.FAB
-import com.mobile.gameofsecret.ui.components.Header
 import com.mobile.gameofsecret.ui.components.WheelSection
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.textColor
 import com.mobile.gameofsecret.ui.theme.textFieldColor
 import com.mobile.gameofsecret.ui.utils.navigateTo
+import com.mobile.gameofsecret.viewmodels.GamerViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuScreen(navController: NavController) {
+fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
 
     BackHandler {
         navController.popBackStack()
     }
+    val users = gamerViewModel.gamerList.value
+    val userFields = remember {
+        //koşul ekleyeceğim
+            mutableStateListOf("Oyuncu 1", "Oyuncu 2")
 
+    }
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(background), topBar = {
         // Header(navController = navController)
     }, floatingActionButton = {
-        FAB(onClick = {}, text = "Starting")
+        FAB(onClick = {
+            gamerViewModel.deleteAll()
+            userFields.forEach { gamer ->
+                gamerViewModel.saveGamer(Gamer(gamer))
+            }
+
+            navigateTo(navController, DestinationScreen.Pre.route)
+        }, text = "Starting")
     }, floatingActionButtonPosition = FabPosition.Center
     ) {
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .background(background)//bunu kaldırınca statusbar kendi rengine dönüyor
+                .background(background)
                 .padding(it)
         ) {
             val scrollState = rememberScrollState()
-            val userFields = remember { mutableStateListOf("Oyuncu 1", "Oyuncu 2") }
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -206,7 +213,7 @@ fun MenuScreen(navController: NavController) {
                                 LaunchedEffect(userFields.size) {
                                     if (userFields.size < 2) {
                                         userFields.add("Oyuncu ${userFields.size + 1}")
-                                    //message min 2 user
+                                        //message min 2 user
                                     }
                                 }
                                 Column(
@@ -260,15 +267,4 @@ fun MenuScreen(navController: NavController) {
             }
         }
     }
-}
-
-@Composable
-fun CommonDivider() {
-    HorizontalDivider(
-        color = Color.LightGray,
-        thickness = 1.dp,
-        modifier = Modifier
-            .alpha(0.5f)
-            .padding(top = 8.dp, bottom = 8.dp)
-    )
 }
