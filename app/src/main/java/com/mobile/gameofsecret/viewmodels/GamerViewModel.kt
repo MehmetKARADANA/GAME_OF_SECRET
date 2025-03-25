@@ -11,7 +11,6 @@ import com.mobile.gameofsecret.data.model.Gamer
 import com.mobile.gameofsecret.data.roomdb.GamerDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 class GamerViewModel(application: Application) : AndroidViewModel(application) {
 

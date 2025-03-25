@@ -60,6 +60,7 @@ import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.data.model.Gamer
 import com.mobile.gameofsecret.ui.components.EmptyWheelOfFortune
 import com.mobile.gameofsecret.ui.components.FAB
+import com.mobile.gameofsecret.ui.components.Header
 import com.mobile.gameofsecret.ui.components.WheelSection
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
@@ -75,25 +76,22 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
         navController.popBackStack()
     }
     val users = gamerViewModel.gamerList.value
+    val userNames=users.map { it.name }
     val userFields = remember {
-        //koşul ekleyeceğim
-            mutableStateListOf("Oyuncu 1", "Oyuncu 2")
-
+        mutableStateListOf("Oyuncu 1", "Oyuncu 2")
     }
-    Scaffold(modifier = Modifier
-        .fillMaxSize()
-        .background(background), topBar = {
-        // Header(navController = navController)
-    }, floatingActionButton = {
-        FAB(onClick = {
-            gamerViewModel.deleteAll()
-            userFields.forEach { gamer ->
-                gamerViewModel.saveGamer(Gamer(gamer))
-            }
-
-            navigateTo(navController, DestinationScreen.Pre.route)
-        }, text = "Starting")
-    }, floatingActionButtonPosition = FabPosition.Center
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(background), floatingActionButton = {
+            FAB(onClick = {
+                gamerViewModel.deleteAll()
+                userFields.forEach { gamer ->
+                    gamerViewModel.saveGamer(Gamer(gamer))
+                }
+                navigateTo(navController, DestinationScreen.Pre.route)
+            }, text = "Starting")
+        }, floatingActionButtonPosition = FabPosition.Center
     ) {
         Surface(
             modifier = Modifier
@@ -101,60 +99,15 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                 .background(background)
                 .padding(it)
         ) {
-            val scrollState = rememberScrollState()
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    // .verticalScroll(scrollState)
                     .background(background)
-                    .padding(12.dp),
+                // .padding(12.dp),
             ) {
 
                 item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(56.dp)
-                            .background(color = background),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.information),
-                            contentDescription = "information",
-                            tint = Color.White,
-                            modifier = Modifier
-                                .padding(start = 12.dp)
-                                .size(24.dp)
-                                .clickable {
-                                    navigateTo(
-                                        navController = navController,
-                                        route = DestinationScreen.Settings.route
-                                    )
-                                }
-                        )
-                        Text(
-                            text = "GOS",
-                            fontFamily = FontFamily.Serif,
-                            fontWeight = FontWeight.W500,
-                            fontSize = 22.sp,
-                            color = textColor
-                        )
-                        Icon(
-                            painter = painterResource(R.drawable.setting),
-                            contentDescription = "Settings",
-                            tint = Color.White,
-                            modifier = Modifier
-                                .padding(end = 12.dp)
-                                .size(24.dp)
-                                .clickable {
-                                    navigateTo(
-                                        navController = navController,
-                                        route = DestinationScreen.Settings.route
-                                    )
-                                }
-                        )
-                    }
+                    Header(navController)
                 }
                 item {
                     Row(
@@ -186,7 +139,8 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                 item {
                     Column(
                         modifier = Modifier
-                            .fillMaxSize(),
+                            .fillMaxSize()
+                            .padding(12.dp),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {

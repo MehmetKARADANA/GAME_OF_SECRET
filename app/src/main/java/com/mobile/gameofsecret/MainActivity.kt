@@ -18,7 +18,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mobile.gameofsecret.ui.screens.MenuScreen
 import com.mobile.gameofsecret.ui.screens.PreScreen
+import com.mobile.gameofsecret.ui.screens.RandomGameScreen
+import com.mobile.gameofsecret.ui.screens.SerialGameScreen
 import com.mobile.gameofsecret.ui.screens.SettingScreen
+import com.mobile.gameofsecret.ui.screens.SpinBottleScreen
 import com.mobile.gameofsecret.ui.theme.GameofsecretTheme
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -29,6 +32,9 @@ sealed class DestinationScreen(var route : String){
     data object Menu :DestinationScreen("menu")
     data object Pre : DestinationScreen("pre")
     data object Settings : DestinationScreen("settings")
+    data object SerialGame : DestinationScreen("serial")
+    data object RandomGame : DestinationScreen("random")
+    data object SpinBottle : DestinationScreen("spin_bottle")
 
 }
 
@@ -58,7 +64,18 @@ class MainActivity : ComponentActivity() {
                 SettingScreen()
             }
             composable(DestinationScreen.Pre.route) {
-                PreScreen(gamerViewModel)
+                PreScreen(gamerViewModel, navController = navController)
+            }
+
+            composable(DestinationScreen.SerialGame.route) {
+                SerialGameScreen()
+            }
+            composable(DestinationScreen.RandomGame.route) {
+                RandomGameScreen()
+            }
+
+            composable(DestinationScreen.SpinBottle.route) {
+                SpinBottleScreen()
             }
         }
 

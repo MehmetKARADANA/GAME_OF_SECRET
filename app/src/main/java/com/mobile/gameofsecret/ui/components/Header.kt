@@ -36,39 +36,48 @@ import com.mobile.gameofsecret.ui.utils.navigateTo
 
 @Composable
 fun Header(navController: NavController) {
-    val statusBarColor = background
-    val activity = LocalActivity.current
-    activity?.window?.statusBarColor = statusBarColor.toArgb()
-    Card(
-        modifier = Modifier.wrapContentSize(),
-        shape = RoundedCornerShape(0.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .background(color = background),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
+        Icon(
+            painter = painterResource(R.drawable.information),
+            contentDescription = "information",
+            tint = Color.White,
             modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-                .background(color = background),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Spacer(modifier = Modifier.padding(start = 12.dp).width(24.dp))
-
-            Text(
-                text = "GOS",
-                fontFamily = FontFamily.Serif,
-                fontWeight = FontWeight.W500,
-                fontSize = 22.sp,
-                color = textColor
-            )
-            Icon(
-                painter = painterResource(R.drawable.setting),
-                contentDescription = "Settings",
-                tint = Color.White,
-                modifier = Modifier.padding(end = 12.dp).size(24.dp).clickable {
-                    navigateTo(navController = navController, route = DestinationScreen.Settings.route)
+                .padding(start = 12.dp)
+                .size(24.dp)
+                .clickable {
+                    navigateTo(
+                        navController = navController,
+                        route = DestinationScreen.Settings.route
+                    )
                 }
-            )
-        }
+        )
+        Text(
+            text = "GOS",
+            fontFamily = FontFamily.Serif,
+            fontWeight = FontWeight.W500,
+            fontSize = 22.sp,
+            color = textColor
+        )
+        Icon(
+            painter = painterResource(R.drawable.setting),
+            contentDescription = "Settings",
+            tint = Color.White,
+            modifier = Modifier
+                .padding(end = 12.dp)
+                .size(24.dp)
+                .clickable {
+                    navigateTo(
+                        navController = navController,
+                        route = DestinationScreen.Settings.route
+                    )
+                }
+        )
     }
 }
