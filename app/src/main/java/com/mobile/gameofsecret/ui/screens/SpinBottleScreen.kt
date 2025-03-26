@@ -8,6 +8,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.mobile.gameofsecret.ui.components.TruthDareBottleGame
 import com.mobile.gameofsecret.ui.theme.background
 
 @Composable
@@ -21,7 +22,7 @@ fun SpinBottleScreen() {
             .fillMaxSize()
             .background(background)
             .padding(it)) {
-            Text("SpinGameScreen")
+            TruthDareBottleGame()
         }
     }
 }
