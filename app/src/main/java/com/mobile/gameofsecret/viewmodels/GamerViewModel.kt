@@ -10,6 +10,9 @@ import com.mobile.gameofsecret.data.GAMERS
 import com.mobile.gameofsecret.data.model.Gamer
 import com.mobile.gameofsecret.data.roomdb.GamerDatabase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class GamerViewModel(application: Application) : AndroidViewModel(application) {
@@ -20,15 +23,19 @@ class GamerViewModel(application: Application) : AndroidViewModel(application) {
         GAMERS
     ).build()
 
-    val gamerList = mutableStateOf<List<Gamer>>(listOf())
+    private val _gamerList = MutableStateFlow<List<Gamer>>(emptyList())
+    val gamerList: StateFlow<List<Gamer>> = _gamerList.asStateFlow()
     val selectedGamer = mutableStateOf<Gamer>(Gamer(""))
 
+    init {
+      getGamerList()
+    }
     private val gamerDao = db.gamerDao()
 
-    fun getItemList() {
+    fun getGamerList() {
         try {
             viewModelScope.launch(Dispatchers.IO) {
-                gamerList.value = gamerDao.getGamerNameAndId()
+                _gamerList.value = gamerDao.getGamerNameAndId()
             }
         } catch (e: Exception) {
             e.printStackTrace()

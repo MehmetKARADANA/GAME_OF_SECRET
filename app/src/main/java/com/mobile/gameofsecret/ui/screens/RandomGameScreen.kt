@@ -6,13 +6,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.components.NameWheel
+import com.mobile.gameofsecret.viewmodels.GamerViewModel
 
 
 @Composable
-fun RandomGameScreen() {
+fun RandomGameScreen(gamerViewModel: GamerViewModel) {
+
+    val gamerList by gamerViewModel.gamerList.collectAsState()
+LaunchedEffect(Unit) {
+    gamerViewModel.getGamerList()
+}
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -24,7 +33,7 @@ fun RandomGameScreen() {
                 .background(background)
                 .padding(it)
         ) {
-            NameWheel()
+            NameWheel(gamerList)
         }
     }
 }

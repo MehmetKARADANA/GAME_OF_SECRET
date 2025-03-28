@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
                 SerialGameScreen()
             }
             composable(DestinationScreen.RandomGame.route) {
-                RandomGameScreen()
+                RandomGameScreen(gamerViewModel)
             }
 
             composable(DestinationScreen.SpinBottle.route) {

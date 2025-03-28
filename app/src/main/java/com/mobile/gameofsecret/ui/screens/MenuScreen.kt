@@ -1,5 +1,6 @@
 package com.mobile.gameofsecret.ui.screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
@@ -42,6 +43,8 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -75,8 +78,9 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
     BackHandler {
         navController.popBackStack()
     }
-    val users = gamerViewModel.gamerList.value
-    val userNames=users.map { it.name }
+   // val users = gamerViewModel.gamerList.value
+   /* val gamerList by gamerViewModel.gamerList.collectAsState()
+    val userNames=gamerList.map { it.name }*/
     val userFields = remember {
         mutableStateListOf("Oyuncu 1", "Oyuncu 2")
     }
@@ -89,6 +93,7 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                 userFields.forEach { gamer ->
                     gamerViewModel.saveGamer(Gamer(gamer))
                 }
+                gamerViewModel.getGamerList()
                 navigateTo(navController, DestinationScreen.Pre.route)
             }, text = "Starting")
         }, floatingActionButtonPosition = FabPosition.Center

@@ -17,6 +17,17 @@ val background = Color(0xFF333399)
 val toolbar = Color(0x3E0039FF)
 val textColor = Color(0xFFFFFFFF)
 
+val sectorColors = listOf(
+    Color(0xFFFF6B6B),   // Parlak Kırmızı
+    Color(0xFF4ECDC4),   // Turkuaz
+    Color(0xFF45B7D1),   // Açık Mavi
+    Color(0xFFFFD93D),   // Sarı
+    Color(0xFFF8A5C2),   // Pembe
+    Color(0xFF6A5ACD),   // Mor
+    Color(0xFF7ED6DF),   // Açık Turkuaz
+    Color(0xFFFFA07A)    // Mercan
+)
+
 val cardcolor = CardColors(
     containerColor = Color(0xFF333399), // Koyu mor-mavi arka plan
     contentColor = Color.White, // Beyaz yazılar (kontrast için)
