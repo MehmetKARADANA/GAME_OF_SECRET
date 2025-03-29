@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "968548209083",
+    "project_id": "gameof-secret-061",
+    "storage_bucket": "gameof-secret-061.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968548209083:android:60ee2d5f4f2d1b0c66749e",
+        "android_client_info": {
+          "package_name": "com.mobile.gameofsecret"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiqerzbXvw5ZzhuAkW1DVLXU3e9JFeIwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
