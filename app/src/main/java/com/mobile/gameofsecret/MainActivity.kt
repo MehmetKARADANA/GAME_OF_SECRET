@@ -24,6 +24,7 @@ import com.mobile.gameofsecret.ui.screens.SettingScreen
 import com.mobile.gameofsecret.ui.screens.SpinBottleScreen
 import com.mobile.gameofsecret.ui.theme.GameofsecretTheme
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
+import com.mobile.gameofsecret.viewmodels.QuizViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,7 +40,7 @@ sealed class DestinationScreen(var route : String){
 }
 
 class MainActivity : ComponentActivity() {
-    private val gamerViewModel: GamerViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
@@ -53,6 +54,8 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun AppNavigation(){
+        val gamerViewModel: GamerViewModel by viewModels()
+        val quizViewModel : QuizViewModel by viewModels()
         val navController = rememberNavController()
 
         NavHost(navController=navController, startDestination = DestinationScreen.Menu.route){
@@ -75,7 +78,7 @@ class MainActivity : ComponentActivity() {
             }
 
             composable(DestinationScreen.SpinBottle.route) {
-                SpinBottleScreen()
+                SpinBottleScreen(quizViewModel)
             }
         }
 

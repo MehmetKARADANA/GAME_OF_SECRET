@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlin.random.Random
 
 class QuizViewModel : ViewModel() {
     private val db = Firebase.firestore
@@ -22,14 +23,18 @@ class QuizViewModel : ViewModel() {
     private val _question = MutableStateFlow<Question?>(null)
     val question: StateFlow<Question?> = _question
 
+    init {
+        getRandomQuestion()
+    }
     private fun fetchRandomQuestion() {
         viewModelScope.launch {
             try {
-                val snapshot = db.collection(QUESTIONS)
-                    .orderBy("id")
-                    .limit(20)
+               val snapshot = db.collection(QUESTIONS)
+                    //.orderBy("id")
+                   // .limit(20)
                     .get()
                     .await()
+
 
                 val allQuestions = snapshot.documents.mapNotNull {
                     it.toObject(Question::class.java)
@@ -37,13 +42,19 @@ class QuizViewModel : ViewModel() {
 
                 val randomQuestions = allQuestions.shuffled().take(10)
 
-                _questionCache.value=randomQuestions
+                _questionCache.value = randomQuestions
+
+                if (_questionCache.value.isNotEmpty() && _question.value == null) {
+                    val nextQuestion = _questionCache.value.first()
+                    _question.value = nextQuestion
+                    _questionCache.value = _questionCache.value.drop(1)
+                }
+
                 Log.d("Quiz", "fetchRandomQuestion: 10 soru alındı")
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.d("Quiz", "Hata: ${e.message}")
             }
-
 
         }
     }
@@ -53,9 +64,9 @@ class QuizViewModel : ViewModel() {
         if (_questionCache.value.isEmpty()) {
             fetchRandomQuestion()
         } else {
-            val nextQuestion=_questionCache.value.firstOrNull()
-            _question.value=nextQuestion
-            _questionCache.value= _questionCache.value.drop(1)
+            val nextQuestion = _questionCache.value.firstOrNull()
+            _question.value = nextQuestion
+            _questionCache.value = _questionCache.value.drop(1)
             Log.d("Quiz", "getRandomQuestion: Soru seçildi ve cache güncellendi")
         }
     }
