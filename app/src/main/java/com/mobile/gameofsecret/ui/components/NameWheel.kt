@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,161 +49,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.data.model.Gamer
 import com.mobile.gameofsecret.ui.theme.sectorColors
+import com.mobile.gameofsecret.ui.utils.navigateTo
 
-
-/*
 @Composable
-fun NameWheel(gamerList : List<Gamer>) {
-    val names = gamerList.map { it.name }
-
-    // Renkler
-
-    // State tanımlamaları
-    var isSpinning by remember { mutableStateOf(false) }
-    val rotation = remember { Animatable(0f) }
-    var selectedName by remember { mutableStateOf("") }
-
-    // Coroutine Scope
-    val coroutineScope = rememberCoroutineScope()
-
-    // Çarkı döndürme fonksiyonu
-    val spinWheel: () -> Unit = {
-        if (!isSpinning) {
-            isSpinning = true
-
-            coroutineScope.launch {
-                // Sabit dönüş açısı (1440° sabit dönüş ve rastgele eklenen 360°)
-                val totalRotation = 1080f + Random.nextFloat() * 360f
-
-                // Rotasyonu sıfırlıyoruz, her dönüş için
-                rotation.snapTo(0f)
-
-                // Animasyonu başlatıyoruz
-                rotation.animateTo(
-                    targetValue = totalRotation,
-                    animationSpec = tween(
-                        durationMillis = 3000,  // Dönüş süresi
-                        easing = FastOutSlowInEasing
-                    )
-                )
-
-                // Çarkın hangi bölümüne denk geldiğini hesapla
-                val sectorIndex = ((360f - (rotation.value % 360f)) / (360f / names.size)).toInt()
-
-                selectedName = names[sectorIndex]
-                isSpinning = false
-            }
-        }
-    }
-
-    Column(
-        modifier = Modifier
-            .background(background)
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        // Sabit Üçgen İşaretçi (12 saat hizasında)
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(top = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-            // contentAlignment = Alignment.TopCenter
-        ) {
-            Triangle(
-                color = Color.Red,
-                modifier = Modifier
-                    .width(20.dp)
-                    .height(30.dp)
-            )
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            // Çarkın görsel temsili
-            Box(
-                modifier = Modifier
-                    .clickable {
-                        spinWheel.invoke()
-                    }
-                    .size(280.dp)
-                    .rotate(rotation.value)
-            ) {
-                // Bölümlerin çizimi
-                names.forEachIndexed { index, name ->
-                    val startAngle = index * (360f / names.size)
-
-                    // Her bir dilim için yay
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .rotate(startAngle)
-                            .clip(SectorShape(360f / names.size))
-                            .background(sectorColors[index % sectorColors.size]) // Rengi burada ekliyoruz
-                    )
-
-                    // İsim yazıları
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .rotate(startAngle + 360f / names.size / 2)
-                    ) {
-                        Text(
-                            text = name,
-                            modifier = Modifier
-                                .offset(x = 100.dp)
-                                .rotate(-(startAngle + 360f / names.size / 2)),
-                            color = Color.White,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                }
-            }
-        }
-
-        // Çarkı Döndür Butonu
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            verticalAlignment = Alignment.CenterVertically
-            , horizontalArrangement = Arrangement.Center
-        ) {
-            Button(
-                onClick = spinWheel,
-                enabled = !isSpinning
-            ) {
-                Text("Çarkı Döndür", fontSize = 18.sp)
-            }
-        }
-
-        // Seçilen ismi göster
-        if (selectedName.isNotEmpty()) {
-            Text(
-                text = "Kazanan: $selectedName 🎉",
-                modifier = Modifier,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Green
-            )
-        }
-    }
-}
-*/
-@Composable
-fun NameWheel(gamerList: List<Gamer>) {
+fun NameWheel(gamerList: List<Gamer>,navController: NavController) {
     val names = gamerList.map { it.name }
 
     var isSpinning by remember { mutableStateOf(false) }
@@ -223,6 +77,8 @@ fun NameWheel(gamerList: List<Gamer>) {
                 val sectorIndex = ((360f - (rotation.value % 360f)) / (360f / names.size)).toInt()
                 selectedName = names[sectorIndex]
                 isSpinning = false
+
+                navigateTo(navController, DestinationScreen.TruthOrDare.createRoute(selectedName))
             }
         }
     }
@@ -248,13 +104,12 @@ fun NameWheel(gamerList: List<Gamer>) {
             )
         }
 
-        // **Çark**
         Box(
             modifier = Modifier
                 .size(280.dp)
                 .rotate(rotation.value)
                 .border(4.dp, Color.Black, CircleShape)
-                .clickable { spinWheel() }
+                //.clickable { spinWheel() }
         ) {
             // Bölümlerin çizimi
             names.forEachIndexed { index, name ->
@@ -299,6 +154,7 @@ fun NameWheel(gamerList: List<Gamer>) {
         ) {
             Text("Çarkı Döndür", fontSize = 18.sp)
         }
+
 
         if (selectedName.isNotEmpty()) {
             Text(

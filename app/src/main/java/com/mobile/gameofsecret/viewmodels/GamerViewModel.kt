@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class GamerViewModel(application: Application) : AndroidViewModel(application) {
+class GamerViewModel(application: Application) : BaseViewModel(application) {
 
     private val db = Room.databaseBuilder(
         getApplication(),
@@ -39,6 +39,7 @@ class GamerViewModel(application: Application) : AndroidViewModel(application) {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            handleException(e)
             //handle
         }
     }
@@ -50,6 +51,7 @@ class GamerViewModel(application: Application) : AndroidViewModel(application) {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            handleException(e)
         }
     }
 
@@ -60,6 +62,7 @@ class GamerViewModel(application: Application) : AndroidViewModel(application) {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            handleException(e)
         }
     }
 
@@ -70,6 +73,7 @@ class GamerViewModel(application: Application) : AndroidViewModel(application) {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            handleException(e)
         }
     }
 
@@ -80,6 +84,7 @@ class GamerViewModel(application: Application) : AndroidViewModel(application) {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            handleException(e)
         }
     }
 
@@ -90,6 +95,7 @@ class GamerViewModel(application: Application) : AndroidViewModel(application) {
             }
         }catch (e : Exception){
             e.printStackTrace()
+            handleException(e)
         }
     }
 

@@ -10,13 +10,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.components.NameWheel
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
 
 
 @Composable
-fun RandomGameScreen(gamerViewModel: GamerViewModel) {
+fun RandomGameScreen(gamerViewModel: GamerViewModel,navController: NavController) {
 
     val gamerList by gamerViewModel.gamerList.collectAsState()
 LaunchedEffect(Unit) {
@@ -33,7 +34,7 @@ LaunchedEffect(Unit) {
                 .background(background)
                 .padding(it)
         ) {
-            NameWheel(gamerList)
+            NameWheel(gamerList, navController = navController)
         }
     }
 }

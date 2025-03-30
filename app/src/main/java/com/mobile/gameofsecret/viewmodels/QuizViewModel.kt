@@ -1,6 +1,7 @@
 package com.mobile.gameofsecret.viewmodels
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlin.random.Random
 
-class QuizViewModel : ViewModel() {
+class QuizViewModel(application: Application) : BaseViewModel(application) {
     private val db = Firebase.firestore
     private val _questionCache = MutableStateFlow<List<Question>>(emptyList())
 
@@ -54,6 +55,7 @@ class QuizViewModel : ViewModel() {
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.d("Quiz", "Hata: ${e.message}")
+                handleException(e)
             }
 
         }
