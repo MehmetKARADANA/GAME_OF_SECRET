@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,7 +21,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -52,6 +55,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.data.model.Gamer
+import com.mobile.gameofsecret.ui.theme.buttonColors1
 import com.mobile.gameofsecret.ui.theme.sectorColors
 import com.mobile.gameofsecret.ui.utils.navigateTo
 
@@ -146,11 +150,12 @@ fun NameWheel(gamerList: List<Gamer>,navController: NavController) {
                     .background(Color.White, CircleShape)
             )
         }
-
+        Spacer(modifier = Modifier.padding(24.dp))
         Button(
             onClick = spinWheel,
             enabled = !isSpinning,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp), colors = buttonColors1,
+            shape = RoundedCornerShape(8.dp), elevation = ButtonDefaults.elevatedButtonElevation(12.dp)
         ) {
             Text("Çarkı Döndür", fontSize = 18.sp)
         }
