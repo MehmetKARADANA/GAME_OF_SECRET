@@ -40,10 +40,11 @@ import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.cardcolor2
 import com.mobile.gameofsecret.ui.theme.cardcolor3
 import com.mobile.gameofsecret.ui.utils.navigateTo
+import com.mobile.gameofsecret.viewmodels.QuizViewModel
 
 
 @Composable
-fun TruthOrDareScreen(name: String, navController: NavController) {
+fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: QuizViewModel) {
 
     val infiniteTransition = rememberInfiniteTransition(label = "TruthOrDare")
     val animatedSize by infiniteTransition.animateFloat(
@@ -87,7 +88,7 @@ fun TruthOrDareScreen(name: String, navController: NavController) {
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Box(
-                            contentAlignment = Alignment.Center, // Metni ortada sabit tut
+                            contentAlignment = Alignment.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(50.dp) // Sabit bir yükseklik vererek yukarı-aşağı kaymasını engelle
@@ -106,6 +107,8 @@ fun TruthOrDareScreen(name: String, navController: NavController) {
                                 .padding(4.dp),
                             colors = cardcolor2,
                             onClick = {
+                                //truth
+                                quizViewModel.getRandomQuestion()
                                 navigateTo(
                                     navController = navController,
                                     DestinationScreen.Truth.createRoute(name)
@@ -125,6 +128,8 @@ fun TruthOrDareScreen(name: String, navController: NavController) {
                                 .padding(4.dp),
                             colors = cardcolor3,
                             onClick = {
+                                //to do dare getrandom
+                                quizViewModel.getRandomQuestion()
                                 navigateTo(
                                     navController = navController,
                                     DestinationScreen.Dare.createRoute(name)
@@ -144,6 +149,8 @@ fun TruthOrDareScreen(name: String, navController: NavController) {
                                 .padding(4.dp),
                             colors = cardcolor,
                             onClick = {
+                                //to do getrandom random
+                                quizViewModel.getRandomQuestion()
                                 navigateTo(
                                     navController = navController,
                                     DestinationScreen.Dare.createRoute(name)

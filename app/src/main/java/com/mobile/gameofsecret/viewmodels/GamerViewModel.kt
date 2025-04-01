@@ -25,12 +25,28 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
 
     private val _gamerList = MutableStateFlow<List<Gamer>>(emptyList())
     val gamerList: StateFlow<List<Gamer>> = _gamerList.asStateFlow()
+    val currentGamer = mutableStateOf<Gamer?>(null)
     val selectedGamer = mutableStateOf<Gamer>(Gamer(""))
 
     init {
       getGamerList()
+
     }
     private val gamerDao = db.gamerDao()
+
+    private fun setGamer(){
+        if(_gamerList.value.isNotEmpty()){
+            currentGamer.value = _gamerList.value[0]
+        }
+    }
+
+    fun nextPlayer(){
+        val index = _gamerList.value.indexOf(currentGamer.value)
+        if(index != -1){
+            val nextIndex=(index+1) % _gamerList.value.size
+            currentGamer.value=_gamerList.value[nextIndex]
+        }
+    }
 
     fun getGamerList() {
         try {

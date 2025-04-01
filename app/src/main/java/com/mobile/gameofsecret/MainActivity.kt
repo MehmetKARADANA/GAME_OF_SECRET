@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
             }
 
             composable(DestinationScreen.SerialGame.route) {
-                SerialGameScreen()
+                SerialGameScreen(gamerViewModel=gamerViewModel, quizViewModel = quizViewModel, navController = navController)
             }
             composable(DestinationScreen.RandomGame.route) {
                 RandomGameScreen(gamerViewModel,navController)
@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
                 val name = it.arguments?.getString("name")
 
                 name?.let { gamer ->
-                    TruthOrDareScreen(gamer,navController)
+                    TruthOrDareScreen(gamer,navController,quizViewModel)
                 }
             }
 
@@ -105,7 +105,7 @@ class MainActivity : ComponentActivity() {
                 val name = it.arguments?.getString("name")
 
                 name?.let { gamer ->
-                    TruthScreen(gamer,navController)
+                    TruthScreen(gamer,navController,quizViewModel)
                 }
             }
 
@@ -113,7 +113,7 @@ class MainActivity : ComponentActivity() {
                 val name = it.arguments?.getString("name")
 
                 name?.let { gamer ->
-                    DareScreen(gamer,navController)
+                    DareScreen(gamer,navController,quizViewModel)
                 }
             }
         }
