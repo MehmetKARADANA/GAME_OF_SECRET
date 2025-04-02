@@ -29,21 +29,22 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
     val selectedGamer = mutableStateOf<Gamer>(Gamer(""))
 
     init {
-      getGamerList()
+        getGamerList()
     }
+
     private val gamerDao = db.gamerDao()
 
-    private fun setGamer(){
-        if(_gamerList.value.isNotEmpty()){
-            currentGamer.value = _gamerList.value[0]
+    private fun setGamer() {
+        if (_gamerList.value.isNotEmpty()) {
+            currentGamer.value = _gamerList.value.first()
         }
     }
 
-    fun nextPlayer(){
+    fun nextPlayer() {
         val index = _gamerList.value.indexOf(currentGamer.value)
-        if(index != -1){
-            val nextIndex=(index+1) % _gamerList.value.size
-            currentGamer.value=_gamerList.value[nextIndex]
+        if (index != -1) {
+            val nextIndex = (index + 1) % _gamerList.value.size
+            currentGamer.value = _gamerList.value[nextIndex]
         }
     }
 
@@ -52,7 +53,6 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
             viewModelScope.launch(Dispatchers.IO) {
                 _gamerList.value = gamerDao.getGamerNameAndId()
             }
-            Log.d("gvm","glist : ${gamerList.value.size}")
         } catch (e: Exception) {
             e.printStackTrace()
             handleException(e)
@@ -105,12 +105,12 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-    fun deleteAll(){
+    fun deleteAll() {
         try {
-            viewModelScope.launch (Dispatchers.IO){
+            viewModelScope.launch(Dispatchers.IO) {
                 gamerDao.deleteAll()
             }
-        }catch (e : Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
             handleException(e)
         }

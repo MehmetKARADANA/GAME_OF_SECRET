@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity
-class Gamer(
+data class Gamer(
     var name: String,
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)

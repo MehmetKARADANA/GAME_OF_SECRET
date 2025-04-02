@@ -1,5 +1,6 @@
 package com.mobile.gameofsecret.ui.screens
 
+import android.util.Log
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -117,6 +118,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                                     navController = navController,
                                     DestinationScreen.Truth.createRoute(currentGamer?.name ?: "", fromScreen = fromScreen)
                                 )
+                                gamerViewModel.nextPlayer()
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
                         ) {
@@ -134,10 +136,13 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                             onClick = {
                                 //to do dare getrandom
                                 quizViewModel.getRandomQuestion()
+
                                 navigateTo(
                                     navController = navController,
                                     DestinationScreen.Dare.createRoute(currentGamer?.name ?: "", fromScreen = fromScreen)
                                 )
+                                gamerViewModel.nextPlayer()
+                                Log.d("sgs","current player ${currentGamer?.name}")
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
                         ) {
@@ -159,6 +164,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                                     navController = navController,
                                     DestinationScreen.Dare.createRoute(fromScreen = "serial",name = currentGamer?.name ?: fromScreen)
                                 )
+                                gamerViewModel.nextPlayer()
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
                         ) {
