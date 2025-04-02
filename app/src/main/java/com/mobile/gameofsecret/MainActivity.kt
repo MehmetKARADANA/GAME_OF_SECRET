@@ -42,11 +42,11 @@ sealed class DestinationScreen(var route : String){
     data object TruthOrDare : DestinationScreen("truth_or_dare/{name}"){
         fun createRoute(name : String)="truth_or_dare/$name"
     }
-    data object Truth : DestinationScreen("truth/{name}"){
-        fun createRoute(name : String)="truth/$name"
+    data object Truth : DestinationScreen("truth/{name}/{fromScreen}"){
+        fun createRoute(name : String,fromScreen : String)="truth/$name/$fromScreen"
     }
-    data object Dare : DestinationScreen("dare/{name}"){
-        fun createRoute(name : String)="dare/$name"
+    data object Dare : DestinationScreen("dare/{name}/{fromScreen}"){
+        fun createRoute(name : String,fromScreen : String)="dare/$name/$fromScreen"
     }
 
 }
@@ -103,17 +103,19 @@ class MainActivity : ComponentActivity() {
 
             composable(DestinationScreen.Truth.route) {
                 val name = it.arguments?.getString("name")
-
+                //random or serial
+                val fromScreen = it.arguments?.getString("fromScreen") ?: DestinationScreen.RandomGame.route
                 name?.let { gamer ->
-                    TruthScreen(gamer,navController,quizViewModel)
+                    TruthScreen(gamer,navController,quizViewModel,fromScreen)
                 }
             }
 
             composable(DestinationScreen.Dare.route) {
                 val name = it.arguments?.getString("name")
+                val fromScreen = it.arguments?.getString("fromScreen") ?: DestinationScreen.RandomGame.route
 
                 name?.let { gamer ->
-                    DareScreen(gamer,navController,quizViewModel)
+                    DareScreen(gamer,navController,quizViewModel,fromScreen)
                 }
             }
         }

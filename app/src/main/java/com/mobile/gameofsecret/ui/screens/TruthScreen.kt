@@ -28,15 +28,16 @@ import com.mobile.gameofsecret.ui.components.Header
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
 import com.mobile.gameofsecret.ui.utils.navigateTo
+import com.mobile.gameofsecret.viewmodels.GamerViewModel
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
 
 @Composable
-fun TruthScreen(name: String, navController: NavController,quizViewModel: QuizViewModel) {
+fun TruthScreen(name: String, navController: NavController,quizViewModel: QuizViewModel,fromScreen : String) {
 
     val question by quizViewModel.question.collectAsState()
 
     BackHandler {
-        navigateTo(navController = navController, DestinationScreen.RandomGame.route)
+            navigateTo(navController = navController, route = fromScreen)
     }
     Scaffold(modifier = Modifier.fillMaxSize()) {
         Surface(
@@ -45,23 +46,6 @@ fun TruthScreen(name: String, navController: NavController,quizViewModel: QuizVi
                 .background(background)
                 .padding(it)
         ) {
-
-            /*Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        background
-                    )
-                    .padding(4.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(text = "soru senin $name")
-                Text(text = "truth")
-                Button(onClick = {
-                    navigateTo(navController, DestinationScreen.RandomGame.route)
-                }, colors = buttonColors1, modifier = Modifier.fillMaxWidth()) { Text(text = "ok") }
-            }*/
 
             LazyColumn(
                 modifier = Modifier
@@ -79,7 +63,7 @@ fun TruthScreen(name: String, navController: NavController,quizViewModel: QuizVi
                         verticalArrangement = Arrangement.Center
                     ){
                         BackHeader(onBackClicked = {
-                            navigateTo(navController,DestinationScreen.RandomGame.route)
+                            navigateTo(navController,fromScreen)
                         },"Truth")
 
                         Text("$name ,soru senin :", color = Color.White)

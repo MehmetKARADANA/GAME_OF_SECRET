@@ -46,6 +46,8 @@ import com.mobile.gameofsecret.viewmodels.QuizViewModel
 @Composable
 fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: QuizViewModel) {
 
+    val fromScreen = DestinationScreen.RandomGame.route
+
     val infiniteTransition = rememberInfiniteTransition(label = "TruthOrDare")
     val animatedSize by infiniteTransition.animateFloat(
         initialValue = 1f,
@@ -111,7 +113,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                                 quizViewModel.getRandomQuestion()
                                 navigateTo(
                                     navController = navController,
-                                    DestinationScreen.Truth.createRoute(name)
+                                    DestinationScreen.Truth.createRoute(name, fromScreen = fromScreen)
                                 )
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
@@ -132,7 +134,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                                 quizViewModel.getRandomQuestion()
                                 navigateTo(
                                     navController = navController,
-                                    DestinationScreen.Dare.createRoute(name)
+                                    DestinationScreen.Dare.createRoute(name, fromScreen = fromScreen)
                                 )
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
@@ -153,7 +155,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                                 quizViewModel.getRandomQuestion()
                                 navigateTo(
                                     navController = navController,
-                                    DestinationScreen.Dare.createRoute(name)
+                                    DestinationScreen.Dare.createRoute(name, fromScreen = fromScreen)
                                 )
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),

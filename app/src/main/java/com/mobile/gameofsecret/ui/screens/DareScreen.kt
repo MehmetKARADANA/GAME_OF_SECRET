@@ -28,12 +28,12 @@ import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
 
 @Composable
-fun DareScreen(name: String, navController: NavController, quizViewModel: QuizViewModel) {
+fun DareScreen(name: String, navController: NavController, quizViewModel: QuizViewModel,fromScreen : String) {
 
     val question by quizViewModel.question.collectAsState()
 
     BackHandler {
-        navigateTo(navController = navController, DestinationScreen.RandomGame.route)
+            navigateTo(navController = navController, fromScreen)
     }
 
     Scaffold(modifier = Modifier.fillMaxSize()) {
@@ -59,7 +59,7 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
                         verticalArrangement = Arrangement.Center
                     ) {
                         BackHeader(onBackClicked = {
-                            navigateTo(navController, DestinationScreen.RandomGame.route)
+                            navigateTo(navController, fromScreen)
                         }, "Dare")
 
                         Text("$name ,soru senin :",color = Color.White)

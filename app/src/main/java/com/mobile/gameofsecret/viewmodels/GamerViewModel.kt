@@ -30,7 +30,6 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
 
     init {
       getGamerList()
-
     }
     private val gamerDao = db.gamerDao()
 
@@ -53,6 +52,7 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
             viewModelScope.launch(Dispatchers.IO) {
                 _gamerList.value = gamerDao.getGamerNameAndId()
             }
+            Log.d("gvm","glist : ${gamerList.value.size}")
         } catch (e: Exception) {
             e.printStackTrace()
             handleException(e)
@@ -76,6 +76,7 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
             viewModelScope.launch(Dispatchers.IO) {
                 gamerDao.insert(gamer)
             }
+            setGamer()
         } catch (e: Exception) {
             e.printStackTrace()
             handleException(e)

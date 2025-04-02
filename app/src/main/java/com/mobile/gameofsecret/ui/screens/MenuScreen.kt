@@ -78,9 +78,7 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
     BackHandler {
         navController.popBackStack()
     }
-   // val users = gamerViewModel.gamerList.value
-   /* val gamerList by gamerViewModel.gamerList.collectAsState()
-    val userNames=gamerList.map { it.name }*/
+
     val userFields = remember {
         mutableStateListOf("Oyuncu 1", "Oyuncu 2")
     }

@@ -46,7 +46,8 @@ import com.mobile.gameofsecret.viewmodels.QuizViewModel
 @Composable
 fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewModel, quizViewModel: QuizViewModel) {
 
-    val gamers by gamerViewModel.gamerList.collectAsState()
+    val fromScreen = DestinationScreen.SerialGame.route
+  //  val gamers by gamerViewModel.gamerList.collectAsState()
     val currentGamer = gamerViewModel.currentGamer.value
 
     val infiniteTransition = rememberInfiniteTransition(label = "TruthOrDare")
@@ -114,7 +115,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                                 quizViewModel.getRandomQuestion()
                                 navigateTo(
                                     navController = navController,
-                                    DestinationScreen.Truth.createRoute(currentGamer?.name ?: "")
+                                    DestinationScreen.Truth.createRoute(currentGamer?.name ?: "", fromScreen = fromScreen)
                                 )
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
@@ -135,7 +136,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                                 quizViewModel.getRandomQuestion()
                                 navigateTo(
                                     navController = navController,
-                                    DestinationScreen.Dare.createRoute(currentGamer?.name ?: "")
+                                    DestinationScreen.Dare.createRoute(currentGamer?.name ?: "", fromScreen = fromScreen)
                                 )
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
@@ -156,7 +157,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                                 quizViewModel.getRandomQuestion()
                                 navigateTo(
                                     navController = navController,
-                                    DestinationScreen.Dare.createRoute(currentGamer?.name ?: "")
+                                    DestinationScreen.Dare.createRoute(fromScreen = "serial",name = currentGamer?.name ?: fromScreen)
                                 )
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
