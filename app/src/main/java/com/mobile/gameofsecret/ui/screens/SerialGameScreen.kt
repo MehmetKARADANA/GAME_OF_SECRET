@@ -105,6 +105,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                                 color = Color.Yellow
                             )
                         }
+                        Spacer(modifier = Modifier.height(16.dp))
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
