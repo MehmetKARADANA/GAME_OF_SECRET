@@ -19,10 +19,10 @@ val background = Color(0xFF333399)
 val toolbar = Color(0x3E0039FF)
 val textColor = Color(0xFFFFFFFF)
 val buttonColors1 = ButtonColors(
-    containerColor = Color.White, // 🔹 Siyah arka plan
+    containerColor = Color.White,
     contentColor = Color.Black,
     disabledContainerColor = Color.Transparent,
-    disabledContentColor = Color.Gray    // 🔹 Beyaz yazı
+    disabledContentColor = Color.Gray
 )
 
 val sectorColors = listOf(

@@ -123,6 +123,17 @@ fun TruthScreen(
                             color = Color.White,
                             textAlign = TextAlign.Center
                         )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(
+                            colors = buttonColors1,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight(),
+                            onClick = {
+                                navigateTo(navController = navController, route = fromScreen)
+                            }) {
+                            Text(text = "Okey")
+                        }
 
 
                     }
