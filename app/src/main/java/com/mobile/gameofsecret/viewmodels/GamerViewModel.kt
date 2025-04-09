@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GamerViewModel(application: Application) : BaseViewModel(application) {
 
@@ -58,6 +59,24 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
             e.printStackTrace()
             handleException(e)
             //handle
+        }
+    }
+
+    fun resetGamers(userFields: List<String>, onComplete: () -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            gamerDao.deleteAll()
+
+            userFields.forEach { gamerName ->
+                gamerDao.insert(Gamer(gamerName))
+            }
+
+            val updatedList = gamerDao.getGamerNameAndId()
+
+            _gamerList.value = updatedList
+
+            withContext(Dispatchers.Main) {
+                onComplete()
+            }
         }
     }
 

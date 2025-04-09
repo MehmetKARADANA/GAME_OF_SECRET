@@ -87,12 +87,9 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
             .fillMaxSize()
             .background(background), floatingActionButton = {
             FAB(onClick = {
-                gamerViewModel.deleteAll()
-                userFields.forEach { gamer ->
-                    gamerViewModel.saveGamer(Gamer(gamer))
+                gamerViewModel.resetGamers(userFields) {
+                    navigateTo(navController, DestinationScreen.Pre.route)
                 }
-                gamerViewModel.getGamerList()
-                navigateTo(navController, DestinationScreen.Pre.route)
             }, text = "Starting")
         }, floatingActionButtonPosition = FabPosition.Center
     ) {
