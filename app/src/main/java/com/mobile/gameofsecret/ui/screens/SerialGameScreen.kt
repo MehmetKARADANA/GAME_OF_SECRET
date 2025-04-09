@@ -161,10 +161,18 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                             onClick = {
                                 //to do getrandom random
                                 quizViewModel.getRandomQuestion()
-                                navigateTo(
-                                    navController = navController,
-                                    DestinationScreen.Dare.createRoute(fromScreen = "serial",name = currentGamer?.name ?: fromScreen)
-                                )
+                                val randomNumber =(0..10).random()
+                                if(randomNumber %2  == 0){
+                                    navigateTo(
+                                        navController = navController,
+                                        DestinationScreen.Truth.createRoute(fromScreen = "serial",name = currentGamer?.name ?: fromScreen)
+                                    )
+                                }else{
+                                    navigateTo(
+                                        navController = navController,
+                                        DestinationScreen.Dare.createRoute(fromScreen = "serial",name = currentGamer?.name ?: fromScreen)
+                                    )
+                                }
                                 gamerViewModel.nextPlayer()
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),

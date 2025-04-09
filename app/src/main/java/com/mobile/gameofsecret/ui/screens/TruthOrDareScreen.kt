@@ -153,10 +153,19 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                             onClick = {
                                 //to do getrandom random
                                 quizViewModel.getRandomQuestion()
-                                navigateTo(
-                                    navController = navController,
-                                    DestinationScreen.Dare.createRoute(name, fromScreen = fromScreen)
-                                )
+                                val randomNumber =(0..10).random()
+                                if(randomNumber %2  == 0){
+                                    navigateTo(
+                                        navController = navController,
+                                        DestinationScreen.Truth.createRoute(name, fromScreen = fromScreen)
+                                    )
+                                }else{
+                                    navigateTo(
+                                        navController = navController,
+                                        DestinationScreen.Dare.createRoute(name, fromScreen = fromScreen)
+                                    )
+                                }
+
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
                         ) {

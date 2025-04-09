@@ -56,8 +56,7 @@ enum class GameTypes(val type: String, val route: String) {
 fun PreScreen(gamerViewModel: GamerViewModel, navController: NavController) {
 
     LaunchedEffect(Unit) {
-        gamerViewModel.getGamerList()
-        Log.d("pre","pre getItemList")
+       // gamerViewModel.getGamerList()
     }
 
     val selectedGameType = remember { mutableStateOf(DestinationScreen.RandomGame.route) }
