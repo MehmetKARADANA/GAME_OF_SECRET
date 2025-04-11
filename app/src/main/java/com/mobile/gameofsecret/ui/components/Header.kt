@@ -36,6 +36,10 @@ import com.mobile.gameofsecret.ui.utils.navigateTo
 
 @Composable
 fun Header(navController: NavController) {
+    //burası appin tamamı için statusbar
+    val statusBarColor = background
+    val activity = LocalActivity.current
+    activity?.window?.statusBarColor = statusBarColor.toArgb()
     Row(
         modifier = Modifier
             .fillMaxWidth()

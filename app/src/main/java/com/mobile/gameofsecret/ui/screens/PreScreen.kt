@@ -45,6 +45,7 @@ import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.textColor
 import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
+import com.mobile.gameofsecret.viewmodels.QuizViewModel
 
 enum class GameTypes(val type: String, val route: String) {
     RANDOM(type = "Random", route = DestinationScreen.RandomGame.route),
@@ -53,7 +54,7 @@ enum class GameTypes(val type: String, val route: String) {
 }
 
 @Composable
-fun PreScreen(gamerViewModel: GamerViewModel, navController: NavController) {
+fun PreScreen(gamerViewModel: GamerViewModel, navController: NavController,quizViewModel: QuizViewModel) {
 
     LaunchedEffect(Unit) {
        // gamerViewModel.getGamerList()

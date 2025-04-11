@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
                 SettingScreen()
             }
             composable(DestinationScreen.Pre.route) {
-                PreScreen(gamerViewModel, navController = navController)
+                PreScreen(gamerViewModel, navController = navController,quizViewModel)
             }
 
             composable(DestinationScreen.SerialGame.route) {
