@@ -127,7 +127,7 @@ fun NameWheel(gamerList: List<Gamer>,navController: NavController) {
                         .background(sectorColors[index % sectorColors.size])
                 )
 
-                Box(
+              /*  Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .rotate(startAngle + 360f / names.size / 2)
@@ -141,7 +141,25 @@ fun NameWheel(gamerList: List<Gamer>,navController: NavController) {
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold
                     )
+                }*/
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .rotate(startAngle + 360f / names.size / 2),
+                    contentAlignment = Alignment.TopCenter
+                ) {
+                    Text(
+                        text = name,
+                        modifier = Modifier
+                            .padding(top = 40.dp)
+                            .rotate(-(startAngle + 360f / names.size / 2)),
+                        color = Color.White,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
+                    )
                 }
+
             }
             Box(
                 modifier = Modifier
