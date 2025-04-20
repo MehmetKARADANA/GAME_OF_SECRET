@@ -12,6 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,7 +32,9 @@ import com.mobile.gameofsecret.ui.screens.TruthScreen
 import com.mobile.gameofsecret.ui.theme.GameofsecretTheme
 import com.mobile.gameofsecret.ui.utils.NotificationPermissionHelper
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
+import com.mobile.gameofsecret.viewmodels.NotificationViewModel
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
+import com.mobile.gameofsecret.viewmodels.SettingsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,7 +81,23 @@ class MainActivity : ComponentActivity() {
     fun AppNavigation() {
         val gamerViewModel: GamerViewModel by viewModels()
         val quizViewModel: QuizViewModel by viewModels()
+        val notificationViewModel: NotificationViewModel by viewModels()
+        val settingsViewModel: SettingsViewModel by viewModels()
         val navController = rememberNavController()
+
+        var showOnboarding by remember { mutableStateOf(true) }
+
+        if (settingsViewModel.isFirstLaunch) {
+            //init default topic aboneliği ve first launch preferencei yönetiyor
+            Log.d("settingsViewModel", "init running")
+           /* if (showOnboarding) {
+                OnboardingDialog(
+                    onDismiss = {
+                        showOnboarding = false
+                    })
+            }*/
+        }
+
 
         NavHost(navController = navController, startDestination = DestinationScreen.Menu.route) {
             composable(DestinationScreen.Menu.route) {
@@ -83,7 +105,7 @@ class MainActivity : ComponentActivity() {
             }
 
             composable(DestinationScreen.Settings.route) {
-                SettingScreen()
+                SettingScreen(navController,settingsViewModel,notificationViewModel)
             }
             composable(DestinationScreen.Pre.route) {
                 PreScreen(gamerViewModel, navController = navController, quizViewModel)

@@ -70,11 +70,10 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
                 gamerDao.insert(Gamer(gamerName))
             }
 
-            val updatedList = gamerDao.getGamerNameAndId()
-
-            _gamerList.value = updatedList
+            _gamerList.value = gamerDao.getGamerNameAndId()
 
             withContext(Dispatchers.Main) {
+                setGamer()
                 onComplete()
             }
         }

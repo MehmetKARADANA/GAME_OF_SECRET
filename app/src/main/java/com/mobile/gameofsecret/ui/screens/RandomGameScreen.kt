@@ -21,7 +21,7 @@ fun RandomGameScreen(gamerViewModel: GamerViewModel,navController: NavController
 
     val gamerList by gamerViewModel.gamerList.collectAsState()
 LaunchedEffect(Unit) {
-    gamerViewModel.getGamerList()
+    //gamerViewModel.getGamerList()
 }
     Scaffold(
         modifier = Modifier
