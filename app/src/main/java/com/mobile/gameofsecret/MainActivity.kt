@@ -26,67 +26,78 @@ import com.mobile.gameofsecret.ui.screens.SpinBottleScreen
 import com.mobile.gameofsecret.ui.screens.TruthOrDareScreen
 import com.mobile.gameofsecret.ui.screens.TruthScreen
 import com.mobile.gameofsecret.ui.theme.GameofsecretTheme
+import com.mobile.gameofsecret.ui.utils.NotificationPermissionHelper
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-sealed class DestinationScreen(var route : String){
-    data object Menu :DestinationScreen("menu")
+sealed class DestinationScreen(var route: String) {
+    data object Menu : DestinationScreen("menu")
     data object Pre : DestinationScreen("pre")
     data object Settings : DestinationScreen("settings")
     data object SerialGame : DestinationScreen("serial")
     data object RandomGame : DestinationScreen("random")
     data object SpinBottle : DestinationScreen("spin_bottle")
-    data object TruthOrDare : DestinationScreen("truth_or_dare/{name}"){
-        fun createRoute(name : String)="truth_or_dare/$name"
+    data object TruthOrDare : DestinationScreen("truth_or_dare/{name}") {
+        fun createRoute(name: String) = "truth_or_dare/$name"
     }
-    data object Truth : DestinationScreen("truth/{name}/{fromScreen}"){
-        fun createRoute(name : String,fromScreen : String)="truth/$name/$fromScreen"
+
+    data object Truth : DestinationScreen("truth/{name}/{fromScreen}") {
+        fun createRoute(name: String, fromScreen: String) = "truth/$name/$fromScreen"
     }
-    data object Dare : DestinationScreen("dare/{name}/{fromScreen}"){
-        fun createRoute(name : String,fromScreen : String)="dare/$name/$fromScreen"
+
+    data object Dare : DestinationScreen("dare/{name}/{fromScreen}") {
+        fun createRoute(name: String, fromScreen: String) = "dare/$name/$fromScreen"
     }
 
 }
 
 class MainActivity : ComponentActivity() {
 
+    private lateinit var notificationPermissionHelper : NotificationPermissionHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
+        notificationPermissionHelper = NotificationPermissionHelper(this)
+        notificationPermissionHelper.requestNotificationPermission()
         setContent {
             GameofsecretTheme {
-               AppNavigation()
+                AppNavigation()
             }
         }
     }
 
 
     @Composable
-    fun AppNavigation(){
+    fun AppNavigation() {
         val gamerViewModel: GamerViewModel by viewModels()
-        val quizViewModel : QuizViewModel by viewModels()
+        val quizViewModel: QuizViewModel by viewModels()
         val navController = rememberNavController()
 
-        NavHost(navController=navController, startDestination = DestinationScreen.Menu.route){
+        NavHost(navController = navController, startDestination = DestinationScreen.Menu.route) {
             composable(DestinationScreen.Menu.route) {
-                MenuScreen(navController,gamerViewModel)
+                MenuScreen(navController, gamerViewModel)
             }
 
             composable(DestinationScreen.Settings.route) {
                 SettingScreen()
             }
             composable(DestinationScreen.Pre.route) {
-                PreScreen(gamerViewModel, navController = navController,quizViewModel)
+                PreScreen(gamerViewModel, navController = navController, quizViewModel)
             }
 
             composable(DestinationScreen.SerialGame.route) {
-                SerialGameScreen(gamerViewModel=gamerViewModel, quizViewModel = quizViewModel, navController = navController)
+                SerialGameScreen(
+                    gamerViewModel = gamerViewModel,
+                    quizViewModel = quizViewModel,
+                    navController = navController
+                )
             }
             composable(DestinationScreen.RandomGame.route) {
-                RandomGameScreen(gamerViewModel,navController)
+                RandomGameScreen(gamerViewModel, navController)
             }
 
             composable(DestinationScreen.SpinBottle.route) {
@@ -97,25 +108,27 @@ class MainActivity : ComponentActivity() {
                 val name = it.arguments?.getString("name")
 
                 name?.let { gamer ->
-                    TruthOrDareScreen(gamer,navController,quizViewModel)
+                    TruthOrDareScreen(gamer, navController, quizViewModel)
                 }
             }
 
             composable(DestinationScreen.Truth.route) {
                 val name = it.arguments?.getString("name")
                 //random or serial
-                val fromScreen = it.arguments?.getString("fromScreen") ?: DestinationScreen.RandomGame.route
+                val fromScreen =
+                    it.arguments?.getString("fromScreen") ?: DestinationScreen.RandomGame.route
                 name?.let { gamer ->
-                    TruthScreen(gamer,navController,quizViewModel,fromScreen)
+                    TruthScreen(gamer, navController, quizViewModel, fromScreen)
                 }
             }
 
             composable(DestinationScreen.Dare.route) {
                 val name = it.arguments?.getString("name")
-                val fromScreen = it.arguments?.getString("fromScreen") ?: DestinationScreen.RandomGame.route
+                val fromScreen =
+                    it.arguments?.getString("fromScreen") ?: DestinationScreen.RandomGame.route
 
                 name?.let { gamer ->
-                    DareScreen(gamer,navController,quizViewModel,fromScreen)
+                    DareScreen(gamer, navController, quizViewModel, fromScreen)
                 }
             }
         }
