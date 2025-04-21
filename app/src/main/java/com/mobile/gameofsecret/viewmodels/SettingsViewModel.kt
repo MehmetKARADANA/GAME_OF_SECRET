@@ -2,10 +2,9 @@ package com.mobile.gameofsecret.viewmodels
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.mobile.gameofsecret.data.AppPreferences
-import com.mobile.gameofsecret.ui.utils.NotificationManager
+import com.mobile.gameofsecret.utils.NotificationManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

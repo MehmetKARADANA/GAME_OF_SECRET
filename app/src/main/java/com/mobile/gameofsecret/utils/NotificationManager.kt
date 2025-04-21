@@ -1,4 +1,4 @@
-package com.mobile.gameofsecret.ui.utils
+package com.mobile.gameofsecret.utils
 
 import android.content.Context
 import android.util.Log

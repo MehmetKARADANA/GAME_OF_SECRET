@@ -1,4 +1,4 @@
-package com.mobile.gameofsecret.ui.utils
+package com.mobile.gameofsecret.utils
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
