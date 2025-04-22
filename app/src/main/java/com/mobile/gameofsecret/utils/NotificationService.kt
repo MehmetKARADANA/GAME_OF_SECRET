@@ -90,21 +90,18 @@ class NotificationService : FirebaseMessagingService() {
             channel.description = "Bu kanal genel bildirimler içindir."
             notificationManager.createNotificationChannel(channel) // 📌 Kanalı oluştur
         }
-
-
         val intent = Intent(this, MainActivity::class.java).apply {
-            putExtra("notification_title", title)
-            putExtra("announcement_title", message)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            // addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val notificationId = System.currentTimeMillis().toInt() // Benzersiz ID
+
         val pendingIntent = PendingIntent.getActivity(
             this,
-            notificationId,
+            0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_IMMUTABLE // Android 12+ için zorunlu
         )
+
+        val notificationId = System.currentTimeMillis().toInt() // Benzersiz ID
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.information)//

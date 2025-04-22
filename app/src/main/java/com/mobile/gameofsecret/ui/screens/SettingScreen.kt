@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.ui.components.BackHeader
 import com.mobile.gameofsecret.ui.theme.background
+import com.mobile.gameofsecret.ui.theme.buttonColors1
 import com.mobile.gameofsecret.ui.utils.ObserveErrorMessage
 import com.mobile.gameofsecret.viewmodels.NotificationViewModel
 import com.mobile.gameofsecret.viewmodels.SettingsViewModel
@@ -80,6 +81,7 @@ fun SettingScreen(navController: NavController,settingsViewModel: SettingsViewMo
                     Spacer(modifier = Modifier.padding(8.dp))
                     Button(
                         onClick = { notificationViewModel.openNotificationSettings(context) },
+                        colors = buttonColors1,
                       /*  colors = buttonColor(),*/
                         //elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 16.dp)
                     ) {
