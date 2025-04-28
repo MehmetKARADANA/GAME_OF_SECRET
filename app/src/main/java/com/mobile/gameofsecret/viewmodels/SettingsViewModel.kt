@@ -16,8 +16,8 @@ class SettingsViewModel(application: Application) : BaseViewModel(application){
 
     val isFirstLaunch = appPreferences.isFirstLaunch()
 
-    private val _isChatNotificationEnabled = MutableStateFlow(appPreferences.isNotificationEnabled("gos"))
-    val isChatNotificationEnabled: StateFlow<Boolean> = _isChatNotificationEnabled
+    private val _isNotificationEnabled = MutableStateFlow(appPreferences.isNotificationEnabled("gos"))
+    val isNotificationEnabled: StateFlow<Boolean> = _isNotificationEnabled
 
 
     init {
@@ -29,7 +29,7 @@ class SettingsViewModel(application: Application) : BaseViewModel(application){
     }
     fun setNotificationEnabled(topic: String,enabled : Boolean){
         viewModelScope.launch {
-            _isChatNotificationEnabled.value = enabled//switchin daha hızlı tepki vermesi için
+            _isNotificationEnabled.value = enabled//switchin daha hızlı tepki vermesi için
             notificationManager.setNotificationEnabled(topic,enabled)
             appPreferences.setNotificationEnabled(topic, enabled)
         }
