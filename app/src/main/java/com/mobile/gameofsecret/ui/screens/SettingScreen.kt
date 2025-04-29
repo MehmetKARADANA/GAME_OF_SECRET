@@ -9,8 +9,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -34,15 +37,20 @@ import com.mobile.gameofsecret.ui.utils.ObserveErrorMessage
 import com.mobile.gameofsecret.viewmodels.NotificationViewModel
 import com.mobile.gameofsecret.viewmodels.SettingsViewModel
 
-enum class items(val setting: String, val route: String) {
-    TERMS(setting = "TERMS", route ="" ),
+enum class Items(val setting: String, val route: String) {
+    LANGUAGE(setting = "LANGUAGE", route = ""),
+    TERMS(setting = "TERMS", route = ""),
     PRIVACY(setting = "PRIVACY", route = DestinationScreen.SerialGame.route),
     ABOUTUS(setting = "ABOUTUS", route = DestinationScreen.SpinBottle.route)
 }
 
 
 @Composable
-fun SettingScreen(navController: NavController,settingsViewModel: SettingsViewModel,notificationViewModel: NotificationViewModel) {
+fun SettingScreen(
+    navController: NavController,
+    settingsViewModel: SettingsViewModel,
+    notificationViewModel: NotificationViewModel
+) {
     val errorMessage by notificationViewModel.errorMessage
     val context = LocalContext.current
     ObserveErrorMessage(errorMessage)
@@ -65,7 +73,7 @@ fun SettingScreen(navController: NavController,settingsViewModel: SettingsViewMo
                 BackHeader(onBackClicked = {
                     navController.popBackStack()
                 }, "Ayarlar")
-                Column (
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
@@ -79,7 +87,12 @@ fun SettingScreen(navController: NavController,settingsViewModel: SettingsViewMo
 
                         Switch(
                             checked = isNotificationEnabled,
-                            onCheckedChange = { settingsViewModel.setNotificationEnabled("gos", it) },
+                            onCheckedChange = {
+                                settingsViewModel.setNotificationEnabled(
+                                    "gos",
+                                    it
+                                )
+                            },
                             colors = SwitchDefaults.colors(
                                 checkedThumbColor = Color.White,
                                 checkedTrackColor = Color.Cyan,
@@ -93,7 +106,7 @@ fun SettingScreen(navController: NavController,settingsViewModel: SettingsViewMo
                     Button(
                         onClick = { notificationViewModel.openNotificationSettings(context) },
                         colors = buttonColors1,
-                      /*  colors = buttonColor(),*/
+                        /*  colors = buttonColor(),*/
                         //elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 16.dp)
                     ) {
                         Text("Bildirim Ayarları")
@@ -106,9 +119,21 @@ fun SettingScreen(navController: NavController,settingsViewModel: SettingsViewMo
                     )
                     Spacer(modifier = Modifier.padding(16.dp))
                     LazyColumn {
-                       // items(Se) {
-
-                      //  }
+                        items(Items.entries) {
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentHeight()
+                                    .background(
+                                        background
+                                    )
+                                    .padding(4.dp)
+                            ) {
+                                Row(modifier = Modifier.padding(8.dp)) {
+                                    Text(text = it.setting)
+                                }
+                            }
+                        }
                     }
 
                 }
