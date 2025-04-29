@@ -41,7 +41,7 @@ enum class Items(val setting: String, val route: String) {
     LANGUAGE(setting = "LANGUAGE", route = ""),
     TERMS(setting = "TERMS", route = ""),
     PRIVACY(setting = "PRIVACY", route = DestinationScreen.SerialGame.route),
-    ABOUTUS(setting = "ABOUTUS", route = DestinationScreen.SpinBottle.route)
+    ABOUTUS(setting = "ABOUT US", route = DestinationScreen.SpinBottle.route)
 }
 
 
