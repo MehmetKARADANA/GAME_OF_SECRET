@@ -29,11 +29,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
+import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.ui.components.FAB
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
@@ -83,7 +85,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "Sıra Sende!",
+                            text = stringResource(R.string.your_turn)+"!",
                             fontSize = 32.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White
@@ -93,7 +95,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                             contentAlignment = Alignment.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(50.dp) // Sabit bir yükseklik vererek yukarı-aşağı kaymasını engelle
+                                .height(50.dp)
                         ) {
                             Text(
                                 text = name,
@@ -120,7 +122,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
                         ) {
                             Row(modifier = Modifier.padding(8.dp)) {
-                                Text(text = "Truth")
+                                Text(text = stringResource(R.string.truth))
                             }
 
                         }
@@ -131,7 +133,6 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                                 .padding(4.dp),
                             colors = cardcolor3,
                             onClick = {
-                                //to do dare getrandom
                                 quizViewModel.getRandomQuestion()
                                 navigateTo(
                                     navController = navController,
@@ -141,9 +142,8 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
                         ) {
                             Row(modifier = Modifier.padding(8.dp)) {
-                                Text(text = "Dare")
+                                Text(text = stringResource(R.string.dare))
                             }
-
                         }
                         Card(
                             modifier = Modifier
@@ -152,7 +152,6 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                                 .padding(4.dp),
                             colors = cardcolor,
                             onClick = {
-                                //to do getrandom random
                                 quizViewModel.getRandomQuestion()
                                 val randomNumber =(0..10).random()
                                 if(randomNumber %2  == 0){
@@ -171,7 +170,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
                         ) {
                             Row(modifier = Modifier.padding(8.dp)) {
-                                Text(text = "Random")
+                                Text(text = stringResource(R.string.random))
                             }
 
                         }

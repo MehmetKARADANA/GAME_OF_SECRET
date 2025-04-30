@@ -29,12 +29,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
+import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.ui.components.BackHeader
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
@@ -83,7 +85,7 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
                     ) {
                         BackHeader(onBackClicked = {
                             navigateTo(navController, fromScreen)
-                        }, "Dare")
+                        }, stringResource(R.string.dare))
 
                         Box(
                             contentAlignment = Alignment.Center,
@@ -102,7 +104,7 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = "Soru senin!",
+                            text = stringResource(R.string.your_question),
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White
@@ -124,7 +126,7 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
                             onClick = {
                                 navigateTo(navController = navController, route = fromScreen)
                             }) {
-                            Text(text = "Okey")
+                            Text(text = stringResource(R.string.your_question))
                         }
 
                     }

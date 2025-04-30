@@ -27,10 +27,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
+import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.ui.components.BackHeader
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
@@ -74,7 +76,7 @@ fun SettingScreen(
             ) {
                 BackHeader(onBackClicked = {
                     navController.popBackStack()
-                }, "Ayarlar")
+                }, headerText = stringResource(R.string.settings))
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -84,7 +86,7 @@ fun SettingScreen(
                     //verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("\uD83D\uDD14 Bildirimler", color = Color.White)
+                        Text("\uD83D\uDD14 "+ stringResource(R.string.notifications), color = Color.White)
                         Spacer(modifier = Modifier.padding(8.dp))
 
                         Switch(
@@ -111,12 +113,12 @@ fun SettingScreen(
                         /*  colors = buttonColor(),*/
                         //elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 16.dp)
                     ) {
-                        Text("Bildirim Ayarları")
+                        Text(stringResource(R.string.notification_settings))
                     }
 
                     Spacer(modifier = Modifier.padding(16.dp))
                     Text(
-                        "ℹ\uFE0F Bildirimleriniz açık olmasına rağmen herhangi bir bildirim almıyorsanız, cihazınızın bildirim ayarlarını kontrol etmek için Bildirim Ayarları sekmesini ziyaret edebilirsiniz.",
+                        "ℹ\uFE0F "+ stringResource(R.string.notification_info),
                         modifier = Modifier.padding(8.dp), fontSize = 12.sp, color = Color.Gray
                     )
                     Spacer(modifier = Modifier.padding(16.dp))

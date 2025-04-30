@@ -30,12 +30,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
+import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.ui.components.BackHeader
 import com.mobile.gameofsecret.ui.components.Header
 import com.mobile.gameofsecret.ui.theme.background
@@ -91,7 +93,7 @@ fun TruthScreen(
                     ) {
                         BackHeader(onBackClicked = {
                             navigateTo(navController, fromScreen)
-                        }, "Truth")
+                        }, headerText = stringResource(R.string.truth))
 
                         Box(
                             contentAlignment = Alignment.Center,
@@ -110,7 +112,7 @@ fun TruthScreen(
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = "Soru senin!",
+                            text = stringResource(R.string.your_question),
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White
@@ -132,7 +134,7 @@ fun TruthScreen(
                             onClick = {
                                 navigateTo(navController = navController, route = fromScreen)
                             }) {
-                            Text(text = "Okey")
+                            Text(text = stringResource(R.string.okey))
                         }
 
 

@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -43,12 +44,15 @@ import com.mobile.gameofsecret.ui.components.Header
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.textColor
+import com.mobile.gameofsecret.ui.utils.getGameTypeName
 import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
 
+
 enum class GameTypes(val type: String, val route: String) {
-    RANDOM(type = "Random", route = DestinationScreen.RandomGame.route),
+
+    RANDOM(type =  "Random"  , route = DestinationScreen.RandomGame.route),
     SERIAL(type = "Serial", route = DestinationScreen.SerialGame.route),
     SPIN(type = "Spin Bottle", route = DestinationScreen.SpinBottle.route)
 }
@@ -69,7 +73,7 @@ fun PreScreen(gamerViewModel: GamerViewModel, navController: NavController,quizV
             .background(background), floatingActionButton = {
             FAB(onClick = {
                 navigateTo(navController, selectedGameType.value)
-            }, text = "Play Game")
+            }, text = stringResource(R.string.play))
         }, floatingActionButtonPosition = FabPosition.Center
     ) {
         Surface(
@@ -108,8 +112,9 @@ fun PreScreen(gamerViewModel: GamerViewModel, navController: NavController,quizV
                                 selectedType.value = type.type
                             }
                             ) {
+                                val typeName= getGameTypeName(type)
                                 Row(modifier = Modifier.padding(8.dp)) {
-                                    Text(text = type.type)
+                                    Text(text = typeName)
                                 }
                             }
                         }

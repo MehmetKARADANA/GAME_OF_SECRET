@@ -30,11 +30,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
+import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.cardcolor2
@@ -86,7 +88,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "Sıra Sende!",
+                            text = stringResource(R.string.your_turn) +"!",
                             fontSize = 32.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White
@@ -124,7 +126,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
                         ) {
                             Row(modifier = Modifier.padding(8.dp)) {
-                                Text(text = "Truth")
+                                Text(text = stringResource(R.string.truth))
                             }
 
                         }
@@ -148,7 +150,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
                         ) {
                             Row(modifier = Modifier.padding(8.dp)) {
-                                Text(text = "Dare")
+                                Text(text = stringResource(R.string.dare))
                             }
 
                         }
@@ -178,7 +180,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
                         ) {
                             Row(modifier = Modifier.padding(8.dp)) {
-                                Text(text = "Random")
+                                Text(text = stringResource(R.string.random))
                             }
 
                         }

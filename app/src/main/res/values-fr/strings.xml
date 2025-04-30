@@ -7,4 +7,18 @@
     <string name="gamer1">Joueur 1</string>
     <string name="gamer2">Joueur 2</string>
     <string name="start">Commencer</string>
+    <string name="random">Aléatoire</string>
+    <string name="serial">Série</string>
+    <string name="play">Jouer</string>
+    <string name="your_turn">À ton tour</string>
+    <string name="truth">Vérité</string>
+    <string name="dare">Défi</string>
+    <string name="your_question">Ta question!</string>
+    <string name="okey">D\'accord</string>
+    <string name="spin_the_wheel">Fais tourner la roue</string>
+    <string name="next">Suivant</string>
+    <string name="settings">Paramètres</string>
+    <string name="notifications">Notifications</string>
+    <string name="notification_settings">Paramètres de notification</string>
+    <string name="notification_info">Si vos notifications sont activées mais que vous ne recevez aucune notification, vous pouvez visiter la section Paramètres de notification pour vérifier les paramètres de notification de votre appareil.</string>
 </resources>

@@ -47,6 +47,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Density
@@ -54,6 +55,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
+import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.data.model.Gamer
 import com.mobile.gameofsecret.ui.theme.buttonColors1
 import com.mobile.gameofsecret.ui.theme.sectorColors
@@ -175,7 +177,7 @@ fun NameWheel(gamerList: List<Gamer>,navController: NavController) {
             modifier = Modifier.padding(16.dp), colors = buttonColors1,
             shape = RoundedCornerShape(8.dp), elevation = ButtonDefaults.elevatedButtonElevation(12.dp)
         ) {
-            Text("Çarkı Döndür", fontSize = 18.sp)
+            Text(stringResource(R.string.spin_the_wheel), fontSize = 18.sp)
         }
 
 
