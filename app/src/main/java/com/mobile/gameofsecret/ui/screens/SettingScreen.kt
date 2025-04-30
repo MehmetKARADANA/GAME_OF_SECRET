@@ -3,6 +3,7 @@ package com.mobile.gameofsecret.ui.screens
 import android.provider.Settings
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,12 +35,13 @@ import com.mobile.gameofsecret.ui.components.BackHeader
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
 import com.mobile.gameofsecret.ui.utils.ObserveErrorMessage
+import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.NotificationViewModel
 import com.mobile.gameofsecret.viewmodels.SettingsViewModel
 
 enum class Items(val setting: String, val route: String) {
-    LANGUAGE(setting = "LANGUAGE", route = ""),
-    TERMS(setting = "TERMS", route = ""),
+    LANGUAGE(setting = "LANGUAGE", route = DestinationScreen.Languages.route),
+    TERMS(setting = "TERMS", route = DestinationScreen.Settings.route),
     PRIVACY(setting = "PRIVACY", route = DestinationScreen.SerialGame.route),
     ABOUTUS(setting = "ABOUT US", route = DestinationScreen.SpinBottle.route)
 }
@@ -127,7 +129,9 @@ fun SettingScreen(
                                     .background(
                                         background
                                     )
-                                    .padding(4.dp)
+                                    .padding(4.dp).clickable {
+                                        navigateTo(navController, route = it.route)
+                                    }
                             ) {
                                 Row(modifier = Modifier.padding(8.dp)) {
                                     Text(text = it.setting)

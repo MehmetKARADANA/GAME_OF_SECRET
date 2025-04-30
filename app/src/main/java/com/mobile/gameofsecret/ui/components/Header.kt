@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -63,7 +64,7 @@ fun Header(navController: NavController) {
                 }
         )
         Text(
-            text = "GOS",
+            text = stringResource(R.string.app_name),
             fontFamily = FontFamily.Serif,
             fontWeight = FontWeight.W500,
             fontSize = 22.sp,

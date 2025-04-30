@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Game of Secrets</string>
+    <string name="add_gamer">Oyuncu Ekle</string>
+    <string name="select_language">Türkçe</string>
+</resources>

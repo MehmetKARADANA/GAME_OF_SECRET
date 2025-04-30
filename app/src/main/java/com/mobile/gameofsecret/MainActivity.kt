@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mobile.gameofsecret.ui.screens.DareScreen
+import com.mobile.gameofsecret.ui.screens.LanguageScreen
 import com.mobile.gameofsecret.ui.screens.MenuScreen
 import com.mobile.gameofsecret.ui.screens.PreScreen
 import com.mobile.gameofsecret.ui.screens.RandomGameScreen
@@ -36,6 +37,7 @@ sealed class DestinationScreen(var route: String) {
     data object SerialGame : DestinationScreen("serial")
     data object RandomGame : DestinationScreen("random")
     data object SpinBottle : DestinationScreen("spin_bottle")
+    data object Languages : DestinationScreen("languages")
     data object TruthOrDare : DestinationScreen("truth_or_dare/{name}") {
         fun createRoute(name: String) = "truth_or_dare/$name"
     }
@@ -50,7 +52,7 @@ sealed class DestinationScreen(var route: String) {
 
 }
 
-class MainActivity : ComponentActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var notificationPermissionHelper : NotificationPermissionHelper
 
@@ -143,6 +145,9 @@ class MainActivity : ComponentActivity() {
                 name?.let { gamer ->
                     DareScreen(gamer, navController, quizViewModel, fromScreen)
                 }
+            }
+            composable(DestinationScreen.Languages.route) {
+               LanguageScreen()
             }
         }
 
