@@ -47,11 +47,14 @@ fun LanguageScreen() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
-                Button(onClick = { changeLocale(context, "en") }) {
-                    Text(text = "English")
+                Button(onClick = { changeLocale(context, "tr") }) {
+                    Text(text = "Türkçe")
                 }
                 Button(onClick = { changeLocale(context, "fr") }) {
                     Text(text = "Français")
+                }
+                Button(onClick = { changeLocale(context, "en") }) {
+                    Text(text = "English")
                 }
             }
 

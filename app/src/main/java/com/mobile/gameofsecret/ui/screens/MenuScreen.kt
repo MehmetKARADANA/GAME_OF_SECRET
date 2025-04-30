@@ -79,9 +79,10 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
     BackHandler {
         navController.popBackStack()
     }
-
+    val gamer1 = stringResource(R.string.gamer1)
+    val gamer2 = stringResource(R.string.gamer2)
     val userFields = remember {
-        mutableStateListOf("Oyuncu 1", "Oyuncu 2")
+        mutableStateListOf(gamer1, gamer2)
     }
     Scaffold(
         modifier = Modifier
@@ -91,7 +92,7 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                 gamerViewModel.resetGamers(userFields) {
                     navigateTo(navController, DestinationScreen.Pre.route)
                 }
-            }, text = "Starting")
+            }, text = stringResource(R.string.start))
         }, floatingActionButtonPosition = FabPosition.Center
     ) {
         Surface(
@@ -145,7 +146,7 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-
+                        val gamer =stringResource(R.string.gamer)
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -159,7 +160,7 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                                     .padding(8.dp)
                             ) {
                                 Text(
-                                    "Add Gamer",
+                                    stringResource(R.string.gamers),
                                     fontSize = 22.sp,
                                     color = textColor,
                                     modifier = Modifier.padding(8.dp)
@@ -167,7 +168,7 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
 
                                 LaunchedEffect(userFields.size) {
                                     if (userFields.size < 2) {
-                                        userFields.add("Oyuncu ${userFields.size + 1}")
+                                        userFields.add("$gamer ${userFields.size + 1}")
                                         //message min 2 user
                                     }
                                 }
@@ -182,7 +183,7 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                                     userFields.forEachIndexed { index, s ->
                                         TextField(
                                             value = s,
-                                            label = { Text("Oyuncu ${index + 1}") },
+                                            label = { Text("${stringResource(R.string.gamer)} ${index + 1}") },
                                             onValueChange = { text ->
                                                 userFields[index] = text
                                             },
@@ -211,7 +212,7 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                                             .padding(24.dp, bottom = 24.dp, top = 8.dp)
                                             .clickable {
                                                 val newUserIndex = userFields.size + 1
-                                                userFields.add("Oyuncu $newUserIndex")
+                                                userFields.add("$gamer $newUserIndex")
                                             })
                                 }
                             }
