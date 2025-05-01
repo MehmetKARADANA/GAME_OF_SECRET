@@ -40,6 +40,7 @@ import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.ui.components.BackHeader
 import com.mobile.gameofsecret.ui.components.Header
+import com.mobile.gameofsecret.ui.components.LargeButton
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
 import com.mobile.gameofsecret.ui.utils.navigateTo
@@ -87,7 +88,7 @@ fun TruthScreen(
 
                     Column(
                         modifier = Modifier
-                            .padding(start = 4.dp, end = 4.dp),
+                            .padding(start = 8.dp, end = 8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
@@ -126,7 +127,7 @@ fun TruthScreen(
                             textAlign = TextAlign.Center
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                        Button(
+                      /*  Button(
                             colors = buttonColors1,
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -136,7 +137,10 @@ fun TruthScreen(
                             }) {
                             Text(text = stringResource(R.string.okey))
                         }
-
+*/
+                        LargeButton(text = stringResource(R.string.okey)) {
+                            navigateTo(navController = navController, route = fromScreen)
+                        }
 
                     }
                 }

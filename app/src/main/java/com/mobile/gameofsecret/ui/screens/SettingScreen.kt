@@ -34,6 +34,8 @@ import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.ui.components.BackHeader
+import com.mobile.gameofsecret.ui.components.ButtonText
+import com.mobile.gameofsecret.ui.components.LargeButton
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
 import com.mobile.gameofsecret.ui.utils.ObserveErrorMessage
@@ -66,7 +68,7 @@ fun SettingScreen(
         navController.popBackStack()
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize()) {
+    Scaffold(modifier = Modifier.fillMaxSize()) { it ->
         Surface(modifier = Modifier.padding(it)) {
 
             Column(
@@ -107,14 +109,7 @@ fun SettingScreen(
                     }
 
                     Spacer(modifier = Modifier.padding(8.dp))
-                    Button(
-                        onClick = { notificationViewModel.openNotificationSettings(context) },
-                        colors = buttonColors1,
-                        /*  colors = buttonColor(),*/
-                        //elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 16.dp)
-                    ) {
-                        Text(stringResource(R.string.notification_settings))
-                    }
+                    ButtonText(text =stringResource(R.string.notification_settings) ) { notificationViewModel.openNotificationSettings(context) }
 
                     Spacer(modifier = Modifier.padding(16.dp))
                     Text(
@@ -124,20 +119,8 @@ fun SettingScreen(
                     Spacer(modifier = Modifier.padding(16.dp))
                     LazyColumn {
                         items(Items.entries) {
-                            Card(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .wrapContentHeight()
-                                    .background(
-                                        background
-                                    )
-                                    .padding(4.dp).clickable {
-                                        navigateTo(navController, route = it.route)
-                                    }
-                            ) {
-                                Row(modifier = Modifier.padding(8.dp)) {
-                                    Text(text = it.setting)
-                                }
+                            LargeButton(text = it.setting) {
+                                navigateTo(navController, route = it.route)
                             }
                         }
                     }

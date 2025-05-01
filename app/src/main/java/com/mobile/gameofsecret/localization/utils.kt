@@ -3,7 +3,9 @@ package com.mobile.gameofsecret.localization
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import androidx.navigation.compose.rememberNavController
 import com.mobile.gameofsecret.MainActivity
+import com.mobile.gameofsecret.ui.utils.navigateTo
 
 fun changeLocale(context: Context, language: String) {
     LanguageManager.saveLanguage(context, language)
