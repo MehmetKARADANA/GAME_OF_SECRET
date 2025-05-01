@@ -20,5 +20,9 @@
     <string name="settings">Settings</string>
     <string name="notifications">Notifications</string>
     <string name="notification_settings">Notification Settings</string>
-   // <string name="notification_info">If your notifications are turned on but you\'re not receiving any, you can visit the Notification Settings section to check your device\'s notification settings.</string>
+    <string name="notification_info">If your notifications are turned on but you\'re not receiving any, you can visit the Notification Settings section to check your device\'s notification settings.</string>
+    <string name="language">Language</string>
+    <string name="terms">Terms</string>
+    <string name="privacy">Privacy</string>
+    <string name="about_us">About Us</string>
 </resources>

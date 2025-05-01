@@ -21,5 +21,8 @@
     <string name="notifications">Bildirimler</string>
     <string name="notification_settings">Bildirim Ayarları</string>
     <string name="notification_info">Bildirimleriniz açık olmasına rağmen herhangi bir bildirim almıyorsanız, cihazınızın bildirim ayarlarını kontrol etmek için Bildirim Ayarları sekmesini ziyaret edebilirsiniz.</string>
-
+    <string name="language">Dil</string>
+    <string name="terms">Kullanım Şartları</string>
+    <string name="privacy">Gizlilik</string>
+    <string name="about_us">Hakkımızda</string>
 </resources>

@@ -39,6 +39,7 @@ import com.mobile.gameofsecret.ui.components.LargeButton
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
 import com.mobile.gameofsecret.ui.utils.ObserveErrorMessage
+import com.mobile.gameofsecret.ui.utils.getSettingName
 import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.NotificationViewModel
 import com.mobile.gameofsecret.viewmodels.SettingsViewModel
@@ -119,7 +120,7 @@ fun SettingScreen(
                     Spacer(modifier = Modifier.padding(16.dp))
                     LazyColumn {
                         items(Items.entries) {
-                            LargeButton(text = it.setting) {
+                            LargeButton(text = getSettingName(it)) {
                                 navigateTo(navController, route = it.route)
                             }
                         }

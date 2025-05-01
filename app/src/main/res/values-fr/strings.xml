@@ -21,4 +21,8 @@
     <string name="notifications">Notifications</string>
     <string name="notification_settings">Paramètres de notification</string>
     <string name="notification_info">Si vos notifications sont activées mais que vous ne recevez aucune notification, vous pouvez visiter la section Paramètres de notification pour vérifier les paramètres de notification de votre appareil.</string>
+    <string name="language">Langue</string>
+    <string name="terms">Conditions d’utilisation</string>
+    <string name="privacy">Confidentialité</string>
+    <string name="about_us">À propos de nous</string>
 </resources>
