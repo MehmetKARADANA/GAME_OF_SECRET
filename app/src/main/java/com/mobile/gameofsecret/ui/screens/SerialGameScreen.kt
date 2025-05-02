@@ -116,7 +116,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                             colors = cardcolor2,
                             onClick = {
                                 //truth
-                                quizViewModel.getRandomQuestion()
+                                quizViewModel.getRandomTruthQuestion()
                                 navigateTo(
                                     navController = navController,
                                     DestinationScreen.Truth.createRoute(currentGamer?.name ?: "", fromScreen = fromScreen)
@@ -138,7 +138,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                             colors = cardcolor3,
                             onClick = {
                                 //to do dare getrandom
-                                quizViewModel.getRandomQuestion()
+                                quizViewModel.getRandomDareQuestion()
 
                                 navigateTo(
                                     navController = navController,
@@ -162,14 +162,17 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                             colors = cardcolor,
                             onClick = {
                                 //to do getrandom random
-                                quizViewModel.getRandomQuestion()
+                                //gözden kaçırma if iiçnde hata oluyor mu randomquestion
+                              //  quizViewModel.getRandomDareQuestion()
                                 val randomNumber =(0..10).random()
                                 if(randomNumber %2  == 0){
+                                    quizViewModel.getRandomTruthQuestion()
                                     navigateTo(
                                         navController = navController,
                                         DestinationScreen.Truth.createRoute(fromScreen = "serial",name = currentGamer?.name ?: fromScreen)
                                     )
                                 }else{
+                                    quizViewModel.getRandomDareQuestion()
                                     navigateTo(
                                         navController = navController,
                                         DestinationScreen.Dare.createRoute(fromScreen = "serial",name = currentGamer?.name ?: fromScreen)

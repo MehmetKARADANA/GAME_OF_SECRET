@@ -23,15 +23,21 @@ import kotlin.random.Random
 
 class QuizViewModel(application: Application) : BaseViewModel(application) {
     private val db = Firebase.firestore
-    private val _questionCache = MutableStateFlow<List<Question>>(emptyList())
+    private val _dareQuestionCache = MutableStateFlow<List<Question>>(emptyList())
+    private val _truthQuestionCache = MutableStateFlow<List<Question>>(emptyList())
 
-    private val _question = MutableStateFlow<Question?>(null)
-    val question: StateFlow<Question?> = _question
+    private val _dareQuestion = MutableStateFlow<Question?>(null)
+    val dareQuestion: StateFlow<Question?> = _dareQuestion
+
+    private val _truthQuestion = MutableStateFlow<Question?>(null)
+    val truthQuestion: StateFlow<Question?> = _truthQuestion
 
     init {
-        getRandomQuestion()
+        getRandomDareQuestion()
+        getRandomTruthQuestion()
     }
-    private fun fetchRandomQuestion() {
+
+    private fun fetchRandomTruthQuestion(){
         viewModelScope.launch {
             try {
                 val currentLanguage = LanguageManager.getLanguage(getApplication())
@@ -44,9 +50,8 @@ class QuizViewModel(application: Application) : BaseViewModel(application) {
                 }
 
                 val questionList = mutableListOf<Question>()
-                Log.d("Quiz", "fetchRandomQuestion: ${questionList.size} soru alındı")
+
                 for (document in snapshot.documents) {
-                    // Belgeden dil verisini al
                     val questionText = document.getString(currentLanguage)
 
                     if (questionText != null) {
@@ -59,14 +64,71 @@ class QuizViewModel(application: Application) : BaseViewModel(application) {
                         Log.d("Quiz", "Translation for $currentLanguage not found for document ${document.id}")
                     }
                 }
-
+                Log.d("Quiz", "fetchRandomQuestion: ${questionList.size} soru alındı")
                 val randomQuestions = questionList.shuffled().take(10)
-                _questionCache.value = randomQuestions
+                _truthQuestionCache.value = randomQuestions
 
-                if (_questionCache.value.isNotEmpty() && _question.value == null) {
-                    val nextQuestion = _questionCache.value.first()
-                    _question.value = nextQuestion
-                    _questionCache.value = _questionCache.value.drop(1)
+                if (_truthQuestionCache.value.isNotEmpty() && _truthQuestion.value == null) {
+                    val nextQuestion = _truthQuestionCache.value.first()
+                    _truthQuestion.value = nextQuestion
+                    _truthQuestionCache.value = _truthQuestionCache.value.drop(1)
+                }
+
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Log.d("Quiz", "Hata: ${e.message}")
+                handleException(e)
+            }
+        }
+    }
+    @SuppressLint("NewApi")
+    fun getRandomTruthQuestion(){
+        if (_truthQuestionCache.value.isEmpty()) {
+            Log.d("Quiz", "getRandomQuestion: FetchRandomquestion() çağrılıyor.")
+            fetchRandomTruthQuestion()
+        } else {
+            val nextQuestion = _truthQuestionCache.value.firstOrNull()
+            _truthQuestion.value = nextQuestion
+            _truthQuestionCache.value = _truthQuestionCache.value.drop(1)
+            Log.d("Quiz", "getRandomQuestion: Soru seçildi ve cache güncellendi")
+        }
+    }
+    private fun fetchRandomDareQuestion() {
+        viewModelScope.launch {
+            try {
+                val currentLanguage = LanguageManager.getLanguage(getApplication())
+
+                val snapshot = db.collection("questions_dare").get().await()
+
+                if (snapshot.isEmpty) {
+                    Log.d("Quiz", "Firestore'dan veri alınamadı. Koleksiyon boş.")
+                    return@launch
+                }
+
+                val questionList = mutableListOf<Question>()
+
+                for (document in snapshot.documents) {
+                    val questionText = document.getString(currentLanguage)
+
+                    if (questionText != null) {
+                        val question = Question(
+                            id = document.getLong("id")?.toInt() ?: 0,
+                            question = questionText
+                        )
+                        questionList.add(question)
+                    } else {
+                        Log.d("Quiz", "Translation for $currentLanguage not found for document ${document.id}")
+                    }
+                }
+                Log.d("Quiz", "fetchRandomQuestion: ${questionList.size} soru alındı")
+                val randomQuestions = questionList.shuffled().take(10)
+                _dareQuestionCache.value = randomQuestions
+
+                if (_dareQuestionCache.value.isNotEmpty() && _dareQuestion.value == null) {
+                    val nextQuestion = _dareQuestionCache.value.first()
+                    _dareQuestion.value = nextQuestion
+                    _dareQuestionCache.value = _dareQuestionCache.value.drop(1)
                 }
 
 
@@ -80,14 +142,14 @@ class QuizViewModel(application: Application) : BaseViewModel(application) {
 
 
     @SuppressLint("NewApi")
-    fun getRandomQuestion() {
-        if (_questionCache.value.isEmpty()) {
+    fun getRandomDareQuestion() {
+        if (_dareQuestionCache.value.isEmpty()) {
             Log.d("Quiz", "getRandomQuestion: FetchRandomquestion() çağrılıyor.")
-            fetchRandomQuestion()
+            fetchRandomDareQuestion()
         } else {
-            val nextQuestion = _questionCache.value.firstOrNull()
-            _question.value = nextQuestion
-            _questionCache.value = _questionCache.value.drop(1)
+            val nextQuestion = _dareQuestionCache.value.firstOrNull()
+            _dareQuestion.value = nextQuestion
+            _dareQuestionCache.value = _dareQuestionCache.value.drop(1)
             Log.d("Quiz", "getRandomQuestion: Soru seçildi ve cache güncellendi")
         }
     }

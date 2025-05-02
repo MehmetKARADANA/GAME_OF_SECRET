@@ -64,7 +64,7 @@ fun TruthScreen(
             repeatMode = RepeatMode.Reverse
         ), label = "Truth"
     )
-    val question by quizViewModel.question.collectAsState()
+    val truthQuestion by quizViewModel.truthQuestion.collectAsState()
 
     BackHandler {
         navigateTo(navController = navController, route = fromScreen)
@@ -120,7 +120,7 @@ fun TruthScreen(
                         )
                         Text(
                             modifier = Modifier.padding(16.dp),
-                            text = "${question?.question}",
+                            text = "${truthQuestion?.question}",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Normal,
                             color = Color.White,

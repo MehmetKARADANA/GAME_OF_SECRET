@@ -113,7 +113,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                             colors = cardcolor2,
                             onClick = {
                                 //truth
-                                quizViewModel.getRandomQuestion()
+                                quizViewModel.getRandomTruthQuestion()
                                 navigateTo(
                                     navController = navController,
                                     DestinationScreen.Truth.createRoute(name, fromScreen = fromScreen)
@@ -133,7 +133,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                                 .padding(4.dp),
                             colors = cardcolor3,
                             onClick = {
-                                quizViewModel.getRandomQuestion()
+                                quizViewModel.getRandomDareQuestion()
                                 navigateTo(
                                     navController = navController,
                                     DestinationScreen.Dare.createRoute(name, fromScreen = fromScreen)
@@ -152,14 +152,16 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                                 .padding(4.dp),
                             colors = cardcolor,
                             onClick = {
-                                quizViewModel.getRandomQuestion()
+                              //  quizViewModel.getRandomDareQuestion()
                                 val randomNumber =(0..10).random()
                                 if(randomNumber %2  == 0){
+                                    quizViewModel.getRandomTruthQuestion()
                                     navigateTo(
                                         navController = navController,
                                         DestinationScreen.Truth.createRoute(name, fromScreen = fromScreen)
                                     )
                                 }else{
+                                    quizViewModel.getRandomDareQuestion()
                                     navigateTo(
                                         navController = navController,
                                         DestinationScreen.Dare.createRoute(name, fromScreen = fromScreen)

@@ -18,7 +18,7 @@ import com.mobile.gameofsecret.viewmodels.QuizViewModel
 
 @Composable
 fun SpinBottleScreen(quizViewModel: QuizViewModel) {
-
+/*
     val question by quizViewModel.question.collectAsState()
     Scaffold(
         modifier = Modifier
@@ -38,5 +38,5 @@ fun SpinBottleScreen(quizViewModel: QuizViewModel) {
 
 
         }
-    }
+    }*/
 }

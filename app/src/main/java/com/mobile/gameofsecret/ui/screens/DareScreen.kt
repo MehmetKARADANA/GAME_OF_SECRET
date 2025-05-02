@@ -56,8 +56,7 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
             repeatMode = RepeatMode.Reverse
         ), label = "Truth"
     )
-    val question by quizViewModel.question.collectAsState()
-
+    val dareQuestion by quizViewModel.dareQuestion.collectAsState()
     BackHandler {
             navigateTo(navController = navController, fromScreen)
     }
@@ -112,7 +111,7 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
                         )
                         Text(
                             modifier = Modifier.padding(16.dp),
-                            text = "${question?.question}",
+                            text = "${dareQuestion?.question}",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Normal,
                             color = Color.White,
@@ -122,17 +121,6 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
                         LargeButton(text = stringResource(R.string.okey)) {
                             navigateTo(navController = navController, route = fromScreen)
                         }
-                       /* Button(
-                            colors = buttonColors1,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .wrapContentHeight(),
-                            onClick = {
-                                navigateTo(navController = navController, route = fromScreen)
-                            }) {
-                            Text(text = stringResource(R.string.your_question))
-                        }*/
-
                     }
                 }
             }
