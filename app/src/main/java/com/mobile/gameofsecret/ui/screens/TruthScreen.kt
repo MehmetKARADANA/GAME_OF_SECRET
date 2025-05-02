@@ -127,17 +127,6 @@ fun TruthScreen(
                             textAlign = TextAlign.Center
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                      /*  Button(
-                            colors = buttonColors1,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .wrapContentHeight(),
-                            onClick = {
-                                navigateTo(navController = navController, route = fromScreen)
-                            }) {
-                            Text(text = stringResource(R.string.okey))
-                        }
-*/
                         LargeButton(text = stringResource(R.string.okey)) {
                             navigateTo(navController = navController, route = fromScreen)
                         }

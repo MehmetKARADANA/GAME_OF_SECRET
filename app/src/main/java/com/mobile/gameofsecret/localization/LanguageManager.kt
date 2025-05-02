@@ -8,7 +8,7 @@ object LanguageManager {
     private const val LANGUAGE_KEY = "language_key"
     private const val DEFAULT_LANGUAGE = "en"
 
-    fun saveLanguage(context: Context, language: String) {
+    fun saveLanguage(context: Context, language: String) {//şimdilik app_pref VE APP_PREF i birlşetirmedim
         val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         sharedPreferences.edit().putString(LANGUAGE_KEY, language).apply()
     }
