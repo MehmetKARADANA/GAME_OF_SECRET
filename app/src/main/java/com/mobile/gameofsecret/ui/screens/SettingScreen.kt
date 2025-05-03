@@ -46,9 +46,9 @@ import com.mobile.gameofsecret.viewmodels.SettingsViewModel
 
 enum class Items(val setting: String, val route: String) {
     LANGUAGE(setting = "LANGUAGE", route = DestinationScreen.Languages.route),
-    TERMS(setting = "TERMS", route = DestinationScreen.Settings.route),
-    PRIVACY(setting = "PRIVACY", route = DestinationScreen.SerialGame.route),
-    ABOUTUS(setting = "ABOUT US", route = DestinationScreen.SpinBottle.route)
+    TERMS(setting = "TERMS", route = DestinationScreen.Terms.route),
+    PRIVACY(setting = "PRIVACY", route = DestinationScreen.Privacy.route),
+    ABOUT_US(setting = "ABOUT US", route = DestinationScreen.AboutUs.route)
 }
 
 
@@ -69,24 +69,20 @@ fun SettingScreen(
         navController.popBackStack()
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize()) { it ->
+    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+        BackHeader(onBackClicked = {
+            navController.popBackStack()
+        }, headerText = stringResource(R.string.settings))
+    }) { it ->
         Surface(modifier = Modifier.padding(it)) {
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(background)
-            ) {
-                BackHeader(onBackClicked = {
-                    navController.popBackStack()
-                }, headerText = stringResource(R.string.settings))
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
+                        .fillMaxSize()
+                        .background(background)
+                       // .weight(1f)
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    //verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text("\uD83D\uDD14 "+ stringResource(R.string.notifications), color = Color.White)
@@ -127,7 +123,6 @@ fun SettingScreen(
                     }
 
                 }
-            }
         }
     }
 }

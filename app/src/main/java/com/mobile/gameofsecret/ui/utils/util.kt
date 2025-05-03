@@ -46,6 +46,6 @@ fun getSettingName(setting: Items) : String{
         Items.LANGUAGE -> stringResource(R.string.language)
         Items.TERMS -> stringResource(R.string.terms)
         Items.PRIVACY -> stringResource(R.string.privacy)
-        Items.ABOUTUS -> stringResource(R.string.about_us)
+        Items.ABOUT_US -> stringResource(R.string.about_us)
     }
 }

@@ -13,14 +13,17 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.mobile.gameofsecret.ui.screens.AboutUsScreen
 import com.mobile.gameofsecret.ui.screens.DareScreen
 import com.mobile.gameofsecret.ui.screens.LanguageScreen
 import com.mobile.gameofsecret.ui.screens.MenuScreen
 import com.mobile.gameofsecret.ui.screens.PreScreen
+import com.mobile.gameofsecret.ui.screens.PrivacyScreen
 import com.mobile.gameofsecret.ui.screens.RandomGameScreen
 import com.mobile.gameofsecret.ui.screens.SerialGameScreen
 import com.mobile.gameofsecret.ui.screens.SettingScreen
 import com.mobile.gameofsecret.ui.screens.SpinBottleScreen
+import com.mobile.gameofsecret.ui.screens.TermsScreen
 import com.mobile.gameofsecret.ui.screens.TruthOrDareScreen
 import com.mobile.gameofsecret.ui.screens.TruthScreen
 import com.mobile.gameofsecret.ui.theme.GameofsecretTheme
@@ -49,7 +52,9 @@ sealed class DestinationScreen(var route: String) {
     data object Dare : DestinationScreen("dare/{name}/{fromScreen}") {
         fun createRoute(name: String, fromScreen: String) = "dare/$name/$fromScreen"
     }
-
+    data object Privacy : DestinationScreen("privacy")
+    data object Terms : DestinationScreen("terms")
+    data object AboutUs : DestinationScreen("about")
 }
 
 class MainActivity : BaseActivity() {
@@ -147,7 +152,16 @@ class MainActivity : BaseActivity() {
                 }
             }
             composable(DestinationScreen.Languages.route) {
-               LanguageScreen()
+               LanguageScreen(navController)
+            }
+            composable(DestinationScreen.Terms.route) {
+                TermsScreen(navController)
+            }
+            composable(DestinationScreen.Privacy.route) {
+                PrivacyScreen(navController)
+            }
+            composable(DestinationScreen.AboutUs.route) {
+                AboutUsScreen(navController)
             }
         }
 

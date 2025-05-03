@@ -25,4 +25,8 @@
     <string name="terms">Terms</string>
     <string name="privacy">Privacy</string>
     <string name="about_us">About Us</string>
+    <string name="about_game_description">
+    Game of Secrets is a modern take on the classic “Truth or Dare” game, designed to make hangouts with friends more fun, surprising, and unforgettable. With our app, ordinary gatherings turn into laughter-filled and heartfelt experiences. Its clean design, user-friendly interface, and original question/challenge combinations set it apart. Appealing to all age groups, it offers both fun and a way to strengthen social bonds. Game of Secrets is developed by Mehmet KARADANA. The content and user experience are constantly being improved, and your feedback is always welcome. Ready for some fun? Let the secrets be revealed!
+</string>
+    <string name="contact">Contact</string>
 </resources>
