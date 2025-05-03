@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
@@ -37,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
+import com.mobile.gameofsecret.ui.components.BackHeader
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.cardcolor2
@@ -47,10 +49,14 @@ import com.mobile.gameofsecret.viewmodels.QuizViewModel
 
 
 @Composable
-fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewModel, quizViewModel: QuizViewModel) {
+fun SerialGameScreen(
+    navController: NavController,
+    gamerViewModel: GamerViewModel,
+    quizViewModel: QuizViewModel
+) {
 
     val fromScreen = DestinationScreen.SerialGame.route
-  //  val gamers by gamerViewModel.gamerList.collectAsState()
+    //  val gamers by gamerViewModel.gamerList.collectAsState()
     val currentGamer = gamerViewModel.currentGamer.value
 
     val infiniteTransition = rememberInfiniteTransition(label = "TruthOrDare")
@@ -73,22 +79,22 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                 .background(background)
                 .padding(it)
         ) {
-            LazyColumn(
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(background), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
+                    .background(background),// verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                item {
+                   BackHeader(onBackClicked = { navigateTo(navController,DestinationScreen.Pre.route) }, headerText = stringResource(R.string.serial))
 
                     Column(
-                        modifier = Modifier
+                        modifier = Modifier.fillMaxSize()
                             .padding(start = 4.dp, end = 4.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = stringResource(R.string.your_turn) +"!",
+                            text = stringResource(R.string.your_turn) + "!",
                             fontSize = 32.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White
@@ -119,7 +125,10 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                                 quizViewModel.getRandomTruthQuestion()
                                 navigateTo(
                                     navController = navController,
-                                    DestinationScreen.Truth.createRoute(currentGamer?.name ?: "", fromScreen = fromScreen)
+                                    DestinationScreen.Truth.createRoute(
+                                        currentGamer?.name ?: "",
+                                        fromScreen = fromScreen
+                                    )
                                 )
                                 gamerViewModel.nextPlayer()
                             },
@@ -142,10 +151,13 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
 
                                 navigateTo(
                                     navController = navController,
-                                    DestinationScreen.Dare.createRoute(currentGamer?.name ?: "", fromScreen = fromScreen)
+                                    DestinationScreen.Dare.createRoute(
+                                        currentGamer?.name ?: "",
+                                        fromScreen = fromScreen
+                                    )
                                 )
                                 gamerViewModel.nextPlayer()
-                                Log.d("sgs","current player ${currentGamer?.name}")
+                                Log.d("sgs", "current player ${currentGamer?.name}")
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
                         ) {
@@ -163,19 +175,25 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                             onClick = {
                                 //to do getrandom random
                                 //gözden kaçırma if iiçnde hata oluyor mu randomquestion
-                              //  quizViewModel.getRandomDareQuestion()
-                                val randomNumber =(0..10).random()
-                                if(randomNumber %2  == 0){
+                                //  quizViewModel.getRandomDareQuestion()
+                                val randomNumber = (0..10).random()
+                                if (randomNumber % 2 == 0) {
                                     quizViewModel.getRandomTruthQuestion()
                                     navigateTo(
                                         navController = navController,
-                                        DestinationScreen.Truth.createRoute(fromScreen = "serial",name = currentGamer?.name ?: fromScreen)
+                                        DestinationScreen.Truth.createRoute(
+                                            fromScreen = "serial",
+                                            name = currentGamer?.name ?: fromScreen
+                                        )
                                     )
-                                }else{
+                                } else {
                                     quizViewModel.getRandomDareQuestion()
                                     navigateTo(
                                         navController = navController,
-                                        DestinationScreen.Dare.createRoute(fromScreen = "serial",name = currentGamer?.name ?: fromScreen)
+                                        DestinationScreen.Dare.createRoute(
+                                            fromScreen = "serial",
+                                            name = currentGamer?.name ?: fromScreen
+                                        )
                                     )
                                 }
                                 gamerViewModel.nextPlayer()
@@ -189,7 +207,7 @@ fun SerialGameScreen( navController: NavController,gamerViewModel: GamerViewMode
                         }
 
 
-                    }
+
                 }
             }
         }

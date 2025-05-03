@@ -50,8 +50,26 @@ class QuizViewModel(application: Application) : BaseViewModel(application) {
                 }
 
                 val questionList = mutableListOf<Question>()
-
                 for (document in snapshot.documents) {
+                    val questionText = document.get(currentLanguage)
+                    //getstring bazen string değil anlıyor bu hatadan kurtulmak için
+                    val questionTextStr = when (questionText) {
+                        is String -> questionText
+                        is Number -> questionText.toString()
+                        else ->     "Bir Aksilik Oluştu(en,fr,tr)"
+                    }
+                    if (questionText != null) {
+                        val question = Question(
+                            id = document.getLong("id")?.toInt() ?: 0,
+                            question = questionTextStr
+                        )
+                        questionList.add(question)
+                    } else {
+                        handleException(customMessage = "Bir hata oluştu")
+                        Log.d("Quiz", "Translation for $currentLanguage not found for document ${document.id}")
+                    }
+                }
+               /* for (document in snapshot.documents) {
                     val questionText = document.getString(currentLanguage)
 
                     if (questionText != null) {
@@ -63,7 +81,8 @@ class QuizViewModel(application: Application) : BaseViewModel(application) {
                     } else {
                         Log.d("Quiz", "Translation for $currentLanguage not found for document ${document.id}")
                     }
-                }
+                }*/
+
                 Log.d("Quiz", "fetchRandomQuestion: ${questionList.size} soru alındı")
                 val randomQuestions = questionList.shuffled().take(10)
                 _truthQuestionCache.value = randomQuestions
@@ -109,15 +128,21 @@ class QuizViewModel(application: Application) : BaseViewModel(application) {
                 val questionList = mutableListOf<Question>()
 
                 for (document in snapshot.documents) {
-                    val questionText = document.getString(currentLanguage)
-
+                    val questionText = document.get(currentLanguage)
+                    //getstring bazen string değil anlıyor bu hatadan kurtulmak için
+                    val questionTextStr = when (questionText) {
+                        is String -> questionText
+                        is Number -> questionText.toString()
+                        else ->     "Bir Aksilik Oluştu(en,fr,tr)"
+                    }
                     if (questionText != null) {
                         val question = Question(
                             id = document.getLong("id")?.toInt() ?: 0,
-                            question = questionText
+                            question = questionTextStr
                         )
                         questionList.add(question)
                     } else {
+                        handleException(customMessage = "Bir hata oluştu")
                         Log.d("Quiz", "Translation for $currentLanguage not found for document ${document.id}")
                     }
                 }
