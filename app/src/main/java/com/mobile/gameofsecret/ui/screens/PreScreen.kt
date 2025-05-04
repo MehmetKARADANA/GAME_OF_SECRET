@@ -54,7 +54,7 @@ enum class GameTypes(val type: String, val route: String) {
 
     RANDOM(type =  "Random"  , route = DestinationScreen.RandomGame.route),
     SERIAL(type = "Serial", route = DestinationScreen.SerialGame.route),
-    SPIN(type = "Spin Bottle", route = DestinationScreen.SpinBottle.route)
+    SPIN(type = "Spin Wheel", route = DestinationScreen.SpinWheel.route)
 }
 
 @Composable

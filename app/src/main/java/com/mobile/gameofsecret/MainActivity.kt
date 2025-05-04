@@ -23,6 +23,7 @@ import com.mobile.gameofsecret.ui.screens.RandomGameScreen
 import com.mobile.gameofsecret.ui.screens.SerialGameScreen
 import com.mobile.gameofsecret.ui.screens.SettingScreen
 import com.mobile.gameofsecret.ui.screens.SpinBottleScreen
+import com.mobile.gameofsecret.ui.screens.SpinWheelScreen
 import com.mobile.gameofsecret.ui.screens.TermsScreen
 import com.mobile.gameofsecret.ui.screens.TruthOrDareScreen
 import com.mobile.gameofsecret.ui.screens.TruthScreen
@@ -39,7 +40,7 @@ sealed class DestinationScreen(var route: String) {
     data object Settings : DestinationScreen("settings")
     data object SerialGame : DestinationScreen("serial")
     data object RandomGame : DestinationScreen("random")
-    data object SpinBottle : DestinationScreen("spin_bottle")
+    data object SpinWheel : DestinationScreen("spin_wheel")
     data object Languages : DestinationScreen("languages")
     data object TruthOrDare : DestinationScreen("truth_or_dare/{name}") {
         fun createRoute(name: String) = "truth_or_dare/$name"
@@ -120,8 +121,8 @@ class MainActivity : BaseActivity() {
                 RandomGameScreen(gamerViewModel, navController)
             }
 
-            composable(DestinationScreen.SpinBottle.route) {
-                SpinBottleScreen(quizViewModel)
+            composable(DestinationScreen.SpinWheel.route) {
+                SpinWheelScreen(navController)
             }
 
             composable(DestinationScreen.TruthOrDare.route) {

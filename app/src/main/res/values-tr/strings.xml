@@ -29,4 +29,14 @@
     Game of Secrets, arkadaş ortamlarını daha eğlenceli, sürprizli ve unutulmaz hale getirmek için tasarlanmış modern bir “Doğruluk mu Cesaret mi?” oyunudur. Oyunumuz sayesinde sıradan buluşmalar, kahkahalar ve samimi anlarla dolu bir eğlenceye dönüşür. Uygulama; sade tasarımı, kullanıcı dostu yapısı ve özgün görev/soru kombinasyonlarıyla fark yaratmayı hedefler. Her yaş grubuna hitap eden içeriğiyle hem eğlenceli hem de sosyal bağları kuvvetlendiren bir deneyim sunar. Game of Secrets, Mehmet KARADANA tarafından geliştirilmiştir. Uygulama içeriği ve kullanıcı deneyimi sürekli olarak geliştirilmekte olup, geri bildirimler bizim için çok değerlidir. Eğlenceye hazır mısınız? Hadi, sırlar ortaya çıksın!
 </string>
     <string name="contact">İletişim</string>
+    <string name="wheel_of_fortune">Çarkıfelek</string>
+    <string name="go_to_sea">Denize gitmek</string>
+    <string name="go_to_village">Köye gitmek</string>
+    <string name="climb_mountain">Dağa çıkmak</string>
+    <string name="task">Görev</string>
+    <string name="tasks">Görevler</string>
+    <string name="task1">Görev 1</string>
+    <string name="task2">Görev 2</string>
+    <string name="task3">Görev 3</string>
+
 </resources>

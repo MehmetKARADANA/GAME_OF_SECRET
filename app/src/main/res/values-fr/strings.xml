@@ -29,4 +29,13 @@
     Game of Secrets est une version moderne du classique « Action ou Vérité », conçue pour rendre les moments entre amis plus amusants, surprenants et inoubliables. Grâce à notre application, les rencontres ordinaires se transforment en instants de rires et de complicité. Avec son design épuré, son interface conviviale et ses défis/questions originaux, elle se démarque clairement. Destinée à tous les âges, elle offre une expérience amusante tout en renforçant les liens sociaux. Game of Secrets est développé par Mehmet KARADANA. Le contenu et l\'expérience utilisateur sont constamment améliorés, et vos retours sont très précieux pour nous. Prêts à vous amuser ? Que les secrets soient révélés !
 </string>
     <string name="contact">Contact</string>
+    <string name="wheel_of_fortune">Roue de la fortune</string>
+    <string name="go_to_sea">Aller à la mer</string>
+    <string name="go_to_village">Aller au village</string>
+    <string name="climb_mountain">Monter à la montagne</string>
+    <string name="task">Mission</string>
+    <string name="tasks">Missions</string>
+    <string name="task1">Mission 1</string>
+    <string name="task2">Mission 2</string>
+    <string name="task3">Mission 3</string>
 </resources>

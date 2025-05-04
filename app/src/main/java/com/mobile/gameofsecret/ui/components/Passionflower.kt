@@ -17,7 +17,6 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 data class WheelSection(
-    val label: String,
     val color: Color
 )
 
