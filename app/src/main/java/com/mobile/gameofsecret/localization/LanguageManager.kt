@@ -6,20 +6,21 @@ import java.util.Locale
 
 object LanguageManager {
     private const val LANGUAGE_KEY = "language_key"
-    private const val DEFAULT_LANGUAGE = "en"
 
     fun saveLanguage(context: Context, language: String) {//şimdilik app_pref VE APP_PREF i birlşetirmedim
         val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         sharedPreferences.edit().putString(LANGUAGE_KEY, language).apply()
     }
-    /*fun getLanguage(context: Context): String {
-        val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getString(LANGUAGE_KEY, null)
-            ?: Locale.getDefault().language
-    }*/
     fun getLanguage(context: Context): String {
+        val supportedLanguages = listOf("en", "tr", "fr")
         val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getString(LANGUAGE_KEY, DEFAULT_LANGUAGE) ?: DEFAULT_LANGUAGE
+        val savedLanguage = sharedPreferences.getString(LANGUAGE_KEY, null)
+
+        return when {
+            savedLanguage != null && supportedLanguages.contains(savedLanguage) -> savedLanguage
+            supportedLanguages.contains(Locale.getDefault().language) -> Locale.getDefault().language
+            else -> "en"
+        }
     }
 
     fun setLocale(context: Context, language: String): Context {
