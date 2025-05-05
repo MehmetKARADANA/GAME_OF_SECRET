@@ -7,12 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
-import com.mobile.gameofsecret.data.QUESTIONS
-
+import com.mobile.gameofsecret.data.DARE
+import com.mobile.gameofsecret.data.TRUTH
 import com.mobile.gameofsecret.data.model.Question
-
-import com.mobile.gameofsecret.data.model.Questions
-import com.mobile.gameofsecret.data.model.Translation
 import com.mobile.gameofsecret.localization.LanguageManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -42,7 +39,7 @@ class QuizViewModel(application: Application) : BaseViewModel(application) {
             try {
                 val currentLanguage = LanguageManager.getLanguage(getApplication())
 
-                val snapshot = db.collection("questions_truth").get().await()
+                val snapshot = db.collection(TRUTH).get().await()
 
                 if (snapshot.isEmpty) {
                     Log.d("Quiz", "Firestore'dan veri alınamadı. Koleksiyon boş.")
@@ -118,7 +115,7 @@ class QuizViewModel(application: Application) : BaseViewModel(application) {
             try {
                 val currentLanguage = LanguageManager.getLanguage(getApplication())
 
-                val snapshot = db.collection("questions_dare").get().await()
+                val snapshot = db.collection(DARE).get().await()
 
                 if (snapshot.isEmpty) {
                     Log.d("Quiz", "Firestore'dan veri alınamadı. Koleksiyon boş.")

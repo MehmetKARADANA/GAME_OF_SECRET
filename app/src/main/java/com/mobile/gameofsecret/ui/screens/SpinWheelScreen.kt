@@ -1,21 +1,27 @@
 package com.mobile.gameofsecret.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
@@ -24,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,12 +38,14 @@ import androidx.navigation.NavController
 import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.ui.components.BackHeader
 import com.mobile.gameofsecret.ui.components.EmptyWheelOfFortune
+import com.mobile.gameofsecret.ui.components.FAB
 import com.mobile.gameofsecret.ui.components.NameWheel
 import com.mobile.gameofsecret.ui.components.WheelSection
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.sectorColors
 import com.mobile.gameofsecret.ui.theme.textColor
+import com.mobile.gameofsecret.ui.theme.textFieldColor
 
 @Composable
 fun SpinWheelScreen(navController: NavController) {
@@ -50,7 +59,9 @@ fun SpinWheelScreen(navController: NavController) {
         BackHeader(onBackClicked = {
             navController.popBackStack()
         }, headerText = stringResource(R.string.spin_the_wheel))
-    }) {
+    }, floatingActionButton = {
+        FAB(onClick = {}, text = stringResource(R.string.spin_the_wheel))
+    }, floatingActionButtonPosition = FabPosition.Center) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -84,17 +95,21 @@ fun SpinWheelScreen(navController: NavController) {
                     }
                 }
                 item {
-                    Column(modifier = Modifier.fillMaxSize().padding(12.dp),
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(12.dp),
                         verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally) {
-                        val task= stringResource(R.string.task)
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        val task = stringResource(R.string.task)
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .wrapContentHeight(),
                             colors = cardcolor,
                             elevation = CardDefaults.elevatedCardElevation(12.dp)
-                        ){
+                        ) {
                             Column(
                                 modifier = Modifier
                                     .padding(8.dp)
@@ -105,10 +120,57 @@ fun SpinWheelScreen(navController: NavController) {
                                     color = textColor,
                                     modifier = Modifier.padding(8.dp)
                                 )
-                              //  LaunchedEffect() { }
+                                LaunchedEffect(fields.size) {
+                                    if (fields.size < 2) {
+                                        fields.add("$task ${fields.size + 1}")
+                                    }
+                                }
+                                Column(
+                                    modifier = Modifier
+                                        .padding(top = 8.dp)
+                                        .fillMaxWidth()
+                                        .wrapContentHeight(),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
+                                ) {
+                                    fields.forEachIndexed { index, s ->
+                                        TextField(
+                                            value = s,
+                                            label = { Text("${stringResource(R.string.task)} ${index + 1}") },
+                                            onValueChange = { text ->
+                                                fields[index] = text
+                                            },
+                                            modifier = Modifier.padding(8.dp),
+                                            colors = textFieldColor(),
+                                            trailingIcon = {
+                                                Icon(
+                                                    painter = painterResource(R.drawable.close),
+                                                    contentDescription = "Delete",
+                                                    tint = Color.White,
+                                                    modifier = Modifier
+                                                        .size(16.dp)
+                                                        .clickable {
+                                                            fields.removeAt(index)
+                                                        }
+                                                )
+                                            })
 
+                                    }
+                                    Text(
+                                        "✚  ${stringResource(R.string.add_task)}",
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .wrapContentHeight()
+                                            .padding(24.dp, bottom = 24.dp, top = 8.dp)
+                                            .clickable {
+                                                val newTaskIndex = fields.size + 1
+                                                fields.add("$task $newTaskIndex")
+                                            })
+
+                                }
                             }
                         }
+                        Spacer(modifier = Modifier.height(200.dp))
                     }
                 }
             }

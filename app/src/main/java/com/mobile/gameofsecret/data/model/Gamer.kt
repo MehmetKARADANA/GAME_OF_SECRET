@@ -12,3 +12,9 @@ data class Gamer(
     @PrimaryKey(autoGenerate = true)
     var id = 0
 }
+
+@Entity
+data class Task(var task: String) : Serializable {
+    @PrimaryKey(autoGenerate = true)
+    var id = 0
+}
