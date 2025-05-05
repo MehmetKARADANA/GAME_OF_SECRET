@@ -9,6 +9,7 @@ import androidx.room.Room
 import com.mobile.gameofsecret.data.GAMERS
 import com.mobile.gameofsecret.data.model.Gamer
 import com.mobile.gameofsecret.data.roomdb.GamerDatabase
+import com.mobile.gameofsecret.data.roomdb.getDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,11 +19,12 @@ import kotlinx.coroutines.withContext
 
 class GamerViewModel(application: Application) : BaseViewModel(application) {
 
-    private val db = Room.databaseBuilder(
-        getApplication(),
-        GamerDatabase::class.java,
-        GAMERS
-    ).build()
+    /*   private val db = Room.databaseBuilder(
+           getApplication(),
+           GamerDatabase::class.java,
+           GAMERS
+       ).build()*/
+    private val db = getDatabase(application)
 
     private val _gamerList = MutableStateFlow<List<Gamer>>(emptyList())
     val gamerList: StateFlow<List<Gamer>> = _gamerList.asStateFlow()
@@ -30,7 +32,7 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
     val selectedGamer = mutableStateOf<Gamer>(Gamer(""))
 
     init {
-      //  getGamerList()
+        //  getGamerList()
     }
 
     private val gamerDao = db.gamerDao()
@@ -63,20 +65,28 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun resetGamers(userFields: List<String>, onComplete: () -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            gamerDao.deleteAll()
 
-            userFields.forEach { gamerName ->
-                gamerDao.insert(Gamer(gamerName))
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                gamerDao.deleteAll()
+
+                userFields.forEach { gamerName ->
+                    gamerDao.insert(Gamer(gamerName))
+                }
+
+                _gamerList.value = gamerDao.getGamerNameAndId()
+
+                withContext(Dispatchers.Main) {
+                    setGamer()
+                    onComplete()
+                }
+                }catch (e :Exception){
+                    e.printStackTrace()
+                    Log.d("GamerViewModel","ResetGamers hata oluştu")
+                    //hata mesajları çevirileri
+                    handleException(customMessage = "Bir hata oluştu")
+                }
             }
-
-            _gamerList.value = gamerDao.getGamerNameAndId()
-
-            withContext(Dispatchers.Main) {
-                setGamer()
-                onComplete()
-            }
-        }
     }
 
     fun getGamer(id: Int) {
@@ -124,14 +134,15 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun deleteAll() {
-        try {
             viewModelScope.launch(Dispatchers.IO) {
+                try {
                 gamerDao.deleteAll()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    handleException(e)
+                }
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            handleException(e)
-        }
+
     }
 
 }
