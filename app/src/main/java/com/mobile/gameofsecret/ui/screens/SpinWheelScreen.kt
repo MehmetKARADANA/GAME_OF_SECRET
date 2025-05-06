@@ -35,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.ui.components.BackHeader
 import com.mobile.gameofsecret.ui.components.EmptyWheelOfFortune
@@ -46,9 +47,11 @@ import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.sectorColors
 import com.mobile.gameofsecret.ui.theme.textColor
 import com.mobile.gameofsecret.ui.theme.textFieldColor
+import com.mobile.gameofsecret.ui.utils.navigateTo
+import com.mobile.gameofsecret.viewmodels.TaskViewModel
 
 @Composable
-fun SpinWheelScreen(navController: NavController) {
+fun SpinWheelScreen(navController: NavController,taskViewModel: TaskViewModel) {
     val field1 = stringResource(R.string.task1)
     val field2 = stringResource(R.string.task2)
     val field3 = stringResource(R.string.task3)
@@ -58,9 +61,13 @@ fun SpinWheelScreen(navController: NavController) {
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         BackHeader(onBackClicked = {
             navController.popBackStack()
-        }, headerText = stringResource(R.string.spin_the_wheel))
+        }, headerText = stringResource(R.string.wheel_of_fortune))
     }, floatingActionButton = {
-        FAB(onClick = {}, text = stringResource(R.string.spin_the_wheel))
+        FAB(onClick = {
+            taskViewModel.resetTask(fields, onComplete = {
+                navigateTo(navController,DestinationScreen.rotateSpinWheel.route)
+            })
+        }, text = stringResource(R.string.spin_the_wheel))
     }, floatingActionButtonPosition = FabPosition.Center) {
         Box(
             modifier = Modifier

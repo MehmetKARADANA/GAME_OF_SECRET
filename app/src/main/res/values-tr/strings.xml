@@ -39,5 +39,6 @@
     <string name="task2">Görev 2</string>
     <string name="task3">Görev 3</string>
     <string name="add_task">Görev ekle</string>
+    <string name="winner">Kazanan</string>
 
 </resources>

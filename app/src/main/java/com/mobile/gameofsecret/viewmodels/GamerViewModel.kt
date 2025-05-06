@@ -52,16 +52,21 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun getGamerList() {
-        try {
             viewModelScope.launch(Dispatchers.IO) {
-                _gamerList.value = gamerDao.getGamerNameAndId()
+                try {
+                val list= gamerDao.getGamerNameAndId()
+                    withContext(Dispatchers.Main){
+                        _gamerList.value=list
+                        setGamer()
+                    }
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    handleException(e)
+                    //handle
+                }
             }
-            setGamer()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            handleException(e)
-            //handle
-        }
+
     }
 
     fun resetGamers(userFields: List<String>, onComplete: () -> Unit) {
@@ -78,12 +83,13 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
 
                 withContext(Dispatchers.Main) {
                     setGamer()
+                    //unutma uıyı etkileyen şeyler main threadde
                     onComplete()
                 }
                 }catch (e :Exception){
                     e.printStackTrace()
                     Log.d("GamerViewModel","ResetGamers hata oluştu")
-                    //hata mesajları çevirileri
+                    //hata mesajları çevirileri ekle
                     handleException(customMessage = "Bir hata oluştu")
                 }
             }

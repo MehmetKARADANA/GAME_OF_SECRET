@@ -39,4 +39,6 @@
     <string name="task2">Mission 2</string>
     <string name="task3">Mission 3</string>
     <string name="add_task">Ajouter une tâche</string>
+    <string name="winner">Gagnant</string>
+
 </resources>

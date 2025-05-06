@@ -20,6 +20,7 @@ import com.mobile.gameofsecret.ui.screens.MenuScreen
 import com.mobile.gameofsecret.ui.screens.PreScreen
 import com.mobile.gameofsecret.ui.screens.PrivacyScreen
 import com.mobile.gameofsecret.ui.screens.RandomGameScreen
+import com.mobile.gameofsecret.ui.screens.RotateSpinWheelScreen
 import com.mobile.gameofsecret.ui.screens.SerialGameScreen
 import com.mobile.gameofsecret.ui.screens.SettingScreen
 import com.mobile.gameofsecret.ui.screens.SpinBottleScreen
@@ -33,6 +34,7 @@ import com.mobile.gameofsecret.viewmodels.GamerViewModel
 import com.mobile.gameofsecret.viewmodels.NotificationViewModel
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
 import com.mobile.gameofsecret.viewmodels.SettingsViewModel
+import com.mobile.gameofsecret.viewmodels.TaskViewModel
 
 sealed class DestinationScreen(var route: String) {
     data object Menu : DestinationScreen("menu")
@@ -56,6 +58,8 @@ sealed class DestinationScreen(var route: String) {
     data object Privacy : DestinationScreen("privacy")
     data object Terms : DestinationScreen("terms")
     data object AboutUs : DestinationScreen("about")
+    data object rotateSpinWheel : DestinationScreen("rotate_spin")
+
 }
 
 class MainActivity : BaseActivity() {
@@ -81,6 +85,7 @@ class MainActivity : BaseActivity() {
         val quizViewModel: QuizViewModel by viewModels()
         val notificationViewModel: NotificationViewModel by viewModels()
         val settingsViewModel: SettingsViewModel by viewModels()
+        val taskViewModel : TaskViewModel by viewModels()
         val navController = rememberNavController()
 
         var showOnboarding by remember { mutableStateOf(true) }
@@ -122,7 +127,7 @@ class MainActivity : BaseActivity() {
             }
 
             composable(DestinationScreen.SpinWheel.route) {
-                SpinWheelScreen(navController)
+                SpinWheelScreen(navController,taskViewModel)
             }
 
             composable(DestinationScreen.TruthOrDare.route) {
@@ -163,6 +168,9 @@ class MainActivity : BaseActivity() {
             }
             composable(DestinationScreen.AboutUs.route) {
                 AboutUsScreen(navController)
+            }
+            composable(DestinationScreen.rotateSpinWheel.route) {
+                RotateSpinWheelScreen(taskViewModel,navController)
             }
         }
 

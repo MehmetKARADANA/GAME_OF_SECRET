@@ -36,7 +36,7 @@ fun getGameTypeName(gameType: GameTypes): String {
     return when (gameType) {
         GameTypes.RANDOM -> stringResource(R.string.random)
         GameTypes.SERIAL -> stringResource(R.string.serial)
-        GameTypes.SPIN -> stringResource(R.string.spin_the_wheel)
+        GameTypes.SPIN -> stringResource(R.string.wheel_of_fortune)
     }
 }
 

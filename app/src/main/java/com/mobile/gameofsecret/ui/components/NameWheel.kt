@@ -62,8 +62,9 @@ import com.mobile.gameofsecret.ui.theme.sectorColors
 import com.mobile.gameofsecret.ui.utils.navigateTo
 
 @Composable
-fun NameWheel(gamerList: List<Gamer>,navController: NavController) {
-    val names = gamerList.map { it.name }
+fun NameWheel(gamerList: List<String>, navController: NavController, onComplete: (String) -> Unit) {
+    //  val names = gamerList.map { it.name }
+    val names = gamerList
 
     var isSpinning by remember { mutableStateOf(false) }
     val rotation = remember { Animatable(0f) }
@@ -83,8 +84,8 @@ fun NameWheel(gamerList: List<Gamer>,navController: NavController) {
                 val sectorIndex = ((360f - (rotation.value % 360f)) / (360f / names.size)).toInt()
                 selectedName = names[sectorIndex]
                 isSpinning = false
-
-                navigateTo(navController, DestinationScreen.TruthOrDare.createRoute(selectedName))
+                onComplete.invoke(selectedName)
+                //navigateTo(navController, DestinationScreen.TruthOrDare.createRoute(selectedName))
             }
         }
     }
@@ -115,7 +116,7 @@ fun NameWheel(gamerList: List<Gamer>,navController: NavController) {
                 .size(280.dp)
                 .rotate(rotation.value)
                 .border(4.dp, Color.Black, CircleShape)
-                //.clickable { spinWheel() }
+            //.clickable { spinWheel() }
         ) {
             // Bölümlerin çizimi
             names.forEachIndexed { index, name ->
@@ -129,21 +130,6 @@ fun NameWheel(gamerList: List<Gamer>,navController: NavController) {
                         .background(sectorColors[index % sectorColors.size])
                 )
 
-              /*  Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .rotate(startAngle + 360f / names.size / 2)
-                ) {
-                    Text(
-                        text = name,
-                        modifier = Modifier
-                            .offset(x = 100.dp)
-                            .rotate(-(startAngle + 360f / names.size / 2)),
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }*/
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -174,8 +160,10 @@ fun NameWheel(gamerList: List<Gamer>,navController: NavController) {
         Button(
             onClick = spinWheel,
             enabled = !isSpinning,
-            modifier = Modifier.padding(16.dp), colors = buttonColors1,
-            shape = RoundedCornerShape(8.dp), elevation = ButtonDefaults.elevatedButtonElevation(12.dp)
+            modifier = Modifier.padding(16.dp),
+            colors = buttonColors1,
+            shape = RoundedCornerShape(8.dp),
+            elevation = ButtonDefaults.elevatedButtonElevation(12.dp)
         ) {
             Text(stringResource(R.string.spin_the_wheel), fontSize = 18.sp)
         }
@@ -183,7 +171,7 @@ fun NameWheel(gamerList: List<Gamer>,navController: NavController) {
 
         if (selectedName.isNotEmpty()) {
             Text(
-                text = "Kazanan: $selectedName 🎉",
+                text = stringResource(R.string.winner) +": $selectedName 🎉",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Green

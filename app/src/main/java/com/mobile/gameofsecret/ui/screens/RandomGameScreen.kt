@@ -26,6 +26,7 @@ import com.mobile.gameofsecret.viewmodels.GamerViewModel
 fun RandomGameScreen(gamerViewModel: GamerViewModel,navController: NavController) {
 
     val gamerList by gamerViewModel.gamerList.collectAsState()
+    val names = gamerList.map { it.name }
 LaunchedEffect(Unit) {
     //gamerViewModel.getGamerList()
 }
@@ -44,7 +45,9 @@ LaunchedEffect(Unit) {
                 BackHeader(onBackClicked = {
                     navigateTo(navController, route = DestinationScreen.Pre.route)
                 }, headerText = stringResource(R.string.random))
-                NameWheel(gamerList, navController = navController)
+                NameWheel(names, navController = navController, onComplete = {selectedName->
+                    navigateTo(navController, DestinationScreen.TruthOrDare.createRoute(selectedName))
+                })
             }
         }
     }
