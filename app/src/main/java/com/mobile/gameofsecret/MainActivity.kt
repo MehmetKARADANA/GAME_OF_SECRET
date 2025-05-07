@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mobile.gameofsecret.ui.screens.AboutUsScreen
 import com.mobile.gameofsecret.ui.screens.DareScreen
+import com.mobile.gameofsecret.ui.screens.InfoScreen
 import com.mobile.gameofsecret.ui.screens.LanguageScreen
 import com.mobile.gameofsecret.ui.screens.MenuScreen
 import com.mobile.gameofsecret.ui.screens.PreScreen
@@ -58,8 +59,8 @@ sealed class DestinationScreen(var route: String) {
     data object Privacy : DestinationScreen("privacy")
     data object Terms : DestinationScreen("terms")
     data object AboutUs : DestinationScreen("about")
-    data object rotateSpinWheel : DestinationScreen("rotate_spin")
-
+    data object RotateSpinWheel : DestinationScreen("rotate_spin")
+    data object Info :DestinationScreen("info")
 }
 
 class MainActivity : BaseActivity() {
@@ -169,8 +170,12 @@ class MainActivity : BaseActivity() {
             composable(DestinationScreen.AboutUs.route) {
                 AboutUsScreen(navController)
             }
-            composable(DestinationScreen.rotateSpinWheel.route) {
+            composable(DestinationScreen.RotateSpinWheel.route) {
                 RotateSpinWheelScreen(taskViewModel,navController)
+            }
+
+            composable(DestinationScreen.Info.route){
+                InfoScreen()
             }
         }
 
