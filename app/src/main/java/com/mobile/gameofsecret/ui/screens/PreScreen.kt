@@ -31,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -46,6 +47,8 @@ import com.mobile.gameofsecret.ui.components.PreHeader
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.textColor
+import com.mobile.gameofsecret.ui.utils.getGameTypeDescription
+import com.mobile.gameofsecret.ui.utils.getGameTypeImage
 import com.mobile.gameofsecret.ui.utils.getGameTypeName
 import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
@@ -119,15 +122,17 @@ fun PreScreen(
                                 }
                             ) {
                                 val typeName = getGameTypeName(type)
+                                val typeDesc= getGameTypeDescription(type)
+                                val typeImage= getGameTypeImage(type)
                                 Row(modifier = Modifier.padding(8.dp)) {
                                     Image(
-                                        painter = painterResource(R.drawable.fortunewheel),
+                                        painter = painterResource(typeImage),
                                         contentDescription = typeName,
                                         modifier = Modifier.size(90.dp)
                                     )
                                     Column (modifier = Modifier.padding(8.dp)){
                                         Text(text = typeName, fontWeight = FontWeight.W600)
-                                        Text(text = "Çarkıfelek ile Rastgele Doğruluk Cesaretlilik.", fontWeight = FontWeight.W200)
+                                        Text(text = typeDesc, fontWeight = FontWeight.W200)
                                     }
                                 }
                             }

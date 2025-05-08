@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -30,9 +32,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
+import com.mobile.gameofsecret.data.model.Language
 import com.mobile.gameofsecret.localization.LanguageManager
 import com.mobile.gameofsecret.localization.changeLocale
 import com.mobile.gameofsecret.ui.components.BackHeader
+import com.mobile.gameofsecret.ui.components.LanguageRow
 import com.mobile.gameofsecret.ui.components.LargeButton
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
@@ -42,6 +46,12 @@ import com.mobile.gameofsecret.ui.utils.navigateTo
 fun LanguageScreen(navController: NavController) {
     val context = LocalContext.current
     var currentLanguage by remember { mutableStateOf(LanguageManager.getLanguage(context)) }
+    val languages = listOf(
+        Language("Türkçe", R.drawable.turkey, "tr"),
+        Language("English", R.drawable.en_flag, "en"),
+        Language("Français", R.drawable.fr_flag, "fr")
+    )
+
     Scaffold(modifier = Modifier, topBar = {
         BackHeader(onBackClicked = {
             navController.popBackStack()
@@ -61,35 +71,28 @@ fun LanguageScreen(navController: NavController) {
                     text = context.resources.getString(R.string.app_name),
                     modifier = Modifier.padding(bottom = 16.dp), color = Color.White
                 )
-                // Language Selection
-                Text(
-                    text = context.resources.getString(R.string.select_language),
-                    modifier = Modifier.padding(bottom = 8.dp),
-                    color = Color.White
-                )
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+
+                LazyColumn(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        LargeButton(text = "Türkçe") {
-                            changeLocale(context, "tr")
-                            currentLanguage = "tr"
-                        }
-                        LargeButton(text = "English") {
-                            changeLocale(context, "en")
-                            currentLanguage = "en"
-                        }
-                        LargeButton(text = "Français") {
-                            changeLocale(context, "fr")
-                            currentLanguage = "fr"
+                    item {
+                        languages.forEach { language ->
+                            Column(
+                                modifier = Modifier
+                                    .wrapContentSize()
+                                    .padding(top=8.dp)
+                            ) {
+                                LanguageRow(language, isSelected =
+                                language.label == currentLanguage, onClick = {
+                                    changeLocale(context, language.label)
+                                    currentLanguage = language.label
+                                })
+                            }
                         }
                     }
-
                 }
+
             }
         }
     }

@@ -40,6 +40,25 @@ fun getGameTypeName(gameType: GameTypes): String {
     }
 }
 
+
+@Composable
+fun getGameTypeDescription(gameType: GameTypes): String {
+    return when (gameType) {
+        GameTypes.RANDOM -> stringResource(R.string.wheel_random_truth_dare)
+        GameTypes.SERIAL -> stringResource(R.string.each_player_plays_in_turn)
+        GameTypes.SPIN -> stringResource(R.string.wheel_for_selection)
+    }
+}
+
+@Composable
+fun getGameTypeImage(gameType: GameTypes): Int{
+    return when(gameType){
+        GameTypes.RANDOM ->R.drawable.fortunewheel
+        GameTypes.SERIAL ->R.drawable.serial_game
+        GameTypes.SPIN -> R.drawable.fortunewheel
+    }
+}
+
 @Composable
 fun getSettingName(setting: Items) : String{
     return when (setting){

@@ -38,6 +38,7 @@ import com.mobile.gameofsecret.ui.components.ButtonText
 import com.mobile.gameofsecret.ui.components.LargeButton
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
+import com.mobile.gameofsecret.ui.theme.switchColor
 import com.mobile.gameofsecret.ui.utils.ObserveErrorMessage
 import com.mobile.gameofsecret.ui.utils.getSettingName
 import com.mobile.gameofsecret.ui.utils.navigateTo
@@ -98,7 +99,7 @@ fun SettingScreen(
                             },
                             colors = SwitchDefaults.colors(
                                 checkedThumbColor = Color.White,
-                                checkedTrackColor = Color.Cyan,
+                                checkedTrackColor = switchColor,
                                 uncheckedThumbColor = Color.Gray,
                                 uncheckedTrackColor = Color.DarkGray
                             ),

@@ -18,6 +18,7 @@ val Pink40 = Color(0xFF7D5260)
 val background = Color(0xFF333399)
 val toolbar = Color(0x3E0039FF)
 val textColor = Color(0xFFFFFFFF)
+val switchColor = Color(0xFF007AFF)
 val buttonColors1 = ButtonColors(
     containerColor = Color.White,
     contentColor = Color.Black,
@@ -78,4 +79,5 @@ fun textFieldColor() = TextFieldDefaults.colors(
     focusedLabelColor = Color.White,
     unfocusedLabelColor = Color.White
 )
+
 
