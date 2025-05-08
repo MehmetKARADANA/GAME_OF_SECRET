@@ -93,7 +93,7 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
             ) {
 
                 item {
-                    Header(navController)
+                    Header(navController,stringResource(R.string.app_name))
                 }
                 item {
                     Row(

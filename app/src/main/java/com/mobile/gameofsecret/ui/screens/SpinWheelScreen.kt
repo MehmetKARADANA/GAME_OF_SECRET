@@ -65,7 +65,7 @@ fun SpinWheelScreen(navController: NavController,taskViewModel: TaskViewModel) {
     }, floatingActionButton = {
         FAB(onClick = {
             taskViewModel.resetTask(fields, onComplete = {
-                navigateTo(navController,DestinationScreen.rotateSpinWheel.route)
+                navigateTo(navController,DestinationScreen.RotateSpinWheel.route)
             })
         }, text = stringResource(R.string.spin_the_wheel))
     }, floatingActionButtonPosition = FabPosition.Center) {

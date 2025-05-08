@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -22,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -36,7 +39,7 @@ import com.mobile.gameofsecret.ui.theme.textColor
 import com.mobile.gameofsecret.ui.utils.navigateTo
 
 @Composable
-fun Header(navController: NavController) {
+fun Header(navController: NavController,header: String) {
     //burası appin tamamı için statusbar
     val statusBarColor = background
     val activity = LocalActivity.current
@@ -64,7 +67,52 @@ fun Header(navController: NavController) {
                 }
         )
         Text(
-            text = stringResource(R.string.app_name),
+            text = header,
+            fontFamily = FontFamily.Serif,
+            fontWeight = FontWeight.W500,
+            fontSize = 22.sp,
+            color = textColor
+        )
+        Icon(
+            painter = painterResource(R.drawable.setting),
+            contentDescription = "Settings",
+            tint = Color.White,
+            modifier = Modifier
+                .padding(end = 12.dp)
+                .size(24.dp)
+                .clickable {
+                    navigateTo(
+                        navController = navController,
+                        route = DestinationScreen.Settings.route
+                    )
+                }
+        )
+    }
+}
+
+
+@Composable
+fun PreHeader(navController: NavController,header : String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .background(color = background),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            Icons.Default.ArrowBack, contentDescription = "Back",
+            modifier = Modifier
+                .padding(start = 8.dp)
+                .size(30.dp)
+                //.shadow(24.dp, shape = RoundedCornerShape(12.dp), clip = false)
+                .clickable {
+                  navController.popBackStack()
+                }, tint = Color.White
+        )
+        Text(
+            text = header,
             fontFamily = FontFamily.Serif,
             fontWeight = FontWeight.W500,
             fontSize = 22.sp,

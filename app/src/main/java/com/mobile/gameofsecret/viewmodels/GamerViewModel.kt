@@ -1,5 +1,6 @@
 package com.mobile.gameofsecret.viewmodels
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
@@ -52,27 +53,27 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun getGamerList() {
-            viewModelScope.launch(Dispatchers.IO) {
-                try {
-                val list= gamerDao.getGamerNameAndId()
-                    withContext(Dispatchers.Main){
-                        _gamerList.value=list
-                        setGamer()
-                    }
-
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    handleException(e)
-                    //handle
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val list = gamerDao.getGamerNameAndId()
+                withContext(Dispatchers.Main) {
+                    _gamerList.value = list
+                    setGamer()
                 }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                handleException(e)
+                //handle
             }
+        }
 
     }
 
     fun resetGamers(userFields: List<String>, onComplete: () -> Unit) {
 
-            viewModelScope.launch(Dispatchers.IO) {
-                try {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
                 gamerDao.deleteAll()
 
                 userFields.forEach { gamerName ->
@@ -86,13 +87,13 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
                     //unutma uıyı etkileyen şeyler main threadde
                     onComplete()
                 }
-                }catch (e :Exception){
-                    e.printStackTrace()
-                    Log.d("GamerViewModel","ResetGamers hata oluştu")
-                    //hata mesajları çevirileri ekle
-                    handleException(customMessage = "Bir hata oluştu")
-                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Log.d("GamerViewModel", "ResetGamers hata oluştu")
+                //hata mesajları çevirileri ekle
+                handleException(customMessage = "Bir hata oluştu")
             }
+        }
     }
 
     fun getGamer(id: Int) {
@@ -140,14 +141,14 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun deleteAll() {
-            viewModelScope.launch(Dispatchers.IO) {
-                try {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
                 gamerDao.deleteAll()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    handleException(e)
-                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                handleException(e)
             }
+        }
 
     }
 
