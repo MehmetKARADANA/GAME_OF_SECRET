@@ -6,6 +6,7 @@ import androidx.compose.material3.CardColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import com.mobile.gameofsecret.ui.components.WheelSection
 
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
@@ -27,14 +28,22 @@ val buttonColors1 = ButtonColors(
 )
 
 val sectorColors = listOf(
-    Color(0xFFFF6B6B),   // Parlak Kırmızı
+    Color(0xFFE53935),
+     Color(0xFF1E88E5),
+     Color(0xFFFFB300),
+     Color(0xFF8E24AA),
+    Color(0xFF43A047),
+    Color(0xFF00897B),
+   Color(0xFFE53935),
+    Color(0xFFFFB300),
+    Color(0xFF1E88E5) /*  Color(0xFFFF6B6B),   // Parlak Kırmızı
     Color(0xFF4ECDC4),   // Turkuaz
     Color(0xFF45B7D1),   // Açık Mavi
     Color(0xFFFFD93D),   // Sarı
     Color(0xFFF8A5C2),   // Pembe
     Color(0xFF6A5ACD),   // Mor
     Color(0xFF7ED6DF),   // Açık Turkuaz
-    Color(0xFFFFA07A)    // Mercan
+    Color(0xFFFFA07A)  */  // Mercan
 )
 
 val cardcolor = CardColors(

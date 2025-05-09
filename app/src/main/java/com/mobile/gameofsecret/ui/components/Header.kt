@@ -52,7 +52,8 @@ fun Header(navController: NavController,header: String) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
+        Spacer(modifier = Modifier.width(36.dp))
+       /* Icon(
             painter = painterResource(R.drawable.information),
             contentDescription = "information",
             tint = Color.White,
@@ -62,14 +63,14 @@ fun Header(navController: NavController,header: String) {
                 .clickable {
                     navigateTo(
                         navController = navController,
-                        route = DestinationScreen.Settings.route
+                        route = DestinationScreen.Info.route
                     )
                 }
-        )
+        )*/
         Text(
             text = header,
-            fontFamily = FontFamily.Serif,
-            fontWeight = FontWeight.W500,
+           // fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.W400,
             fontSize = 22.sp,
             color = textColor
         )
@@ -113,8 +114,8 @@ fun PreHeader(navController: NavController,header : String) {
         )
         Text(
             text = header,
-            fontFamily = FontFamily.Serif,
-            fontWeight = FontWeight.W500,
+           // fontFamily = FontFamily.Serif,
+            fontWeight = FontWeight.W400,
             fontSize = 22.sp,
             color = textColor
         )
