@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -71,7 +72,7 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(background), floatingActionButton = {
+            .background(background), topBar = {Header(navController,stringResource(R.string.app_name))}, floatingActionButton = {
             FAB(onClick = {
                 gamerViewModel.resetGamers(userFields) {
                     navigateTo(navController, DestinationScreen.Pre.route)
@@ -83,22 +84,22 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
             modifier = Modifier
                 .fillMaxSize()
                 .background(background)
-                .padding(it)
+                .padding(it),
         ) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(background)
+                    , horizontalAlignment = Alignment.CenterHorizontally
+                , verticalArrangement = Arrangement.Center
                 // .padding(12.dp),
             ) {
 
                 item {
-                    Header(navController,stringResource(R.string.app_name))
-                }
-                item {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
+                            //.fillMaxWidth()
+                            .wrapContentWidth()
                             .height(300.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
