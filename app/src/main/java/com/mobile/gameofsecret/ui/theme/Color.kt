@@ -15,6 +15,7 @@ val Pink80 = Color(0xFFEFB8C8)
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
+
 //val background =Color(0xFFFFA000)
 val background = Color(0xFF333399)
 val toolbar = Color(0x3E0039FF)
@@ -26,24 +27,19 @@ val buttonColors1 = ButtonColors(
     disabledContainerColor = Color.Transparent,
     disabledContentColor = Color.Gray
 )
-
+val circleColor =Color(0xFF3A3A55)
+    //Color(0xFF3F51B5)
+    //Color(0xFF3A3A55)
 val sectorColors = listOf(
+    Color(0xFFFFB300),
+    Color(0xFF8E24AA),
     Color(0xFFE53935),
-     Color(0xFF1E88E5),
-     Color(0xFFFFB300),
-     Color(0xFF8E24AA),
+    Color(0xFF1E88E5),
     Color(0xFF43A047),
     Color(0xFF00897B),
-   Color(0xFFE53935),
+    Color(0xFFE53935),
     Color(0xFFFFB300),
-    Color(0xFF1E88E5) /*  Color(0xFFFF6B6B),   // Parlak Kırmızı
-    Color(0xFF4ECDC4),   // Turkuaz
-    Color(0xFF45B7D1),   // Açık Mavi
-    Color(0xFFFFD93D),   // Sarı
-    Color(0xFFF8A5C2),   // Pembe
-    Color(0xFF6A5ACD),   // Mor
-    Color(0xFF7ED6DF),   // Açık Turkuaz
-    Color(0xFFFFA07A)  */  // Mercan
+    Color(0xFF1E88E5)
 )
 
 val cardcolor = CardColors(
@@ -73,6 +69,7 @@ val cardcolor4 = CardColors(
     disabledContentColor = Color(0xFFB7A8C7), // Grileşmiş beyaz içerik (disabled)
     disabledContainerColor = Color(0xFF6666B3) // Koyu mor-mavi tonunun daha açık hali (disabled)
 )
+
 @Composable
 fun textFieldColor() = TextFieldDefaults.colors(
     focusedTextColor = Color.White,

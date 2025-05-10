@@ -58,6 +58,7 @@ import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.data.model.Gamer
 import com.mobile.gameofsecret.ui.theme.buttonColors1
+import com.mobile.gameofsecret.ui.theme.circleColor
 import com.mobile.gameofsecret.ui.theme.sectorColors
 import com.mobile.gameofsecret.ui.utils.navigateTo
 
@@ -115,10 +116,10 @@ fun NameWheel(gamerList: List<String>, navController: NavController, onComplete:
             modifier = Modifier
                 .size(280.dp)
                 .rotate(rotation.value)
-                .border(4.dp, Color.Black, CircleShape)
+                .border(6.dp, circleColor, CircleShape)
             //.clickable { spinWheel() }
         ) {
-            // Bölümlerin çizimi
+
             names.forEachIndexed { index, name ->
                 val startAngle = index * (360f / names.size)
 
@@ -151,7 +152,7 @@ fun NameWheel(gamerList: List<String>, navController: NavController, onComplete:
             }
             Box(
                 modifier = Modifier
-                    .size(16.dp)
+                    .size(24.dp)
                     .align(Alignment.Center)
                     .background(Color.White, CircleShape)
             )
@@ -180,7 +181,6 @@ fun NameWheel(gamerList: List<String>, navController: NavController, onComplete:
     }
 }
 
-// Özel Sector Şekli
 class SectorShape(private val sweepAngle: Float) : Shape {
     override fun createOutline(
         size: Size,
@@ -207,7 +207,7 @@ class SectorShape(private val sweepAngle: Float) : Shape {
     }
 }
 
-// Üçgen Şekli
+
 @Composable
 fun Triangle(
     color: Color,

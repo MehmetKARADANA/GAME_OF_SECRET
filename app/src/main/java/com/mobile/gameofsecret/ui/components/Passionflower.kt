@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
+import com.mobile.gameofsecret.ui.theme.circleColor
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -59,7 +60,7 @@ fun EmptyWheelOfFortune(
         }
 
         drawCircle(
-            color = Color.Black,
+            color = circleColor,
             radius = radius,
             center = center,
             style = Stroke(width = 12f)
