@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
+import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.data.GAMERS
 import com.mobile.gameofsecret.data.model.Gamer
 import com.mobile.gameofsecret.data.roomdb.GamerDatabase
@@ -70,6 +72,7 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
 
     }
 
+
     fun resetGamers(userFields: List<String>, onComplete: () -> Unit) {
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -77,7 +80,12 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
                 gamerDao.deleteAll()
 
                 userFields.forEach { gamerName ->
+                    if(gamerName!=""){
                     gamerDao.insert(Gamer(gamerName))
+                    }else{
+
+                        gamerDao.insert(Gamer( "--"))
+                    }
                 }
 
                 _gamerList.value = gamerDao.getGamerNameAndId()

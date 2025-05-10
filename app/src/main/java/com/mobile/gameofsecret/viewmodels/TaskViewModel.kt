@@ -22,9 +22,9 @@ class TaskViewModel(application: Application) : BaseViewModel(application) {
     fun getTaskList() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                 val list=taskDao.getTaskAndId()
-                withContext(Dispatchers.Main){
-                    _taskList.value=list
+                val list = taskDao.getTaskAndId()
+                withContext(Dispatchers.Main) {
+                    _taskList.value = list
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -40,7 +40,11 @@ class TaskViewModel(application: Application) : BaseViewModel(application) {
                 taskDao.deleteAll()
 
                 taskFields.forEach { task ->
-                    taskDao.insert(Task(task))
+                    if (task != "") {
+                        taskDao.insert(Task(task))
+                    }else{
+                        taskDao.insert(Task("--"))
+                    }
                 }
 
 

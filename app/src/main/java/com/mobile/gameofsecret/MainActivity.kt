@@ -105,6 +105,8 @@ class MainActivity : BaseActivity() {
 
 
         NavHost(navController = navController, startDestination = DestinationScreen.Menu.route) {
+
+
             composable(DestinationScreen.Menu.route) {
                 MenuScreen(navController, gamerViewModel)
             }
