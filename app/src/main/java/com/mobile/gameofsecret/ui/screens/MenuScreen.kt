@@ -66,9 +66,16 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
     }
     val gamer1 = stringResource(R.string.gamer1)
     val gamer2 = stringResource(R.string.gamer2)
-    val userFields = remember {
+  /*  val userFields = remember {
         mutableStateListOf(gamer1, gamer2)
+    }*/
+    val dbList by gamerViewModel.gamerList.collectAsState(initial = emptyList())
+
+    val userFields = remember(dbList) {
+        val initialList = if (dbList.isNotEmpty()) dbList.map { it.name } else listOf(gamer1, gamer2)
+        mutableStateListOf(*initialList.toTypedArray())
     }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()

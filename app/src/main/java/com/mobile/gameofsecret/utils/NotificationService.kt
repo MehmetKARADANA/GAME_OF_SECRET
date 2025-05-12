@@ -80,7 +80,7 @@ class NotificationService : FirebaseMessagingService() {
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        // 📌 Android 8+ için kanal oluştur
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId, // Kanal ID'si
@@ -104,7 +104,7 @@ class NotificationService : FirebaseMessagingService() {
         val notificationId = System.currentTimeMillis().toInt() // Benzersiz ID
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.information)//
+            .setSmallIcon(R.drawable.information)
             .setContentTitle(title)
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
