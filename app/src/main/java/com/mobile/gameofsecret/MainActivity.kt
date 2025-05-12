@@ -1,5 +1,6 @@
 package com.mobile.gameofsecret
 
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -13,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.mobile.gameofsecret.data.roomdb.getDatabase
 import com.mobile.gameofsecret.ui.screens.AboutUsScreen
 import com.mobile.gameofsecret.ui.screens.DareScreen
 import com.mobile.gameofsecret.ui.screens.InfoScreen
@@ -36,6 +38,9 @@ import com.mobile.gameofsecret.viewmodels.NotificationViewModel
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
 import com.mobile.gameofsecret.viewmodels.SettingsViewModel
 import com.mobile.gameofsecret.viewmodels.TaskViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 sealed class DestinationScreen(var route: String) {
     data object Menu : DestinationScreen("menu")
@@ -56,16 +61,29 @@ sealed class DestinationScreen(var route: String) {
     data object Dare : DestinationScreen("dare/{name}/{fromScreen}") {
         fun createRoute(name: String, fromScreen: String) = "dare/$name/$fromScreen"
     }
+
     data object Privacy : DestinationScreen("privacy")
     data object Terms : DestinationScreen("terms")
     data object AboutUs : DestinationScreen("about")
     data object RotateSpinWheel : DestinationScreen("rotate_spin")
-    data object Info :DestinationScreen("info")
+    data object Info : DestinationScreen("info")
 }
+
+class GosApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        val db = getDatabase(this)
+        CoroutineScope(Dispatchers.IO).launch {
+            db.gamerDao().deleteAll()
+            db.taskDao().deleteAll()
+        }
+    }
+}
+
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var notificationPermissionHelper : NotificationPermissionHelper
+    private lateinit var notificationPermissionHelper: NotificationPermissionHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,7 +104,7 @@ class MainActivity : BaseActivity() {
         val quizViewModel: QuizViewModel by viewModels()
         val notificationViewModel: NotificationViewModel by viewModels()
         val settingsViewModel: SettingsViewModel by viewModels()
-        val taskViewModel : TaskViewModel by viewModels()
+        val taskViewModel: TaskViewModel by viewModels()
         val navController = rememberNavController()
 
         var showOnboarding by remember { mutableStateOf(true) }
@@ -95,11 +113,11 @@ class MainActivity : BaseActivity() {
             //init default topic aboneliği ve first launch preferencei yönetiyor
             Log.d("settingsViewModel", "init running")
             if (showOnboarding) {
-              /*  OnboardingDialog(
-                    onDismiss = {
-                        showOnboarding = false
-                    })*/
-                Log.d("main","firstlaunch")
+                /*  OnboardingDialog(
+                      onDismiss = {
+                          showOnboarding = false
+                      })*/
+                Log.d("main", "firstlaunch")
             }
         }
 
@@ -112,7 +130,7 @@ class MainActivity : BaseActivity() {
             }
 
             composable(DestinationScreen.Settings.route) {
-                SettingScreen(navController,settingsViewModel,notificationViewModel)
+                SettingScreen(navController, settingsViewModel, notificationViewModel)
             }
             composable(DestinationScreen.Pre.route) {
                 PreScreen(gamerViewModel, navController = navController, quizViewModel)
@@ -130,7 +148,7 @@ class MainActivity : BaseActivity() {
             }
 
             composable(DestinationScreen.SpinWheel.route) {
-                SpinWheelScreen(navController,taskViewModel)
+                SpinWheelScreen(navController, taskViewModel)
             }
 
             composable(DestinationScreen.TruthOrDare.route) {
@@ -161,7 +179,7 @@ class MainActivity : BaseActivity() {
                 }
             }
             composable(DestinationScreen.Languages.route) {
-               LanguageScreen(navController)
+                LanguageScreen(navController)
             }
             composable(DestinationScreen.Terms.route) {
                 TermsScreen(navController)
@@ -173,10 +191,10 @@ class MainActivity : BaseActivity() {
                 AboutUsScreen(navController)
             }
             composable(DestinationScreen.RotateSpinWheel.route) {
-                RotateSpinWheelScreen(taskViewModel,navController)
+                RotateSpinWheelScreen(taskViewModel, navController)
             }
 
-            composable(DestinationScreen.Info.route){
+            composable(DestinationScreen.Info.route) {
                 InfoScreen()
             }
         }

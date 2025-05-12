@@ -24,6 +24,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -55,9 +57,16 @@ fun SpinWheelScreen(navController: NavController,taskViewModel: TaskViewModel) {
     val field1 = stringResource(R.string.task1)
     val field2 = stringResource(R.string.task2)
     val field3 = stringResource(R.string.task3)
-    var fields = remember {
-        mutableStateListOf(field1, field2, field3)
+
+    val dbList by taskViewModel.taskList.collectAsState(initial = emptyList())
+
+    val fields = remember(dbList) {
+        val initialList = if (dbList.isNotEmpty()) dbList.map { it.task } else listOf(field1, field2,field3)
+        mutableStateListOf(*initialList.toTypedArray())
     }
+  /*  var fields = remember {
+        mutableStateListOf(field1, field2, field3)
+    }*/
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         BackHeader(onBackClicked = {
             navController.popBackStack()
