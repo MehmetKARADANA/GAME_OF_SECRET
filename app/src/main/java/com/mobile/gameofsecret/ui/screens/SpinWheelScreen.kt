@@ -54,9 +54,9 @@ import com.mobile.gameofsecret.viewmodels.TaskViewModel
 
 @Composable
 fun SpinWheelScreen(navController: NavController,taskViewModel: TaskViewModel) {
-    val field1 = stringResource(R.string.task1)
-    val field2 = stringResource(R.string.task2)
-    val field3 = stringResource(R.string.task3)
+    val field1 = stringResource(R.string.go_to_sea)
+    val field2 = stringResource(R.string.go_to_village)
+    val field3 = stringResource(R.string.climb_mountain)
 
     val dbList by taskViewModel.taskList.collectAsState(initial = emptyList())
 

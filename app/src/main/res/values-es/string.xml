@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Game Of Secret</string>
+    <string name="add_gamer">Agregar jugador</string>
+    <string name="select_language">Español</string>
+    <string name="gamers">Jugadores</string>
+    <string name="gamer">Jugador</string>
+    <string name="gamer1">Jugador 1</string>
+    <string name="gamer2">Jugador 2</string>
+    <string name="start">Comenzar</string>
+    <string name="random">Aleatorio</string>
+    <string name="serial">En serie</string>
+    <string name="play">Jugar</string>
+    <string name="your_turn">¡Tu turno!</string>
+    <string name="truth">Verdad</string>
+    <string name="dare">Reto</string>
+    <string name="your_question">¡Tu pregunta!</string>
+    <string name="okey">Vale</string>
+    <string name="spin_the_wheel">Gira la ruleta</string>
+    <string name="next">Siguiente</string>
+    <string name="settings">Configuraciones</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="notification_settings">Configuración de notificaciones</string>
+    <string name="notification_info">Si tus notificaciones están activadas pero no recibes ninguna, puedes visitar la sección de Configuración de notificaciones para verificar la configuración de tu dispositivo.</string>
+    <string name="language">Idioma</string>
+    <string name="terms">Términos</string>
+    <string name="privacy">Privacidad</string>
+    <string name="about_us">Sobre nosotros</string>
+    <string name="about_game_description">
+    Juego de Secretos es una versión moderna del clásico juego "Verdad o Reto", diseñado para que las reuniones con amigos sean más divertidas, sorprendentes e inolvidables. Con nuestra aplicación, los encuentros ordinarios se convierten en experiencias llenas de risas y emociones. Su diseño limpio, interfaz fácil de usar y combinaciones originales de preguntas/desafíos lo hacen único. Atractivo para todas las edades, ofrece diversión y fortalece los lazos sociales. Juego de Secretos ha sido desarrollado por Mehmet KARADANA. El contenido y la experiencia del usuario se mejoran constantemente y tus comentarios siempre son bienvenidos. ¿Listo para divertirte? ¡Que se revelen los secretos!
+    </string>
+    <string name="contact">Contacto</string>
+    <string name="wheel_of_fortune">Ruleta de la fortuna</string>
+    <string name="go_to_sea">Ir al mar</string>
+    <string name="go_to_village">Ir al pueblo</string>
+    <string name="climb_mountain">Subir la montaña</string>
+    <string name="task">Tarea</string>
+    <string name="tasks">Tareas</string>
+    <string name="task1">Tarea 1</string>
+    <string name="task2">Tarea 2</string>
+    <string name="task3">Tarea 3</string>
+    <string name="add_task">Agregar tarea</string>
+    <string name="winner">Ganador</string>
+    <string name="wheel_random_truth_dare">Verdad o reto aleatorio con la ruleta</string>
+    <string name="each_player_plays_in_turn">Cada jugador juega por turno.</string>
+    <string name="wheel_for_selection">Usa la ruleta para seleccionar una tarea o un jugador.</string>
+</resources>

@@ -49,7 +49,9 @@ fun LanguageScreen(navController: NavController) {
     val languages = listOf(
         Language("Türkçe", R.drawable.turkey, "tr"),
         Language("English", R.drawable.en_flag, "en"),
-        Language("Français", R.drawable.fr_flag, "fr")
+        Language("Français", R.drawable.fr_flag, "fr"),
+        Language("Espanol", R.drawable.fr_flag, "es")
+
     )
 
     Scaffold(modifier = Modifier, topBar = {
