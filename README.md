@@ -14,6 +14,7 @@
 ## 📱 Geliştirildiği Teknolojiler / Built With
 - **Kotlin (Jetpack Compose)**
 - **Room Database**
+- **Firebase**
 - **Material Design 3**
 - **Çoklu Dil Desteği / Multi-language support** (Turkish, English, French)
 
