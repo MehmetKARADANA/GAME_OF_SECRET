@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Game of Secrets</string>
+    <string name="app_name">Game of Secret</string>
     <string name="add_gamer">Ajouter un joueur</string>
     <string name="select_language">Français</string>
     <string name="gamers">Joueurs</string>

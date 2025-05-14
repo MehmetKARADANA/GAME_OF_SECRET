@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Game Of Secret</string>
+    <string name="add_gamer">Добавить игрока</string>
+    <string name="select_language">Русский</string>
+    <string name="gamers">Игроки</string>
+    <string name="gamer">Игрок</string>
+    <string name="gamer1">Игрок 1</string>
+    <string name="gamer2">Игрок 2</string>
+    <string name="start">Начать</string>
+    <string name="random">Случайно</string>
+    <string name="serial">Последовательно</string>
+    <string name="play">Играть</string>
+    <string name="your_turn">Твой ход</string>
+    <string name="truth">Правда</string>
+    <string name="dare">Действие</string>
+    <string name="your_question">Твой вопрос!</string>
+    <string name="okey">Ок</string>
+    <string name="spin_the_wheel">Крути колесо</string>
+    <string name="next">Далее</string>
+    <string name="settings">Настройки</string>
+    <string name="notifications">Уведомления</string>
+    <string name="notification_settings">Настройки уведомлений</string>
+    <string name="notification_info">Если уведомления включены, но вы их не получаете, проверьте настройки уведомлений на вашем устройстве.</string>
+    <string name="language">Язык</string>
+    <string name="terms">Условия</string>
+    <string name="privacy">Конфиденциальность</string>
+    <string name="about_us">О нас</string>
+    <string name="about_game_description">
+        Игра Тайн — это современная версия классической игры «Правда или Действие», созданная для того, чтобы сделать встречи с друзьями более веселыми, неожиданными и запоминающимися. С нашим приложением обычные собрания превращаются в моменты, наполненные смехом и эмоциями. Чистый дизайн, удобный интерфейс и оригинальные комбинации вопросов и заданий выделяют игру. Она подходит для всех возрастов, дарит радость и укрепляет социальные связи. Игра разработана Мехметом Караданой. Контент и пользовательский опыт постоянно улучшаются. Ваши отзывы всегда приветствуются. Готовы к веселью? Пусть тайны откроются!
+    </string>
+    <string name="contact">Контакт</string>
+    <string name="wheel_of_fortune">Колесо фортуны</string>
+    <string name="go_to_sea">Поехать к морю</string>
+    <string name="go_to_village">Поехать в деревню</string>
+    <string name="climb_mountain">Подняться на гору</string>
+    <string name="task">Задание</string>
+    <string name="tasks">Задания</string>
+    <string name="task1">Задание 1</string>
+    <string name="task2">Задание 2</string>
+    <string name="task3">Задание 3</string>
+    <string name="add_task">Добавить задание</string>
+    <string name="winner">Победитель</string>
+    <string name="wheel_random_truth_dare">Случайная Правда или Действие с колесом</string>
+    <string name="each_player_plays_in_turn">Каждый игрок играет по очереди.</string>
+    <string name="wheel_for_selection">Используйте колесо, чтобы выбрать задание или игрока.</string>
+</resources>

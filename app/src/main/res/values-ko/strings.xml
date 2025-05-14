@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Game Of Secret</string>
+    <string name="add_gamer">플레이어 추가</string>
+    <string name="select_language">한국어</string>
+    <string name="gamers">플레이어</string>
+    <string name="gamer">플레이어</string>
+    <string name="gamer1">플레이어 1</string>
+    <string name="gamer2">플레이어 2</string>
+    <string name="start">시작</string>
+    <string name="random">무작위</string>
+    <string name="serial">순차</string>
+    <string name="play">플레이</string>
+    <string name="your_turn">당신의 차례입니다</string>
+    <string name="truth">진실</string>
+    <string name="dare">도전</string>
+    <string name="your_question">당신의 질문!</string>
+    <string name="okey">확인</string>
+    <string name="spin_the_wheel">룰렛을 돌리세요</string>
+    <string name="next">다음</string>
+    <string name="settings">설정</string>
+    <string name="notifications">알림</string>
+    <string name="notification_settings">알림 설정</string>
+    <string name="notification_info">알림이 켜져 있는데도 수신되지 않는 경우, 기기의 알림 설정을 확인하세요.</string>
+    <string name="language">언어</string>
+    <string name="terms">이용약관</string>
+    <string name="privacy">개인정보처리방침</string>
+    <string name="about_us">회사 소개</string>
+    <string name="about_game_description">
+        비밀의 게임은 고전적인 “진실 혹은 도전” 게임을 현대적으로 재해석한 앱으로, 친구들과의 모임을 더욱 재미있고, 놀랍고, 잊지 못할 경험으로 만들어 줍니다. 이 앱은 평범한 모임을 웃음과 감동으로 가득한 순간으로 바꿔줍니다. 깔끔한 디자인과 사용자 친화적인 인터페이스, 독창적인 질문과 도전 조합은 이 앱만의 매력입니다. 모든 연령층이 즐길 수 있으며, 사회적 유대감을 강화하는 데도 도움이 됩니다. Mehmet KARADANA가 개발하였으며, 콘텐츠와 사용자 경험은 지속적으로 개선되고 있습니다. 여러분의 피드백은 언제나 환영입니다. 재미있을 준비 되셨나요? 이제 비밀을 밝혀볼까요!
+    </string>
+    <string name="contact">문의하기</string>
+    <string name="wheel_of_fortune">운명의 룰렛</string>
+    <string name="go_to_sea">바다로 가기</string>
+    <string name="go_to_village">마을로 가기</string>
+    <string name="climb_mountain">산에 오르기</string>
+    <string name="task">작업</string>
+    <string name="tasks">작업 목록</string>
+    <string name="task1">작업 1</string>
+    <string name="task2">작업 2</string>
+    <string name="task3">작업 3</string>
+    <string name="add_task">작업 추가</string>
+    <string name="winner">승자</string>
+    <string name="wheel_random_truth_dare">룰렛으로 무작위 진실 또는 도전</string>
+    <string name="each_player_plays_in_turn">각 플레이어가 차례로 플레이합니다.</string>
+    <string name="wheel_for_selection">작업 또는 플레이어를 선택하려면 룰렛을 사용하세요.</string>
+</resources>

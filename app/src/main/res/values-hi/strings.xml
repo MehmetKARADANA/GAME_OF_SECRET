@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Game Of Secret</string>
+    <string name="add_gamer">खिलाड़ी जोड़ें</string>
+    <string name="select_language">हिंदी</string>
+    <string name="gamers">खिलाड़ी</string>
+    <string name="gamer">खिलाड़ी</string>
+    <string name="gamer1">खिलाड़ी 1</string>
+    <string name="gamer2">खिलाड़ी 2</string>
+    <string name="start">शुरू करें</string>
+    <string name="random">यादृच्छिक</string>
+    <string name="serial">क्रमिक</string>
+    <string name="play">खेलें</string>
+    <string name="your_turn">आपकी बारी</string>
+    <string name="truth">सच</string>
+    <string name="dare">चुनौती</string>
+    <string name="your_question">आपका प्रश्न!</string>
+    <string name="okey">ठीक है</string>
+    <string name="spin_the_wheel">पहिया घुमाएँ</string>
+    <string name="next">आगे</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="notifications">सूचनाएँ</string>
+    <string name="notification_settings">सूचना सेटिंग्स</string>
+    <string name="notification_info">यदि आपकी सूचनाएँ चालू हैं लेकिन प्राप्त नहीं हो रही हैं, तो अपने डिवाइस की सूचना सेटिंग्स की जाँच करें।</string>
+    <string name="language">भाषा</string>
+    <string name="terms">नियम और शर्तें</string>
+    <string name="privacy">गोपनीयता</string>
+    <string name="about_us">हमारे बारे में</string>
+    <string name="about_game_description">
+        रहस्यों का खेल "सच या चुनौती" खेल का एक आधुनिक संस्करण है, जो दोस्तों के साथ बैठकों को अधिक मजेदार, चौंकाने वाला और अविस्मरणीय बनाता है। हमारे ऐप के साथ, साधारण बैठकें हँसी और भावनाओं से भरपूर अनुभवों में बदल जाती हैं। इसका साफ-सुथरा डिज़ाइन, उपयोगकर्ता के अनुकूल इंटरफ़ेस, और मौलिक प्रश्न/चुनौती संयोजन इसे अलग बनाते हैं। यह सभी उम्र के लोगों के लिए आकर्षक है और सामाजिक संबंधों को मजबूत करता है। इसे Mehmet KARADANA द्वारा विकसित किया गया है। कंटेंट और उपयोगकर्ता अनुभव को लगातार बेहतर किया जा रहा है। आपकी प्रतिक्रिया का हमेशा स्वागत है। तैयार हैं मज़े के लिए? चलिए रहस्य प्रकट हों!
+    </string>
+    <string name="contact">संपर्क करें</string>
+    <string name="wheel_of_fortune">भाग्य का पहिया</string>
+    <string name="go_to_sea">समुद्र पर जाएँ</string>
+    <string name="go_to_village">गाँव जाएँ</string>
+    <string name="climb_mountain">पहाड़ पर चढ़ें</string>
+    <string name="task">कार्य</string>
+    <string name="tasks">कार्यों</string>
+    <string name="task1">कार्य 1</string>
+    <string name="task2">कार्य 2</string>
+    <string name="task3">कार्य 3</string>
+    <string name="add_task">कार्य जोड़ें</string>
+    <string name="winner">विजेता</string>
+    <string name="wheel_random_truth_dare">पहिए के साथ यादृच्छिक सच या चुनौती</string>
+    <string name="each_player_plays_in_turn">प्रत्येक खिलाड़ी बारी-बारी से खेलता है।</string>
+    <string name="wheel_for_selection">कार्य या खिलाड़ी चुनने के लिए पहिया घुमाएँ।</string>
+</resources>

@@ -37,10 +37,17 @@ val sectorColors = listOf(
     Color(0xFF1E88E5),
     Color(0xFF43A047),
     Color(0xFF00897B),
-    Color(0xFFE53935),
-    Color(0xFFFFB300),
-    Color(0xFF1E88E5)
-)
+        Color(0xFFF4511E),
+        Color(0xFF3949AB),
+        Color(0xFF00ACC1),
+        Color(0xFF7CB342),
+        Color(0xFFFF7043),
+        Color(0xFF6D4C41),
+        Color(0xFF5E35B1),
+        Color(0xFF039BE5),
+        Color(0xFFEC407A),
+
+    )
 
 val cardcolor = CardColors(
     containerColor = Color(0xFF333399), // Koyu mor-mavi arka plan

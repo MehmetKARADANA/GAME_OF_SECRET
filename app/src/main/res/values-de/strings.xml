@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Game Of Secret</string>
+    <string name="add_gamer">Spieler hinzufügen</string>
+    <string name="select_language">Deutsch</string>
+    <string name="gamers">Spieler</string>
+    <string name="gamer">Spieler</string>
+    <string name="gamer1">Spieler 1</string>
+    <string name="gamer2">Spieler 2</string>
+    <string name="start">Start</string>
+    <string name="random">Zufällig</string>
+    <string name="serial">Seriell</string>
+    <string name="play">Spielen</string>
+    <string name="your_turn">Du bist dran</string>
+    <string name="truth">Wahrheit</string>
+    <string name="dare">Pflicht</string>
+    <string name="your_question">Deine Frage!</string>
+    <string name="okey">Okay</string>
+    <string name="spin_the_wheel">Drehe das Rad</string>
+    <string name="next">Weiter</string>
+    <string name="settings">Einstellungen</string>
+    <string name="notifications">Benachrichtigungen</string>
+    <string name="notification_settings">Benachrichtigungseinstellungen</string>
+    <string name="notification_info">Wenn deine Benachrichtigungen aktiviert sind, du aber keine erhältst, überprüfe bitte die Benachrichtigungseinstellungen deines Geräts.</string>
+    <string name="language">Sprache</string>
+    <string name="terms">Bedingungen</string>
+    <string name="privacy">Datenschutz</string>
+    <string name="about_us">Über uns</string>
+    <string name="about_game_description">
+        Spiel der Geheimnisse ist eine moderne Version des klassischen „Wahrheit oder Pflicht“-Spiels, das Treffen mit Freunden unterhaltsamer, überraschender und unvergesslicher macht. Mit unserer App werden gewöhnliche Treffen zu erlebnisreichen Momenten voller Lachen. Durch das klare Design, die benutzerfreundliche Oberfläche und originelle Fragen und Herausforderungen hebt sich das Spiel hervor. Es spricht alle Altersgruppen an und stärkt soziale Bindungen. Entwickelt von Mehmet KARADANA. Inhalte und Benutzererlebnis werden kontinuierlich verbessert – dein Feedback ist willkommen. Bereit für Spaß? Lass die Geheimnisse beginnen!
+    </string>
+    <string name="contact">Kontakt</string>
+    <string name="wheel_of_fortune">Glücksrad</string>
+    <string name="go_to_sea">Ans Meer gehen</string>
+    <string name="go_to_village">Ins Dorf gehen</string>
+    <string name="climb_mountain">Auf den Berg steigen</string>
+    <string name="task">Aufgabe</string>
+    <string name="tasks">Aufgaben</string>
+    <string name="task1">Aufgabe 1</string>
+    <string name="task2">Aufgabe 2</string>
+    <string name="task3">Aufgabe 3</string>
+    <string name="add_task">Aufgabe hinzufügen</string>
+    <string name="winner">Gewinner</string>
+    <string name="wheel_random_truth_dare">Zufällige Wahrheit oder Pflicht mit dem Rad</string>
+    <string name="each_player_plays_in_turn">Jeder Spieler ist der Reihe nach an der Reihe.</string>
+    <string name="wheel_for_selection">Verwende das Rad, um eine Aufgabe oder eine Person auszuwählen.</string>
+</resources>

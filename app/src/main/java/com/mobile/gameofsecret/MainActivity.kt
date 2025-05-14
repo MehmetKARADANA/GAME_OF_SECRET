@@ -1,6 +1,7 @@
 package com.mobile.gameofsecret
 
 import android.app.Application
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -96,8 +97,10 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-
-
+  /*  override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+    }*/
+//android:configChanges="locale|layoutDirection|screenSize|orientation|uiMode"
     @Composable
     fun AppNavigation() {
         val gamerViewModel: GamerViewModel by viewModels()

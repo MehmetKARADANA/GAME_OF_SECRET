@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Game Of Secret</string>
+    <string name="add_gamer">プレイヤーを追加</string>
+    <string name="select_language">日本語</string>
+    <string name="gamers">プレイヤー</string>
+    <string name="gamer">プレイヤー</string>
+    <string name="gamer1">プレイヤー1</string>
+    <string name="gamer2">プレイヤー2</string>
+    <string name="start">開始</string>
+    <string name="random">ランダム</string>
+    <string name="serial">連続</string>
+    <string name="play">プレイ</string>
+    <string name="your_turn">あなたの番です</string>
+    <string name="truth">真実</string>
+    <string name="dare">挑戦</string>
+    <string name="your_question">あなたへの質問！</string>
+    <string name="okey">OK</string>
+    <string name="spin_the_wheel">ホイールを回す</string>
+    <string name="next">次へ</string>
+    <string name="settings">設定</string>
+    <string name="notifications">通知</string>
+    <string name="notification_settings">通知設定</string>
+    <string name="notification_info">通知がオンになっているのに受信されない場合は、デバイスの通知設定を確認してください。</string>
+    <string name="language">言語</string>
+    <string name="terms">利用規約</string>
+    <string name="privacy">プライバシー</string>
+    <string name="about_us">私たちについて</string>
+    <string name="about_game_description">
+        「秘密のゲーム」は、クラシックな「真実か挑戦か」の現代的なアレンジです。友達との集まりをより楽しく、驚きに満ちた、忘れられない時間にします。このアプリがあれば、何気ない集まりも笑いと感動にあふれた体験へと変わります。シンプルなデザイン、使いやすいインターフェース、オリジナルな質問とチャレンジの組み合わせが特徴です。あらゆる年齢層にアピールし、社交的な絆を深める手助けにもなります。開発者：Mehmet KARADANA。アプリの内容とユーザー体験は常に改善されており、皆さんのフィードバックも歓迎しています。さあ、楽しい時間の始まりです。秘密を明かしましょう！
+    </string>
+    <string name="contact">お問い合わせ</string>
+    <string name="wheel_of_fortune">運命のホイール</string>
+    <string name="go_to_sea">海に行く</string>
+    <string name="go_to_village">村に行く</string>
+    <string name="climb_mountain">山に登る</string>
+    <string name="task">タスク</string>
+    <string name="tasks">タスク一覧</string>
+    <string name="task1">タスク1</string>
+    <string name="task2">タスク2</string>
+    <string name="task3">タスク3</string>
+    <string name="add_task">タスクを追加</string>
+    <string name="winner">勝者</string>
+    <string name="wheel_random_truth_dare">ホイールでランダムな真実または挑戦</string>
+    <string name="each_player_plays_in_turn">プレイヤーは順番にプレイします。</string>
+    <string name="wheel_for_selection">タスクまたはプレイヤーを選ぶためにホイールを使ってください。</string>
+</resources>

@@ -50,8 +50,12 @@ fun LanguageScreen(navController: NavController) {
         Language("Türkçe", R.drawable.turkey, "tr"),
         Language("English", R.drawable.en_flag, "en"),
         Language("Français", R.drawable.fr_flag, "fr"),
-        Language("Espanol", R.drawable.fr_flag, "es")
-
+        Language("Español", R.drawable.es, "es"),
+        Language("Français", R.drawable.german, "de"),
+        Language("Русский", R.drawable.russia, "ru"),
+        Language("हिन्दी", R.drawable.india, "hi"),
+        Language("ह日本語 (Nihongo)", R.drawable.japan, "ja"),
+        Language("한국어 (Hangugeo)", R.drawable.south_korea, "ko"),
     )
 
     Scaffold(modifier = Modifier, topBar = {
@@ -68,7 +72,6 @@ fun LanguageScreen(navController: NavController) {
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Welcome Text
                 Text(
                     text = context.resources.getString(R.string.app_name),
                     modifier = Modifier.padding(bottom = 16.dp), color = Color.White

@@ -12,7 +12,7 @@ object LanguageManager {
         sharedPreferences.edit().putString(LANGUAGE_KEY, language).apply()
     }
     fun getLanguage(context: Context): String {
-        val supportedLanguages = listOf("en", "tr", "fr","es")
+        val supportedLanguages = listOf("en", "tr", "fr","es","de","ru","hi","ja","ko")
         val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val savedLanguage = sharedPreferences.getString(LANGUAGE_KEY, null)
 
