@@ -3,7 +3,9 @@ package com.mobile.gameofsecret.localization
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.MainActivity
 import com.mobile.gameofsecret.ui.utils.navigateTo
 
@@ -15,6 +17,7 @@ fun changeLocale(context: Context, language: String) {
 
 fun restartApp(context: Context) {
     val intent = Intent(context, MainActivity::class.java)
+    intent.putExtra("navigate_to_languages", true)
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
     context.startActivity(intent)
     if (context is Activity) {

@@ -1,5 +1,6 @@
 package com.mobile.gameofsecret.ui.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -57,10 +58,12 @@ fun LanguageScreen(navController: NavController) {
         Language("ह日本語 (Nihongo)", R.drawable.japan, "ja"),
         Language("한국어 (Hangugeo)", R.drawable.south_korea, "ko"),
     )
-
+    BackHandler {
+        navigateTo(navController,DestinationScreen.Menu.route)
+    }
     Scaffold(modifier = Modifier, topBar = {
         BackHeader(onBackClicked = {
-            navController.popBackStack()
+            navigateTo(navController,DestinationScreen.Settings.route)
         }, headerText = stringResource(R.string.language))
     }) {
         Box(modifier = Modifier.padding(it)) {
@@ -86,13 +89,14 @@ fun LanguageScreen(navController: NavController) {
                             Column(
                                 modifier = Modifier
                                     .wrapContentSize()
-                                    .padding(top=8.dp)
+                                    .padding(top = 8.dp)
                             ) {
-                                LanguageRow(language, isSelected =
-                                language.label == currentLanguage, onClick = {
-                                    changeLocale(context, language.label)
-                                    currentLanguage = language.label
-                                })
+                                LanguageRow(
+                                    language, isSelected =
+                                        language.label == currentLanguage, onClick = {
+                                        changeLocale(context, language.label)
+                                        currentLanguage = language.label
+                                    })
                             }
                         }
                     }

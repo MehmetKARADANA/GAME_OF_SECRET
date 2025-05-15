@@ -67,12 +67,12 @@ fun SettingScreen(
     val isFirstLaunch = settingsViewModel.isFirstLaunch
 
     BackHandler {
-        navController.popBackStack()
+        navigateTo(navController,DestinationScreen.Menu.route)
     }
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         BackHeader(onBackClicked = {
-            navController.popBackStack()
+            navigateTo(navController,DestinationScreen.Menu.route)
         }, headerText = stringResource(R.string.settings))
     }) { it ->
         Surface(modifier = Modifier.padding(it)) {

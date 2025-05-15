@@ -1,5 +1,6 @@
 package com.mobile.gameofsecret.ui.components
 
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -27,6 +29,9 @@ import com.mobile.gameofsecret.ui.theme.background
 
 @Composable
 fun BackHeader(onBackClicked: () -> Unit, headerText: String) {
+    val statusBarColor = background
+    val activity = LocalActivity.current
+    activity?.window?.statusBarColor = statusBarColor.toArgb()
     Row(
         modifier = Modifier
             .fillMaxWidth()

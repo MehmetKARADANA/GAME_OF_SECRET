@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +34,7 @@ import com.mobile.gameofsecret.ui.screens.TermsScreen
 import com.mobile.gameofsecret.ui.screens.TruthOrDareScreen
 import com.mobile.gameofsecret.ui.screens.TruthScreen
 import com.mobile.gameofsecret.ui.theme.GameofsecretTheme
+import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.utils.NotificationPermissionHelper
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
 import com.mobile.gameofsecret.viewmodels.NotificationViewModel
@@ -97,10 +99,7 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-  /*  override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-    }*/
-//android:configChanges="locale|layoutDirection|screenSize|orientation|uiMode"
+
     @Composable
     fun AppNavigation() {
         val gamerViewModel: GamerViewModel by viewModels()
@@ -123,9 +122,20 @@ class MainActivity : BaseActivity() {
                 Log.d("main", "firstlaunch")
             }
         }
+        val shouldNavigateToLanguages = intent.getBooleanExtra("navigate_to_languages", false)
+     /*   LaunchedEffect(shouldNavigateToLanguages) {
+            if (shouldNavigateToLanguages) {
+                navigateTo(navController, DestinationScreen.Languages.route)
+            }
+        }*/
 
-
-        NavHost(navController = navController, startDestination = DestinationScreen.Menu.route) {
+        NavHost(navController = navController,
+            startDestination = if (shouldNavigateToLanguages) {
+                DestinationScreen.Languages.route
+            } else {
+                DestinationScreen.Menu.route
+            }
+            /*DestinationScreen.Menu.route*/) {
 
 
             composable(DestinationScreen.Menu.route) {
