@@ -107,8 +107,8 @@ fun NameWheel(gamerList: List<String>, navController: NavController, onComplete:
             Triangle(
                 color = Color.Red,
                 modifier = Modifier
-                    .width(24.dp)
-                    .height(36.dp)
+                    .width(18.dp)
+                    .height(27.dp)
             )
         }
 

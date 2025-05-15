@@ -38,6 +38,7 @@ class QuizViewModel(application: Application) : BaseViewModel(application) {
         viewModelScope.launch {
             try {
                 val currentLanguage = LanguageManager.getLanguage(getApplication())
+                val randomId = (0..200).shuffled().take(20)
 
                 val snapshot = db.collection(TRUTH).get().await()
 

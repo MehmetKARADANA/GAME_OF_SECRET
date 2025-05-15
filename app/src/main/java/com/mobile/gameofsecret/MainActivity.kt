@@ -110,7 +110,6 @@ class MainActivity : BaseActivity() {
         val navController = rememberNavController()
 
         var showOnboarding by remember { mutableStateOf(true) }
-
         if (settingsViewModel.isFirstLaunch) {
             //init default topic aboneliği ve first launch preferencei yönetiyor
             Log.d("settingsViewModel", "init running")
