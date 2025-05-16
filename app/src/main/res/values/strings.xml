@@ -43,6 +43,7 @@
     <string name="wheel_random_truth_dare">Random Truth or Dare with the Wheel</string>
     <string name="each_player_plays_in_turn">Each player takes their turn to play.</string>
     <string name="wheel_for_selection">Use the wheel to select a task or a person.</string>
+    <string name="loading_question">Loading question...</string>
 
 
 </resources>

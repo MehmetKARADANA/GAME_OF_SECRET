@@ -56,12 +56,17 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
             repeatMode = RepeatMode.Reverse
         ), label = "Truth"
     )
+    val isNullQuestion= stringResource(R.string.loading_question)
     val dareQuestion by quizViewModel.dareQuestion.collectAsState()
     BackHandler {
             navigateTo(navController = navController, fromScreen)
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize()) {
+    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+        BackHeader(onBackClicked = {
+            navigateTo(navController, fromScreen)
+        }, stringResource(R.string.dare))
+    }) {
         Surface(
             modifier = Modifier
                 .fillMaxSize()
@@ -83,9 +88,6 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        BackHeader(onBackClicked = {
-                            navigateTo(navController, fromScreen)
-                        }, stringResource(R.string.dare))
 
                         Box(
                             contentAlignment = Alignment.Center,
@@ -111,7 +113,7 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
                         )
                         Text(
                             modifier = Modifier.padding(16.dp),
-                            text = "${dareQuestion?.question}",
+                            text = "${dareQuestion?.question}" ?: isNullQuestion,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Normal,
                             color = Color.White,

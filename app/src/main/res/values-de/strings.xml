@@ -43,4 +43,6 @@
     <string name="wheel_random_truth_dare">Zufällige Wahrheit oder Pflicht mit dem Rad</string>
     <string name="each_player_plays_in_turn">Jeder Spieler ist der Reihe nach an der Reihe.</string>
     <string name="wheel_for_selection">Verwende das Rad, um eine Aufgabe oder eine Person auszuwählen.</string>
+    <string name="loading_question">Frage wird geladen…</string>
+
 </resources>

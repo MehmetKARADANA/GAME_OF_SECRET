@@ -122,11 +122,7 @@ class MainActivity : BaseActivity() {
             }
         }
         val shouldNavigateToLanguages = intent.getBooleanExtra("navigate_to_languages", false)
-     /*   LaunchedEffect(shouldNavigateToLanguages) {
-            if (shouldNavigateToLanguages) {
-                navigateTo(navController, DestinationScreen.Languages.route)
-            }
-        }*/
+
 
         NavHost(navController = navController,
             startDestination = if (shouldNavigateToLanguages) {

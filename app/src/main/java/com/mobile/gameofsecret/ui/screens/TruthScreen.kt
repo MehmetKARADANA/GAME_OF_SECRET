@@ -64,12 +64,19 @@ fun TruthScreen(
             repeatMode = RepeatMode.Reverse
         ), label = "Truth"
     )
+    val isNullQuestion= stringResource(R.string.loading_question)
+
     val truthQuestion by quizViewModel.truthQuestion.collectAsState()
 
     BackHandler {
         navigateTo(navController = navController, route = fromScreen)
     }
-    Scaffold(modifier = Modifier.fillMaxSize()) {
+    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+        BackHeader(onBackClicked = {
+            navigateTo(navController, fromScreen)
+        }, headerText = stringResource(R.string.truth))
+
+    }) {
         Surface(
             modifier = Modifier
                 .fillMaxSize()
@@ -92,10 +99,6 @@ fun TruthScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        BackHeader(onBackClicked = {
-                            navigateTo(navController, fromScreen)
-                        }, headerText = stringResource(R.string.truth))
-
                         Box(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier
@@ -120,7 +123,7 @@ fun TruthScreen(
                         )
                         Text(
                             modifier = Modifier.padding(16.dp),
-                            text = "${truthQuestion?.question}",
+                            text = "${truthQuestion?.question}" ?: isNullQuestion,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Normal,
                             color = Color.White,

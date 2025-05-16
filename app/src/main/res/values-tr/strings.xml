@@ -43,5 +43,6 @@
     <string name="wheel_random_truth_dare">Çarkıfelek ile Rastgele Doğruluk Cesaretlilik</string>
     <string name="each_player_plays_in_turn">Her oyuncu sırayla oynar.</string>
     <string name="wheel_for_selection">Görev veya kişi seçmek için çarkıfelek.</string>
+    <string name="loading_question">Soru yükleniyor…</string>
 
 </resources>

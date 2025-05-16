@@ -43,4 +43,6 @@
     <string name="wheel_random_truth_dare">룰렛으로 무작위 진실 또는 도전</string>
     <string name="each_player_plays_in_turn">각 플레이어가 차례로 플레이합니다.</string>
     <string name="wheel_for_selection">작업 또는 플레이어를 선택하려면 룰렛을 사용하세요.</string>
+    <string name="loading_question">질문을 불러오는 중...</string>
+
 </resources>

@@ -26,6 +26,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,13 +44,14 @@ import com.mobile.gameofsecret.ui.theme.cardcolor2
 import com.mobile.gameofsecret.ui.theme.cardcolor3
 import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: QuizViewModel) {
 
     val fromScreen = DestinationScreen.RandomGame.route
-
+   // val scope= rememberCoroutineScope()
     val infiniteTransition = rememberInfiniteTransition(label = "TruthOrDare")
     val animatedSize by infiniteTransition.animateFloat(
         initialValue = 1f,
@@ -113,6 +115,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                             colors = cardcolor2,
                             onClick = {
                                 //truth
+
                                 quizViewModel.getRandomTruthQuestion()
                                 navigateTo(
                                     navController = navController,
@@ -155,12 +158,14 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                               //  quizViewModel.getRandomDareQuestion()
                                 val randomNumber =(0..10).random()
                                 if(randomNumber %2  == 0){
+
                                     quizViewModel.getRandomTruthQuestion()
                                     navigateTo(
                                         navController = navController,
                                         DestinationScreen.Truth.createRoute(name, fromScreen = fromScreen)
                                     )
                                 }else{
+
                                     quizViewModel.getRandomDareQuestion()
                                     navigateTo(
                                         navController = navController,

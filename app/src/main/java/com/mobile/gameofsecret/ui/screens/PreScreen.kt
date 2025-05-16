@@ -29,6 +29,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,6 +55,7 @@ import com.mobile.gameofsecret.ui.utils.getGameTypeName
 import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
+import kotlinx.coroutines.launch
 
 
 enum class GameTypes(val type: String, val route: String) {
@@ -70,8 +72,8 @@ fun PreScreen(
     quizViewModel: QuizViewModel
 ) {
 
-    /*quizViewModel.truthQuestion.collectAsState()
-    quizViewModel.dareQuestion.collectAsState()*/
+    val scope = rememberCoroutineScope()
+
     LaunchedEffect(Unit) {
         // gamerViewModel.getGamerList()
     }
@@ -85,6 +87,10 @@ fun PreScreen(
             .background(background), floatingActionButton = {
             FAB(onClick = {
                 navigateTo(navController, selectedGameType.value)
+                scope.launch {
+                    quizViewModel.getRandomDareQuestion()
+                    quizViewModel.getRandomTruthQuestion()
+                }
             }, text = stringResource(R.string.play))
         }, floatingActionButtonPosition = FabPosition.Center
     ) {

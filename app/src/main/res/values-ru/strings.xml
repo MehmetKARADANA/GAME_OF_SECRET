@@ -43,4 +43,7 @@
     <string name="wheel_random_truth_dare">Случайная Правда или Действие с колесом</string>
     <string name="each_player_plays_in_turn">Каждый игрок играет по очереди.</string>
     <string name="wheel_for_selection">Используйте колесо, чтобы выбрать задание или игрока.</string>
+    <string name="loading_question">Загрузка вопроса…</string>
+
 </resources>
+
