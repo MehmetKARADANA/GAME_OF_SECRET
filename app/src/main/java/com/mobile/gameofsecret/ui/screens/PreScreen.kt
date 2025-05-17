@@ -6,8 +6,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,6 +45,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
+import com.mobile.gameofsecret.data.AdId
+import com.mobile.gameofsecret.ui.components.BannerAdCard
+import com.mobile.gameofsecret.ui.components.BannerAddView
 import com.mobile.gameofsecret.ui.components.FAB
 import com.mobile.gameofsecret.ui.components.Header
 import com.mobile.gameofsecret.ui.components.PreHeader
@@ -94,7 +99,7 @@ fun PreScreen(
             }, text = stringResource(R.string.play))
         }, floatingActionButtonPosition = FabPosition.Center
     ) {
-        Surface(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(background)
@@ -102,7 +107,7 @@ fun PreScreen(
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxSize().weight(1f)
                     .background(background),
             ) {
                 item {
@@ -149,6 +154,8 @@ fun PreScreen(
                     }
                 }
             }
+            BannerAdCard(adUnitId = AdId)
+            Spacer(Modifier.height(100.dp))
         }
     }
 }

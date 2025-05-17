@@ -37,7 +37,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
+import com.mobile.gameofsecret.data.AdId
 import com.mobile.gameofsecret.ui.components.BackHeader
+import com.mobile.gameofsecret.ui.components.BannerAdCard
 import com.mobile.gameofsecret.ui.components.LargeButton
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
@@ -67,7 +69,7 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
             navigateTo(navController, fromScreen)
         }, stringResource(R.string.dare))
     }) {
-        Surface(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(background)
@@ -76,6 +78,7 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
+                    .weight(1f)
                     .background(background),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -126,6 +129,8 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
                     }
                 }
             }
+            BannerAdCard(adUnitId = AdId)
+            Spacer(Modifier.height(5.dp))
         }
     }
 }

@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.android.gms.ads.MobileAds
 import com.mobile.gameofsecret.data.roomdb.getDatabase
 import com.mobile.gameofsecret.ui.screens.AboutUsScreen
 import com.mobile.gameofsecret.ui.screens.DareScreen
@@ -91,6 +92,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
+        MobileAds.initialize(this)
         notificationPermissionHelper = NotificationPermissionHelper(this)
         notificationPermissionHelper.requestNotificationPermission()
         setContent {

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,7 +34,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
+import com.mobile.gameofsecret.data.AdId
 import com.mobile.gameofsecret.ui.components.BackHeader
+import com.mobile.gameofsecret.ui.components.BannerAdCard
 import com.mobile.gameofsecret.ui.components.ButtonText
 import com.mobile.gameofsecret.ui.components.LargeButton
 import com.mobile.gameofsecret.ui.theme.background
@@ -75,13 +78,13 @@ fun SettingScreen(
             navigateTo(navController,DestinationScreen.Menu.route)
         }, headerText = stringResource(R.string.settings))
     }) { it ->
-        Surface(modifier = Modifier.padding(it)) {
+        Column(modifier = Modifier.background(background).padding(it)) {
 
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(background)
-                       // .weight(1f)
+                        .weight(1f)
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
@@ -124,6 +127,8 @@ fun SettingScreen(
                     }
 
                 }
+            BannerAdCard(adUnitId = AdId)
+            Spacer(modifier = Modifier.height(5.dp))
         }
     }
 }

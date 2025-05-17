@@ -37,6 +37,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
+import com.mobile.gameofsecret.data.AdId
+import com.mobile.gameofsecret.ui.components.BannerAdCard
 import com.mobile.gameofsecret.ui.components.FAB
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
@@ -66,7 +68,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
             .fillMaxSize()
             .background(background)
     ) {
-        Surface(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(background)
@@ -74,8 +76,10 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(background), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxSize().weight(1f)
+                    .background(background),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
                 item {
@@ -186,6 +190,8 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                     }
                 }
             }
+            BannerAdCard(adUnitId = AdId)
+            Spacer(Modifier.height(5.dp))
         }
     }
 }

@@ -39,7 +39,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
+import com.mobile.gameofsecret.data.AdId
 import com.mobile.gameofsecret.ui.components.BackHeader
+import com.mobile.gameofsecret.ui.components.BannerAdCard
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.cardcolor2
@@ -74,7 +76,7 @@ fun SerialGameScreen(
             .fillMaxSize()
             .background(background)
     ) {
-        Surface(
+        Column (
             modifier = Modifier
                 .fillMaxSize()
                 .background(background)
@@ -83,6 +85,7 @@ fun SerialGameScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .weight(1f)
                     .background(background),// verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -224,6 +227,8 @@ fun SerialGameScreen(
 
                 }
             }
+            BannerAdCard(adUnitId = AdId)
+            Spacer(Modifier.height(5.dp))
         }
     }
 }

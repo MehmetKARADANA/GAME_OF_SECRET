@@ -38,7 +38,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
+import com.mobile.gameofsecret.data.AdId
 import com.mobile.gameofsecret.ui.components.BackHeader
+import com.mobile.gameofsecret.ui.components.BannerAdCard
 import com.mobile.gameofsecret.ui.components.Header
 import com.mobile.gameofsecret.ui.components.LargeButton
 import com.mobile.gameofsecret.ui.theme.background
@@ -77,7 +79,7 @@ fun TruthScreen(
         }, headerText = stringResource(R.string.truth))
 
     }) {
-        Surface(
+        Column (
             modifier = Modifier
                 .fillMaxSize()
                 .background(background)
@@ -87,6 +89,7 @@ fun TruthScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
+                    .weight(1f)
                     .background(background),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -137,6 +140,8 @@ fun TruthScreen(
                     }
                 }
             }
+            BannerAdCard(adUnitId = AdId)
+            Spacer(Modifier.height(5.dp))
 
         }
     }
