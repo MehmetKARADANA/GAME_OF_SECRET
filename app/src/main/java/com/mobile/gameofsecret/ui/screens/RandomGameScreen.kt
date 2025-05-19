@@ -3,9 +3,12 @@ package com.mobile.gameofsecret.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -28,17 +31,18 @@ import com.mobile.gameofsecret.viewmodels.GamerViewModel
 
 
 @Composable
-fun RandomGameScreen(gamerViewModel: GamerViewModel,navController: NavController) {
+fun RandomGameScreen(gamerViewModel: GamerViewModel, navController: NavController) {
 
     val gamerList by gamerViewModel.gamerList.collectAsState()
     val names = gamerList.map { it.name }
-LaunchedEffect(Unit) {
-    //gamerViewModel.getGamerList()
-}
+    LaunchedEffect(Unit) {
+        //gamerViewModel.getGamerList()
+    }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(background), topBar = {
+            .background(background)
+            .padding(WindowInsets.systemBars.asPaddingValues()), topBar = {
             BackHeader(onBackClicked = {
                 navigateTo(navController, route = DestinationScreen.Pre.route)
             }, headerText = stringResource(R.string.random))
@@ -50,9 +54,14 @@ LaunchedEffect(Unit) {
                 .background(background)
                 .padding(it)
         ) {
-            Column(modifier = Modifier.fillMaxSize().weight(1f)) {
-                NameWheel(names, navController = navController, onComplete = {selectedName->
-                    navigateTo(navController, DestinationScreen.TruthOrDare.createRoute(selectedName))
+            Column(modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)) {
+                NameWheel(names, navController = navController, onComplete = { selectedName ->
+                    navigateTo(
+                        navController,
+                        DestinationScreen.TruthOrDare.createRoute(selectedName)
+                    )
                 })
             }
             BannerAdCard(adUnitId = AdId)

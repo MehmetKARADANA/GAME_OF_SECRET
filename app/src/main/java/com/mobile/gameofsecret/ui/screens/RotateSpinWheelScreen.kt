@@ -3,9 +3,12 @@ package com.mobile.gameofsecret.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -28,24 +31,34 @@ import com.mobile.gameofsecret.viewmodels.TaskViewModel
 @Composable
 fun RotateSpinWheelScreen(taskViewModel: TaskViewModel, navController: NavController) {
     val taskList by taskViewModel.taskList.collectAsState()
-    val tasks= taskList.map { it.task }
+    val tasks = taskList.map { it.task }
 
     LaunchedEffect(Unit) {
 
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        BackHeader(
-            onBackClicked = {
-                navController.popBackStack()
-            }, headerText = stringResource(
-                R.string.spin_the_wheel
+    Scaffold(
+        modifier = Modifier
+            .background(background)
+            .fillMaxSize()
+            .padding(WindowInsets.systemBars.asPaddingValues()),
+        topBar = {
+            BackHeader(
+                onBackClicked = {
+                    navController.popBackStack()
+                }, headerText = stringResource(
+                    R.string.spin_the_wheel
+                )
             )
-        )
-    }) {
-        Column (modifier = Modifier.padding(it).background(background).fillMaxSize()) {
-            Column(modifier = Modifier.fillMaxSize().weight(1f)) {
-                NameWheel(tasks, navController = navController, onComplete ={} )
+        }) {
+        Column(modifier = Modifier
+            .background(background)
+            .fillMaxSize()
+            .padding(it)) {
+            Column(modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)) {
+                NameWheel(tasks, navController = navController, onComplete = {})
             }
             BannerAdCard(adUnitId = AdId)
             Spacer(modifier = Modifier.height(5.dp))

@@ -10,11 +10,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
@@ -89,7 +93,10 @@ fun PreScreen(
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(background), floatingActionButton = {
+            .background(background)
+            .padding(WindowInsets.systemBars.asPaddingValues()), topBar = {
+            PreHeader(navController, stringResource(R.string.app_name))
+        }, floatingActionButton = {
             FAB(onClick = {
                 navigateTo(navController, selectedGameType.value)
                 scope.launch {
@@ -107,12 +114,10 @@ fun PreScreen(
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize().weight(1f)
+                    .fillMaxSize()
+                    .weight(1f)
                     .background(background),
             ) {
-                item {
-                    PreHeader(navController, stringResource(R.string.app_name))
-                }
                 item {
                     Column(modifier = Modifier.padding(start = 4.dp, end = 4.dp)) {
                         for (type in GameTypes.entries) {
@@ -136,15 +141,15 @@ fun PreScreen(
                                 }
                             ) {
                                 val typeName = getGameTypeName(type)
-                                val typeDesc= getGameTypeDescription(type)
-                                val typeImage= getGameTypeImage(type)
+                                val typeDesc = getGameTypeDescription(type)
+                                val typeImage = getGameTypeImage(type)
                                 Row(modifier = Modifier.padding(8.dp)) {
                                     Image(
                                         painter = painterResource(typeImage),
                                         contentDescription = typeName,
                                         modifier = Modifier.size(90.dp)
                                     )
-                                    Column (modifier = Modifier.padding(8.dp)){
+                                    Column(modifier = Modifier.padding(8.dp)) {
                                         Text(text = typeName, fontWeight = FontWeight.W600)
                                         Text(text = typeDesc, fontWeight = FontWeight.W200)
                                     }

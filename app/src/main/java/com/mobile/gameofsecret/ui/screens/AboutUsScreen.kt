@@ -2,9 +2,12 @@ package com.mobile.gameofsecret.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -29,20 +32,31 @@ import com.mobile.gameofsecret.ui.utils.navigateTo
 
 @Composable
 fun AboutUsScreen(navController: NavController) {
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = { BackHeader(
-        headerText = stringResource(R.string.about_us), onBackClicked = {
-            navController.popBackStack()
-        }
-    ) }) {
-        Column (modifier = Modifier
+    Scaffold(
+        modifier = Modifier
             .fillMaxSize()
             .background(background)
-            .padding(it)) {
-            LazyColumn(modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
+            .padding(WindowInsets.systemBars.asPaddingValues()),
+        topBar = {
+            BackHeader(
+                headerText = stringResource(R.string.about_us), onBackClicked = {
+                    navController.popBackStack()
+                }
+            )
+        }) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
                 .background(background)
-                .padding(16.dp)) {
+                .padding(it)
+        ) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .background(background)
+                    .padding(16.dp)
+            ) {
                 item {
                     // About Us Title (Bold)
                     Text(
@@ -53,13 +67,21 @@ fun AboutUsScreen(navController: NavController) {
                         color = Color.White
                     )
                 }
-                item{
-                  Text(
-                      stringResource(R.string.about_game_description) ,color = Color.White, textAlign = TextAlign.Left)
+                item {
+                    Text(
+                        stringResource(R.string.about_game_description),
+                        color = Color.White,
+                        textAlign = TextAlign.Left
+                    )
                 }
                 item {
                     SelectionContainer {
-                        Text(stringResource(R.string.contact)+ ": "+ MAIL,  modifier = Modifier.padding(bottom = 8.dp), color = Color.White, textAlign = TextAlign.Justify)
+                        Text(
+                            stringResource(R.string.contact) + ": " + MAIL,
+                            modifier = Modifier.padding(bottom = 8.dp),
+                            color = Color.White,
+                            textAlign = TextAlign.Justify
+                        )
                     }
                 }
             }

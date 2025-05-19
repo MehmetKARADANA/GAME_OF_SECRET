@@ -7,11 +7,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
@@ -53,7 +56,7 @@ import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.TaskViewModel
 
 @Composable
-fun SpinWheelScreen(navController: NavController,taskViewModel: TaskViewModel) {
+fun SpinWheelScreen(navController: NavController, taskViewModel: TaskViewModel) {
     val field1 = stringResource(R.string.task1)
     val field2 = stringResource(R.string.task2)
     val field3 = stringResource(R.string.task3)
@@ -61,28 +64,37 @@ fun SpinWheelScreen(navController: NavController,taskViewModel: TaskViewModel) {
     val dbList by taskViewModel.taskList.collectAsState(initial = emptyList())
 
     val fields = remember(dbList) {
-        val initialList = if (dbList.isNotEmpty()) dbList.map { it.task } else listOf(field1, field2,field3)
+        val initialList =
+            if (dbList.isNotEmpty()) dbList.map { it.task } else listOf(field1, field2, field3)
         mutableStateListOf(*initialList.toTypedArray())
     }
-  /*  var fields = remember {
-        mutableStateListOf(field1, field2, field3)
-    }*/
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        BackHeader(onBackClicked = {
-            navController.popBackStack()
-        }, headerText = stringResource(R.string.wheel_of_fortune))
-    }, floatingActionButton = {
-        FAB(onClick = {
-            taskViewModel.resetTask(fields, onComplete = {
-                navigateTo(navController,DestinationScreen.RotateSpinWheel.route)
-            })
-        }, text = stringResource(R.string.spin_the_wheel))
-    }, floatingActionButtonPosition = FabPosition.Center) {
+    /*  var fields = remember {
+          mutableStateListOf(field1, field2, field3)
+      }*/
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(background)
+            .padding(WindowInsets.systemBars.asPaddingValues()),
+        topBar = {
+            BackHeader(onBackClicked = {
+                navController.popBackStack()
+            }, headerText = stringResource(R.string.wheel_of_fortune))
+        },
+        floatingActionButton = {
+            FAB(onClick = {
+                taskViewModel.resetTask(fields, onComplete = {
+                    navigateTo(navController, DestinationScreen.RotateSpinWheel.route)
+                })
+            }, text = stringResource(R.string.spin_the_wheel))
+        },
+        floatingActionButtonPosition = FabPosition.Center
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
                 .background(background)
+                .padding(it)
         ) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 item {

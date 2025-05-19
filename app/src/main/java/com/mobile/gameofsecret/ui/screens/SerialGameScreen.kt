@@ -13,10 +13,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -75,6 +78,15 @@ fun SerialGameScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(background)
+            .padding(WindowInsets.systemBars.asPaddingValues()),
+        topBar = {
+            BackHeader(onBackClicked = {
+                navigateTo(
+                    navController,
+                    DestinationScreen.Pre.route
+                )
+            }, headerText = stringResource(R.string.serial))
+        }
     ) {
         Column (
             modifier = Modifier
@@ -89,12 +101,6 @@ fun SerialGameScreen(
                     .background(background),// verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                BackHeader(onBackClicked = {
-                    navigateTo(
-                        navController,
-                        DestinationScreen.Pre.route
-                    )
-                }, headerText = stringResource(R.string.serial))
 
                 Column(
                     modifier = Modifier

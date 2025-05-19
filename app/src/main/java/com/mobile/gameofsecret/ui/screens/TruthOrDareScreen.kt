@@ -12,10 +12,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
@@ -50,10 +53,10 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: QuizViewModel) {
+fun TruthOrDareScreen(name: String, navController: NavController, quizViewModel: QuizViewModel) {
 
     val fromScreen = DestinationScreen.RandomGame.route
-   // val scope= rememberCoroutineScope()
+    // val scope= rememberCoroutineScope()
     val infiniteTransition = rememberInfiniteTransition(label = "TruthOrDare")
     val animatedSize by infiniteTransition.animateFloat(
         initialValue = 1f,
@@ -67,6 +70,10 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
         modifier = Modifier
             .fillMaxSize()
             .background(background)
+            .padding(WindowInsets.systemBars.asPaddingValues()),
+        topBar = {
+
+        }
     ) {
         Column(
             modifier = Modifier
@@ -76,7 +83,8 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize().weight(1f)
+                    .fillMaxSize()
+                    .weight(1f)
                     .background(background),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -91,7 +99,7 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = stringResource(R.string.your_turn)+"!",
+                            text = stringResource(R.string.your_turn) + "!",
                             fontSize = 32.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White
@@ -123,7 +131,10 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                                 quizViewModel.getRandomTruthQuestion()
                                 navigateTo(
                                     navController = navController,
-                                    DestinationScreen.Truth.createRoute(name, fromScreen = fromScreen)
+                                    DestinationScreen.Truth.createRoute(
+                                        name,
+                                        fromScreen = fromScreen
+                                    )
                                 )
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
@@ -143,7 +154,10 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                                 quizViewModel.getRandomDareQuestion()
                                 navigateTo(
                                     navController = navController,
-                                    DestinationScreen.Dare.createRoute(name, fromScreen = fromScreen)
+                                    DestinationScreen.Dare.createRoute(
+                                        name,
+                                        fromScreen = fromScreen
+                                    )
                                 )
                             },
                             elevation = CardDefaults.elevatedCardElevation(12.dp),
@@ -159,21 +173,27 @@ fun TruthOrDareScreen(name: String, navController: NavController,quizViewModel: 
                                 .padding(4.dp),
                             colors = cardcolor,
                             onClick = {
-                              //  quizViewModel.getRandomDareQuestion()
-                                val randomNumber =(0..10).random()
-                                if(randomNumber %2  == 0){
+                                //  quizViewModel.getRandomDareQuestion()
+                                val randomNumber = (0..10).random()
+                                if (randomNumber % 2 == 0) {
 
                                     quizViewModel.getRandomTruthQuestion()
                                     navigateTo(
                                         navController = navController,
-                                        DestinationScreen.Truth.createRoute(name, fromScreen = fromScreen)
+                                        DestinationScreen.Truth.createRoute(
+                                            name,
+                                            fromScreen = fromScreen
+                                        )
                                     )
-                                }else{
+                                } else {
 
                                     quizViewModel.getRandomDareQuestion()
                                     navigateTo(
                                         navController = navController,
-                                        DestinationScreen.Dare.createRoute(name, fromScreen = fromScreen)
+                                        DestinationScreen.Dare.createRoute(
+                                            name,
+                                            fromScreen = fromScreen
+                                        )
                                     )
                                 }
 

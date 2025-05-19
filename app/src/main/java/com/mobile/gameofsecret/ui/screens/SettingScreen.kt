@@ -7,10 +7,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -70,63 +73,77 @@ fun SettingScreen(
     val isFirstLaunch = settingsViewModel.isFirstLaunch
 
     BackHandler {
-        navigateTo(navController,DestinationScreen.Menu.route)
+        navigateTo(navController, DestinationScreen.Menu.route)
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        BackHeader(onBackClicked = {
-            navigateTo(navController,DestinationScreen.Menu.route)
-        }, headerText = stringResource(R.string.settings))
-    }) { it ->
-        Column(modifier = Modifier.background(background).padding(it)) {
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(background)
+            .padding(WindowInsets.systemBars.asPaddingValues()),
+        topBar = {
+            BackHeader(onBackClicked = {
+                navigateTo(navController, DestinationScreen.Menu.route)
+            }, headerText = stringResource(R.string.settings))
+        }) { it ->
+        Column(modifier = Modifier
+            .background(background)
+            .padding(it)) {
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(background)
-                        .weight(1f)
-                        .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("\uD83D\uDD14 "+ stringResource(R.string.notifications), color = Color.White)
-                        Spacer(modifier = Modifier.padding(8.dp))
-
-                        Switch(
-                            checked = isNotificationEnabled,
-                            onCheckedChange = {
-                                settingsViewModel.setNotificationEnabled(
-                                    "gos",
-                                    it
-                                )
-                            },
-                            colors = SwitchDefaults.colors(
-                                checkedThumbColor = Color.White,
-                                checkedTrackColor = switchColor,
-                                uncheckedThumbColor = Color.Gray,
-                                uncheckedTrackColor = Color.DarkGray
-                            ),
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.padding(8.dp))
-                    ButtonText(text =stringResource(R.string.notification_settings) ) { notificationViewModel.openNotificationSettings(context) }
-
-                    Spacer(modifier = Modifier.padding(16.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(background)
+                    .weight(1f)
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        "ℹ\uFE0F "+ stringResource(R.string.notification_info),
-                        modifier = Modifier.padding(8.dp), fontSize = 12.sp, color = Color.Gray
+                        "\uD83D\uDD14 " + stringResource(R.string.notifications),
+                        color = Color.White
                     )
-                    Spacer(modifier = Modifier.padding(16.dp))
-                    LazyColumn {
-                        items(Items.entries) {
-                            LargeButton(text = getSettingName(it)) {
-                                navigateTo(navController, route = it.route)
-                            }
+                    Spacer(modifier = Modifier.padding(8.dp))
+
+                    Switch(
+                        checked = isNotificationEnabled,
+                        onCheckedChange = {
+                            settingsViewModel.setNotificationEnabled(
+                                "gos",
+                                it
+                            )
+                        },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = Color.White,
+                            checkedTrackColor = switchColor,
+                            uncheckedThumbColor = Color.Gray,
+                            uncheckedTrackColor = Color.DarkGray
+                        ),
+                    )
+                }
+
+                Spacer(modifier = Modifier.padding(8.dp))
+                ButtonText(text = stringResource(R.string.notification_settings)) {
+                    notificationViewModel.openNotificationSettings(
+                        context
+                    )
+                }
+
+                Spacer(modifier = Modifier.padding(16.dp))
+                Text(
+                    "ℹ\uFE0F " + stringResource(R.string.notification_info),
+                    modifier = Modifier.padding(8.dp), fontSize = 12.sp, color = Color.Gray
+                )
+                Spacer(modifier = Modifier.padding(16.dp))
+                LazyColumn {
+                    items(Items.entries) {
+                        LargeButton(text = getSettingName(it)) {
+                            navigateTo(navController, route = it.route)
                         }
                     }
-
                 }
+
+            }
             BannerAdCard(adUnitId = AdId)
             Spacer(modifier = Modifier.height(5.dp))
         }

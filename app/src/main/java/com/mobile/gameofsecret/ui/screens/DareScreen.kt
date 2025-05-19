@@ -12,10 +12,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
@@ -47,7 +50,12 @@ import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
 
 @Composable
-fun DareScreen(name: String, navController: NavController, quizViewModel: QuizViewModel,fromScreen : String) {
+fun DareScreen(
+    name: String,
+    navController: NavController,
+    quizViewModel: QuizViewModel,
+    fromScreen: String
+) {
 
     val infiniteTransition = rememberInfiniteTransition(label = "Truth")
     val animatedSize by infiniteTransition.animateFloat(
@@ -58,17 +66,22 @@ fun DareScreen(name: String, navController: NavController, quizViewModel: QuizVi
             repeatMode = RepeatMode.Reverse
         ), label = "Truth"
     )
-    val isNullQuestion= stringResource(R.string.loading_question)
+    val isNullQuestion = stringResource(R.string.loading_question)
     val dareQuestion by quizViewModel.dareQuestion.collectAsState()
     BackHandler {
-            navigateTo(navController = navController, fromScreen)
+        navigateTo(navController = navController, fromScreen)
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        BackHeader(onBackClicked = {
-            navigateTo(navController, fromScreen)
-        }, stringResource(R.string.dare))
-    }) {
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(background)
+            .padding(WindowInsets.systemBars.asPaddingValues()),
+        topBar = {
+            BackHeader(onBackClicked = {
+                navigateTo(navController, fromScreen)
+            }, stringResource(R.string.dare))
+        }) {
         Column(
             modifier = Modifier
                 .fillMaxSize()

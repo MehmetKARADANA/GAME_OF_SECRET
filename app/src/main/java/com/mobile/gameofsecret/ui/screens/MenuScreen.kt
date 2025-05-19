@@ -8,11 +8,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -70,20 +74,25 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
     val dbList by gamerViewModel.gamerList.collectAsState(initial = emptyList())
 
     val userFields = remember(dbList) {
-        val initialList = if (dbList.isNotEmpty()) dbList.map { it.name } else listOf(gamer1, gamer2)
+        val initialList =
+            if (dbList.isNotEmpty()) dbList.map { it.name } else listOf(gamer1, gamer2)
         mutableStateListOf(*initialList.toTypedArray())
     }
 
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(background), topBar = {Header(navController,stringResource(R.string.app_name))}, floatingActionButton = {
+            .background(background)
+            .padding(WindowInsets.systemBars.asPaddingValues()),
+        topBar = { Header(navController, stringResource(R.string.app_name)) },
+        floatingActionButton = {
             FAB(onClick = {
                 gamerViewModel.resetGamers(userFields) {
                     navigateTo(navController, DestinationScreen.Pre.route)
                 }
             }, text = stringResource(R.string.start))
-        }, floatingActionButtonPosition = FabPosition.Center
+        },
+        floatingActionButtonPosition = FabPosition.Center
     ) {
         Surface(
             modifier = Modifier
@@ -94,9 +103,9 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(background)
-                    , horizontalAlignment = Alignment.CenterHorizontally
-                , verticalArrangement = Arrangement.Center
+                    .background(background),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
                 // .padding(12.dp),
             ) {
 
@@ -112,15 +121,15 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
 
                         EmptyWheelOfFortune(
                             sections = listOf(
-                                WheelSection( Color(0xFFE53935)),
-                                WheelSection( Color(0xFF43A047)),
-                                WheelSection( Color(0xFF1E88E5)),
-                                WheelSection( Color(0xFFFFB300)),
-                                WheelSection( Color(0xFF8E24AA)),
-                                WheelSection( Color(0xFF00897B)),
-                                WheelSection( Color(0xFFE53935)),
-                                WheelSection( Color(0xFFFFB300)),
-                                WheelSection( Color(0xFF1E88E5)),
+                                WheelSection(Color(0xFFE53935)),
+                                WheelSection(Color(0xFF43A047)),
+                                WheelSection(Color(0xFF1E88E5)),
+                                WheelSection(Color(0xFFFFB300)),
+                                WheelSection(Color(0xFF8E24AA)),
+                                WheelSection(Color(0xFF00897B)),
+                                WheelSection(Color(0xFFE53935)),
+                                WheelSection(Color(0xFFFFB300)),
+                                WheelSection(Color(0xFF1E88E5)),
                             ),
                             rotationAngle = 0f, // Burada sabit bir açı verilmiş
                             modifier = Modifier.fillMaxSize()
@@ -136,7 +145,7 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        val gamer =stringResource(R.string.gamer)
+                        val gamer = stringResource(R.string.gamer)
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()

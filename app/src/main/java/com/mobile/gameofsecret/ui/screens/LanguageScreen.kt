@@ -7,10 +7,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
@@ -59,14 +62,19 @@ fun LanguageScreen(navController: NavController) {
         Language("한국어 (Hangugeo)", R.drawable.south_korea, "ko"),
     )
     BackHandler {
-        navigateTo(navController,DestinationScreen.Menu.route)
+        navigateTo(navController, DestinationScreen.Menu.route)
     }
-    Scaffold(modifier = Modifier, topBar = {
-        BackHeader(onBackClicked = {
-            navigateTo(navController,DestinationScreen.Settings.route)
-        }, headerText = stringResource(R.string.language))
-    }) {
-        Box(modifier = Modifier.padding(it)) {
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(background)
+            .padding(WindowInsets.systemBars.asPaddingValues()),
+        topBar = {
+            BackHeader(onBackClicked = {
+                navigateTo(navController, DestinationScreen.Settings.route)
+            }, headerText = stringResource(R.string.language))
+        }) {
+        Box(modifier = Modifier.fillMaxSize().background(background).padding(it)) {
             Column(
                 modifier = Modifier
                     .background(background)
