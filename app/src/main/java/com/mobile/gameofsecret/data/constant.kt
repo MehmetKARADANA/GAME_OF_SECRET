@@ -10,3 +10,4 @@ const val MAIL="mehmetkaradanasoftware@gmail.com"
 const val TASKS="tasks"
 const val AdId="ca-app-pub-3940256099942544/6300978111"
 //ca-app-pub-1155449509530334~3814961198
+//ca-app-pub-1155449509530334~3814961198

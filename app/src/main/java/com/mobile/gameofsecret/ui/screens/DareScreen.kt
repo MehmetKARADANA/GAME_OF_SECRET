@@ -38,11 +38,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.data.AdId
 import com.mobile.gameofsecret.ui.components.BackHeader
 import com.mobile.gameofsecret.ui.components.BannerAdCard
+import com.mobile.gameofsecret.ui.components.CountdownTimer
 import com.mobile.gameofsecret.ui.components.LargeButton
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
@@ -135,7 +135,10 @@ fun DareScreen(
                             color = Color.White,
                             textAlign = TextAlign.Center
                         )
-                        Spacer(modifier = Modifier.height(16.dp))
+                        CountdownTimer(60) {
+                            navigateTo(navController = navController, route = fromScreen)
+                        }
+                        Spacer(modifier = Modifier.height(32.dp))
                         LargeButton(text = stringResource(R.string.okey)) {
                             navigateTo(navController = navController, route = fromScreen)
                         }

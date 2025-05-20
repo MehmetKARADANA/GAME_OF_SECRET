@@ -16,7 +16,9 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.mobile.gameofsecret.data.roomdb.getDatabase
 import com.mobile.gameofsecret.ui.components.OnboardingDialog
 import com.mobile.gameofsecret.ui.screens.AboutUsScreen
@@ -92,6 +94,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
         MobileAds.initialize(this)
+
         notificationPermissionHelper = NotificationPermissionHelper(this)
         notificationPermissionHelper.requestNotificationPermission()
         setContent {
@@ -112,7 +115,7 @@ class MainActivity : BaseActivity() {
 
         var showOnboarding by remember { mutableStateOf(true) }
         if (settingsViewModel.isFirstLaunch) {
-            //init default topic aboneliği ve first launch preferencei yönetiyor
+            //initi default topic aboneliği ve first launch preferencei yönetiyor
             Log.d("settingsViewModel", "init running")
             if (showOnboarding) {
                   OnboardingDialog(
