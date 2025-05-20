@@ -43,4 +43,6 @@
     <string name="wheel_random_truth_dare">ホイールでランダムな真実または挑戦</string>
     <string name="each_player_plays_in_turn">プレイヤーは順番にプレイします。</string>
     <string name="wheel_for_selection">タスクまたはプレイヤーを選ぶためにホイールを使ってください。</string>
+    <string name="contineu">次へ</string>
+    <string name="loading_question">質問を読み込んでいます…</string>
 </resources>

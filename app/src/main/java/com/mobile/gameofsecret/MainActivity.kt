@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.MobileAds
 import com.mobile.gameofsecret.data.roomdb.getDatabase
+import com.mobile.gameofsecret.ui.components.OnboardingDialog
 import com.mobile.gameofsecret.ui.screens.AboutUsScreen
 import com.mobile.gameofsecret.ui.screens.DareScreen
 import com.mobile.gameofsecret.ui.screens.InfoScreen
@@ -29,13 +30,11 @@ import com.mobile.gameofsecret.ui.screens.RandomGameScreen
 import com.mobile.gameofsecret.ui.screens.RotateSpinWheelScreen
 import com.mobile.gameofsecret.ui.screens.SerialGameScreen
 import com.mobile.gameofsecret.ui.screens.SettingScreen
-import com.mobile.gameofsecret.ui.screens.SpinBottleScreen
 import com.mobile.gameofsecret.ui.screens.SpinWheelScreen
 import com.mobile.gameofsecret.ui.screens.TermsScreen
 import com.mobile.gameofsecret.ui.screens.TruthOrDareScreen
 import com.mobile.gameofsecret.ui.screens.TruthScreen
 import com.mobile.gameofsecret.ui.theme.GameofsecretTheme
-import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.utils.NotificationPermissionHelper
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
 import com.mobile.gameofsecret.viewmodels.NotificationViewModel
@@ -116,10 +115,10 @@ class MainActivity : BaseActivity() {
             //init default topic aboneliği ve first launch preferencei yönetiyor
             Log.d("settingsViewModel", "init running")
             if (showOnboarding) {
-                /*  OnboardingDialog(
+                  OnboardingDialog(
                       onDismiss = {
                           showOnboarding = false
-                      })*/
+                      })
                 Log.d("main", "firstlaunch")
             }
         }
@@ -131,8 +130,7 @@ class MainActivity : BaseActivity() {
                 DestinationScreen.Languages.route
             } else {
                 DestinationScreen.Menu.route
-            }
-            /*DestinationScreen.Menu.route*/) {
+            }) {
 
 
             composable(DestinationScreen.Menu.route) {

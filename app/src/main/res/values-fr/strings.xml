@@ -44,5 +44,6 @@
     <string name="each_player_plays_in_turn">Chaque joueur joue à tour de rôle.</string>
     <string name="wheel_for_selection">Utilisez la roue pour choisir une tâche ou une personne.</string>
     <string name="loading_question">Chargement de la question…</string>
+    <string name="contineu">Suivant</string>
 
 </resources>

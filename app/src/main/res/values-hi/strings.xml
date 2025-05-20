@@ -44,5 +44,6 @@
     <string name="each_player_plays_in_turn">प्रत्येक खिलाड़ी बारी-बारी से खेलता है।</string>
     <string name="wheel_for_selection">कार्य या खिलाड़ी चुनने के लिए पहिया घुमाएँ।</string>
     <string name="loading_question">प्रश्न लोड हो रहा है…</string>
+    <string name="contineu">आगे</string>
 
 </resources>

@@ -26,7 +26,7 @@ fun BannerAdCard(adUnitId: String) {
     AndroidView(
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.dp),
+            .height(60.dp),
         factory = { context ->
             AdView(context).apply {
                 setAdSize(AdSize.BANNER)
