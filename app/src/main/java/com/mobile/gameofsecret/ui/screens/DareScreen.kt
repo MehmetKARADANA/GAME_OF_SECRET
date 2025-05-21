@@ -129,7 +129,7 @@ fun DareScreen(
                         )
                         Text(
                             modifier = Modifier.padding(16.dp),
-                            text = "${dareQuestion?.question}" ?: isNullQuestion,
+                            text = dareQuestion?.question ?: isNullQuestion,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Normal,
                             color = Color.White,

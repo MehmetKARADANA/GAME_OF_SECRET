@@ -129,7 +129,7 @@ fun TruthScreen(
                         )
                         Text(
                             modifier = Modifier.padding(16.dp),
-                            text = "${truthQuestion?.question}" ?: isNullQuestion,
+                            text = truthQuestion?.question ?: isNullQuestion,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Normal,
                             color = Color.White,
