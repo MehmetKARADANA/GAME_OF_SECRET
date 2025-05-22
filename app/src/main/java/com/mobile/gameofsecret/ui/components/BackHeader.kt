@@ -52,7 +52,7 @@ fun BackHeader(onBackClicked: () -> Unit, headerText: String) {
         )
         Text(
             text = headerText,
-          //  fontWeight = FontWeight.W500,
+            fontWeight = FontWeight.W500,
             //fontFamily = FontFamily.Serif,
             fontSize = 22.sp,
             modifier = Modifier

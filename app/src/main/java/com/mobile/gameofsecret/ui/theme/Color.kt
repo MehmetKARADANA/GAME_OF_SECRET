@@ -27,6 +27,12 @@ val buttonColors1 = ButtonColors(
     disabledContainerColor = Color.Transparent,
     disabledContentColor = Color.Gray
 )
+val buttonColors2 = ButtonColors(
+    containerColor = Color(0xFF2196F3), // Koyu mor-mavi arka plan
+    contentColor = Color.White, // Beyaz yazılar (kontrast için)
+    disabledContentColor = Color(0xFFB7A8C7), // Grileşmiş beyaz içerik (disabled)
+    disabledContainerColor = Color(0xFF2196F3) // Koyu m
+)
 val circleColor =Color(0xFF3A3A55)
     //Color(0xFF3F51B5)
     //Color(0xFF3A3A55)

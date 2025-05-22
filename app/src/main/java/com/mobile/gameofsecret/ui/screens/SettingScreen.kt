@@ -137,7 +137,7 @@ fun SettingScreen(
                 Spacer(modifier = Modifier.padding(16.dp))
                 LazyColumn {
                     items(Items.entries) {
-                        LargeButton(text = getSettingName(it)) {
+                        LargeButton(text = getSettingName(it), colors = buttonColors1) {
                             navigateTo(navController, route = it.route)
                         }
                     }

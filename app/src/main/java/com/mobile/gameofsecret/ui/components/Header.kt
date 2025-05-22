@@ -70,7 +70,7 @@ fun Header(navController: NavController,header: String) {
         Text(
             text = header,
            // fontFamily = FontFamily.Default,
-            fontWeight = FontWeight.W400,
+            fontWeight = FontWeight.W500,
             fontSize = 22.sp,
             color = textColor
         )
@@ -115,7 +115,7 @@ fun PreHeader(navController: NavController,header : String) {
         Text(
             text = header,
            // fontFamily = FontFamily.Serif,
-            fontWeight = FontWeight.W400,
+            fontWeight = FontWeight.W500,
             fontSize = 22.sp,
             color = textColor
         )

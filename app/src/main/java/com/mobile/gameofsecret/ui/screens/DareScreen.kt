@@ -7,6 +7,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -46,6 +49,7 @@ import com.mobile.gameofsecret.ui.components.CountdownTimer
 import com.mobile.gameofsecret.ui.components.LargeButton
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.buttonColors1
+import com.mobile.gameofsecret.ui.theme.buttonColors2
 import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
 
@@ -104,7 +108,8 @@ fun DareScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-
+                        Spacer(modifier = Modifier.height(50.dp))
+                        Image(painter = painterResource(R.drawable.bicep), contentDescription = "truth emoji", modifier = Modifier.size(70.dp))
                         Box(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier
@@ -135,11 +140,15 @@ fun DareScreen(
                             color = Color.White,
                             textAlign = TextAlign.Center
                         )
+                        Spacer(modifier = Modifier.height(16.dp))
                         CountdownTimer(60) {
                             navigateTo(navController = navController, route = fromScreen)
                         }
                         Spacer(modifier = Modifier.height(32.dp))
-                        LargeButton(text = stringResource(R.string.okey)) {
+                        LargeButton(text = stringResource(R.string.okey), colors = buttonColors1) {
+                            navigateTo(navController = navController, route = fromScreen)
+                        }
+                        LargeButton(text = stringResource(R.string.okey), colors = buttonColors2) {
                             navigateTo(navController = navController, route = fromScreen)
                         }
                     }

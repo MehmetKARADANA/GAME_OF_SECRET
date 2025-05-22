@@ -7,6 +7,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,6 +31,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -43,6 +45,8 @@ import com.mobile.gameofsecret.ui.components.BannerAdCard
 import com.mobile.gameofsecret.ui.components.CountdownTimer
 import com.mobile.gameofsecret.ui.components.LargeButton
 import com.mobile.gameofsecret.ui.theme.background
+import com.mobile.gameofsecret.ui.theme.buttonColors1
+import com.mobile.gameofsecret.ui.theme.buttonColors2
 import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
 
@@ -105,6 +109,8 @@ fun TruthScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
+                        Spacer(modifier = Modifier.height(50.dp))
+                        Image(painter = painterResource(R.drawable.think), contentDescription = "truth emoji", modifier = Modifier.size(70.dp))
                         Box(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier
@@ -125,7 +131,7 @@ fun TruthScreen(
                             text = stringResource(R.string.your_question),
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.White
+                            color = Color.LightGray
                         )
                         Text(
                             modifier = Modifier.padding(16.dp),
@@ -135,11 +141,16 @@ fun TruthScreen(
                             color = Color.White,
                             textAlign = TextAlign.Center
                         )
+                        Spacer(modifier = Modifier.height(16.dp))
                         CountdownTimer(duration = 60, onComplete = {
                             navigateTo(navController = navController, route = fromScreen)
                         })
+
                         Spacer(modifier = Modifier.height(32.dp))
-                        LargeButton(text = stringResource(R.string.okey)) {
+                        LargeButton(text = stringResource(R.string.okey), colors = buttonColors1) {
+                            navigateTo(navController = navController, route = fromScreen)
+                        }
+                        LargeButton(text = stringResource(R.string.okey), colors = buttonColors2) {
                             navigateTo(navController = navController, route = fromScreen)
                         }
 
