@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -55,10 +56,11 @@ fun RotateSpinWheelScreen(taskViewModel: TaskViewModel, navController: NavContro
             .background(background)
             .fillMaxSize()
             .padding(it)) {
-            Column(modifier = Modifier
+            LazyColumn(modifier = Modifier
                 .fillMaxSize()
-                .weight(1f)) {
+                .weight(1f)) {item {
                 NameWheel(tasks, navController = navController, onComplete = {})
+            }
             }
             BannerAdCard(adUnitId = AdId)
             Spacer(modifier = Modifier.height(5.dp))

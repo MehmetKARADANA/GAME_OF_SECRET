@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -54,15 +55,19 @@ fun RandomGameScreen(gamerViewModel: GamerViewModel, navController: NavControlle
                 .background(background)
                 .padding(it)
         ) {
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .weight(1f)) {
-                NameWheel(names, navController = navController, onComplete = { selectedName ->
-                    navigateTo(
-                        navController,
-                        DestinationScreen.TruthOrDare.createRoute(selectedName)
-                    )
-                })
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+            ) {
+                item {
+                    NameWheel(names, navController = navController, onComplete = { selectedName ->
+                        navigateTo(
+                            navController,
+                            DestinationScreen.TruthOrDare.createRoute(selectedName)
+                        )
+                    })
+                }
             }
             BannerAdCard(adUnitId = AdId)
             Spacer(modifier = Modifier.height(5.dp))
