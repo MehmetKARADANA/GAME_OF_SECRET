@@ -145,10 +145,10 @@ fun DareScreen(
                             navigateTo(navController = navController, route = fromScreen)
                         }
                         Spacer(modifier = Modifier.height(32.dp))
-                        LargeButton(text = stringResource(R.string.okey), colors = buttonColors1) {
+                        LargeButton(text = stringResource(R.string.okey) + " +1", colors = buttonColors1) {
                             navigateTo(navController = navController, route = fromScreen)
                         }
-                        LargeButton(text = stringResource(R.string.okey), colors = buttonColors2) {
+                        LargeButton(text = stringResource(R.string.okey)+ " -1", colors = buttonColors2) {
                             navigateTo(navController = navController, route = fromScreen)
                         }
                     }

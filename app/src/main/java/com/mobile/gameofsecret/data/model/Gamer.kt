@@ -8,6 +8,9 @@ import java.io.Serializable
 @Entity
 data class Gamer(
     var name: String,
+    var truth: Int? = 0,
+    var dare: Int? = 0,
+    var downVote: Int? = 0
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id = 0
