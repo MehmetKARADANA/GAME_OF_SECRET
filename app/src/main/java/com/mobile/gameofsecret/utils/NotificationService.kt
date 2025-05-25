@@ -104,7 +104,7 @@ class NotificationService : FirebaseMessagingService() {
         val notificationId = System.currentTimeMillis().toInt() // Benzersiz ID
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.information)
+            .setSmallIcon(R.drawable.app_icon)
             .setContentTitle(title)
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
