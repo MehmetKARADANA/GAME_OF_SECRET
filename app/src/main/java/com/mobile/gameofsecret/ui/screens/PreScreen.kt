@@ -68,10 +68,10 @@ import kotlinx.coroutines.launch
 
 
 enum class GameTypes(val type: String, val route: String) {
-
     RANDOM(type = "Random", route = DestinationScreen.RandomGame.route),
     SERIAL(type = "Serial", route = DestinationScreen.SerialGame.route),
-    SPIN(type = "Spin Wheel", route = DestinationScreen.SpinWheel.route)
+    SPIN(type = "Spin Wheel", route = DestinationScreen.SpinWheel.route),
+    GROUP(type = "Group Game", route = DestinationScreen.CreateGroupGame.route)
 }
 
 @Composable

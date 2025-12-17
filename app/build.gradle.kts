@@ -15,8 +15,8 @@ android {
         applicationId = "com.mobile.gameofsecret"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 4
+        versionName = "1.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -61,6 +61,12 @@ dependencies {
     implementation("androidx.room:room-paging:$room_version")
     val nav_version = "2.8.9"
     implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    // ZXing for QR Code generation
+    implementation("com.google.zxing:core:3.5.2")
+
+    // Lottie for animations
+    implementation("com.airbnb.android:lottie-compose:6.4.0")
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.androidx.core.ktx)

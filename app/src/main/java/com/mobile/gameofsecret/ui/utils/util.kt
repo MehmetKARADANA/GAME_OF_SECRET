@@ -37,6 +37,7 @@ fun getGameTypeName(gameType: GameTypes): String {
         GameTypes.RANDOM -> stringResource(R.string.random)
         GameTypes.SERIAL -> stringResource(R.string.serial)
         GameTypes.SPIN -> stringResource(R.string.wheel_of_fortune)
+        GameTypes.GROUP -> stringResource(R.string.group_game)
     }
 }
 
@@ -47,6 +48,7 @@ fun getGameTypeDescription(gameType: GameTypes): String {
         GameTypes.RANDOM -> stringResource(R.string.wheel_random_truth_dare)
         GameTypes.SERIAL -> stringResource(R.string.each_player_plays_in_turn)
         GameTypes.SPIN -> stringResource(R.string.wheel_for_selection)
+        GameTypes.GROUP -> stringResource(R.string.group_game_description)
     }
 }
 
@@ -56,6 +58,7 @@ fun getGameTypeImage(gameType: GameTypes): Int{
         GameTypes.RANDOM ->R.drawable.fortunewheel
         GameTypes.SERIAL ->R.drawable.serial_game
         GameTypes.SPIN -> R.drawable.fortunewheel
+        GameTypes.GROUP -> R.drawable.group_game
     }
 }
 

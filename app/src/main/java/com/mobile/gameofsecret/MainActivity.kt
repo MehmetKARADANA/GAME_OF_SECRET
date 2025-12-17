@@ -16,9 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.RequestConfiguration
 import com.mobile.gameofsecret.data.roomdb.getDatabase
 import com.mobile.gameofsecret.ui.components.OnboardingDialog
 import com.mobile.gameofsecret.ui.screens.AboutUsScreen
@@ -36,9 +34,15 @@ import com.mobile.gameofsecret.ui.screens.SpinWheelScreen
 import com.mobile.gameofsecret.ui.screens.TermsScreen
 import com.mobile.gameofsecret.ui.screens.TruthOrDareScreen
 import com.mobile.gameofsecret.ui.screens.TruthScreen
+import com.mobile.gameofsecret.ui.screens.CreateGroupGameScreen
+import com.mobile.gameofsecret.ui.screens.JoinGroupGameScreen
+import com.mobile.gameofsecret.ui.screens.AddQuestionsScreen
+import com.mobile.gameofsecret.ui.screens.WaitingRoomScreen
+import com.mobile.gameofsecret.ui.screens.GroupGamePlayScreen
 import com.mobile.gameofsecret.ui.theme.GameofsecretTheme
 import com.mobile.gameofsecret.utils.NotificationPermissionHelper
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
+import com.mobile.gameofsecret.viewmodels.GroupGameViewModel
 import com.mobile.gameofsecret.viewmodels.NotificationViewModel
 import com.mobile.gameofsecret.viewmodels.QuizViewModel
 import com.mobile.gameofsecret.viewmodels.SettingsViewModel
@@ -72,6 +76,21 @@ sealed class DestinationScreen(var route: String) {
     data object AboutUs : DestinationScreen("about")
     data object RotateSpinWheel : DestinationScreen("rotate_spin")
     data object Info : DestinationScreen("info")
+
+    // Grup oyunu ekranları
+    data object CreateGroupGame : DestinationScreen("create_group_game")
+    data object JoinGroupGame : DestinationScreen("join_group_game/{gameCode}") {
+        fun createRoute(gameCode: String? = null) = if (gameCode != null) "join_group_game/$gameCode" else "join_group_game/none"
+    }
+    data object AddQuestions : DestinationScreen("add_questions/{gameCode}") {
+        fun createRoute(gameCode: String) = "add_questions/$gameCode"
+    }
+    data object WaitingRoom : DestinationScreen("waiting_room/{gameCode}") {
+        fun createRoute(gameCode: String) = "waiting_room/$gameCode"
+    }
+    data object GroupGamePlay : DestinationScreen("group_game_play/{gameCode}") {
+        fun createRoute(gameCode: String) = "group_game_play/$gameCode"
+    }
 }
 
 class GosApp : Application() {
@@ -90,16 +109,48 @@ class MainActivity : BaseActivity() {
 
     private lateinit var notificationPermissionHelper: NotificationPermissionHelper
 
+    // Deep link'ten gelen oyun kodu
+    private var deepLinkGameCode: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
         MobileAds.initialize(this)
+
+        // Deep link kontrolü
+        handleDeepLink()
 
         notificationPermissionHelper = NotificationPermissionHelper(this)
         notificationPermissionHelper.requestNotificationPermission()
         setContent {
             GameofsecretTheme {
                 AppNavigation()
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: android.content.Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleDeepLink()
+    }
+
+    private fun handleDeepLink() {
+        val data = intent?.data
+        if (data != null) {
+            Log.d("DeepLink", "Deep link received: $data")
+
+            when {
+                // gameofsecret://join?gameId=ABC123
+                data.scheme == "gameofsecret" && data.host == "join" -> {
+                    deepLinkGameCode = data.getQueryParameter("gameId")
+                    Log.d("DeepLink", "Game code from custom scheme: $deepLinkGameCode")
+                }
+                // https://gameofsecret.app/g/ABC123
+                data.host == "gameofsecret.app" && data.pathSegments.size >= 2 && data.pathSegments[0] == "g" -> {
+                    deepLinkGameCode = data.pathSegments[1]
+                    Log.d("DeepLink", "Game code from web link: $deepLinkGameCode")
+                }
             }
         }
     }
@@ -111,6 +162,7 @@ class MainActivity : BaseActivity() {
         val notificationViewModel: NotificationViewModel by viewModels()
         val settingsViewModel: SettingsViewModel by viewModels()
         val taskViewModel: TaskViewModel by viewModels()
+        val groupGameViewModel: GroupGameViewModel by viewModels()
         val navController = rememberNavController()
 
         var showOnboarding by remember { mutableStateOf(true) }
@@ -127,13 +179,22 @@ class MainActivity : BaseActivity() {
         }
         val shouldNavigateToLanguages = intent.getBooleanExtra("navigate_to_languages", false)
 
+        // Deep link varsa oyuna katılma ekranına yönlendir
+        val startDestination = when {
+            deepLinkGameCode != null -> DestinationScreen.JoinGroupGame.createRoute(deepLinkGameCode)
+            shouldNavigateToLanguages -> DestinationScreen.Languages.route
+            else -> DestinationScreen.Menu.route
+        }
+
+        // Deep link kullanıldıktan sonra sıfırla
+        LaunchedEffect(deepLinkGameCode) {
+            if (deepLinkGameCode != null) {
+                deepLinkGameCode = null
+            }
+        }
 
         NavHost(navController = navController,
-            startDestination = if (shouldNavigateToLanguages) {
-                DestinationScreen.Languages.route
-            } else {
-                DestinationScreen.Menu.route
-            }) {
+            startDestination = startDestination) {
 
 
             composable(DestinationScreen.Menu.route) {
@@ -207,6 +268,50 @@ class MainActivity : BaseActivity() {
 
             composable(DestinationScreen.Info.route) {
                 InfoScreen()
+            }
+
+            // Grup oyunu ekranları
+            composable(DestinationScreen.CreateGroupGame.route) {
+                CreateGroupGameScreen(
+                    navController = navController,
+                    groupGameViewModel = groupGameViewModel
+                )
+            }
+
+            composable(DestinationScreen.JoinGroupGame.route) {
+                val gameCode = it.arguments?.getString("gameCode")
+                JoinGroupGameScreen(
+                    navController = navController,
+                    groupGameViewModel = groupGameViewModel,
+                    gameCodeFromDeepLink = if (gameCode != "none") gameCode else null
+                )
+            }
+
+            composable(DestinationScreen.AddQuestions.route) {
+                val gameCode = it.arguments?.getString("gameCode") ?: ""
+                AddQuestionsScreen(
+                    navController = navController,
+                    groupGameViewModel = groupGameViewModel,
+                    gameCode = gameCode
+                )
+            }
+
+            composable(DestinationScreen.WaitingRoom.route) {
+                val gameCode = it.arguments?.getString("gameCode") ?: ""
+                WaitingRoomScreen(
+                    navController = navController,
+                    groupGameViewModel = groupGameViewModel,
+                    gameCode = gameCode
+                )
+            }
+
+            composable(DestinationScreen.GroupGamePlay.route) {
+                val gameCode = it.arguments?.getString("gameCode") ?: ""
+                GroupGamePlayScreen(
+                    navController = navController,
+                    groupGameViewModel = groupGameViewModel,
+                    gameCode = gameCode
+                )
             }
         }
 

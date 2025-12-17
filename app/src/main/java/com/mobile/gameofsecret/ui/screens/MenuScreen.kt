@@ -51,10 +51,9 @@ import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
 import com.mobile.gameofsecret.data.model.Gamer
-import com.mobile.gameofsecret.ui.components.EmptyWheelOfFortune
 import com.mobile.gameofsecret.ui.components.FAB
+import com.mobile.gameofsecret.ui.components.GameAnimationFromRaw
 import com.mobile.gameofsecret.ui.components.Header
-import com.mobile.gameofsecret.ui.components.WheelSection
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.textColor
@@ -112,29 +111,15 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                 item {
                     Row(
                         modifier = Modifier
-                            //.fillMaxWidth()
                             .wrapContentWidth()
-                            .height(300.dp),
+                            .height(280.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
-
-                        EmptyWheelOfFortune(
-                            sections = listOf(
-                                WheelSection(Color(0xFFE53935)),
-                                WheelSection(Color(0xFF43A047)),
-                                WheelSection(Color(0xFF1E88E5)),
-                                WheelSection(Color(0xFFFFB300)),
-                                WheelSection(Color(0xFF8E24AA)),
-                                WheelSection(Color(0xFF00897B)),
-                                WheelSection(Color(0xFFE53935)),
-                                WheelSection(Color(0xFFFFB300)),
-                                WheelSection(Color(0xFF1E88E5)),
-                            ),
-                            rotationAngle = 0f, // Burada sabit bir açı verilmiş
+                        GameAnimationFromRaw(
+                            rawResId = R.raw.thinking_people,
                             modifier = Modifier.fillMaxSize()
                         )
-
                     }
                 }
                 item {
@@ -216,6 +201,36 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                                 }
                             }
                         }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // Oyuna Katıl butonu
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight()
+                                .clickable {
+                                    navigateTo(navController, DestinationScreen.JoinGroupGame.createRoute(null))
+                                },
+                            colors = cardcolor,
+                            elevation = CardDefaults.elevatedCardElevation(12.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = "🔗 ${stringResource(R.string.join_with_code)}",
+                                    fontSize = 16.sp,
+                                    color = textColor,
+                                    fontWeight = FontWeight.Medium
+                                )
+                            }
+                        }
+
                         Spacer(modifier = Modifier.height(200.dp))
                     }
                 }
