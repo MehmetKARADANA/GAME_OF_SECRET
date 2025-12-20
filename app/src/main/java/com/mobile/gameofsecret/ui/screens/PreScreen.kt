@@ -156,6 +156,36 @@ fun PreScreen(
                                 }
                             }
                         }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // Join with Code button
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight()
+                                .padding(4.dp),
+                            colors = cardcolor,
+                            elevation = CardDefaults.elevatedCardElevation(12.dp),
+                            onClick = {
+                                navigateTo(navController, DestinationScreen.JoinGroupGame.createRoute(null))
+                            }
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = "🔗 ${stringResource(R.string.join_with_code)}",
+                                    fontSize = 16.sp,
+                                    color = textColor,
+                                    fontWeight = FontWeight.Medium
+                                )
+                            }
+                        }
                     }
                 }
             }

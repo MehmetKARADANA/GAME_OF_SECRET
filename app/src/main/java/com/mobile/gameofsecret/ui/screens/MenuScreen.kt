@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FabPosition
@@ -150,6 +151,26 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                                     modifier = Modifier.padding(8.dp)
                                 )
 
+                                // Grup modu uyarısı - kartın içinde görünür
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                                        .background(
+                                            color = Color(0xFF2196F3).copy(alpha = 0.15f),
+                                            shape = RoundedCornerShape(8.dp)
+                                        )
+                                        .padding(12.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.group_mode_player_info),
+                                        fontSize = 13.sp,
+                                        color = Color(0xFF64B5F6),
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                }
+
                                 LaunchedEffect(userFields.size) {
                                     if (userFields.size < 2) {
                                         userFields.add("$gamer ${userFields.size + 1}")
@@ -199,35 +220,6 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                                                 userFields.add("$gamer $newUserIndex")
                                             })
                                 }
-                            }
-                        }
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        // Oyuna Katıl butonu
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .wrapContentHeight()
-                                .clickable {
-                                    navigateTo(navController, DestinationScreen.JoinGroupGame.createRoute(null))
-                                },
-                            colors = cardcolor,
-                            elevation = CardDefaults.elevatedCardElevation(12.dp)
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-                                Text(
-                                    text = "🔗 ${stringResource(R.string.join_with_code)}",
-                                    fontSize = 16.sp,
-                                    color = textColor,
-                                    fontWeight = FontWeight.Medium
-                                )
                             }
                         }
 
