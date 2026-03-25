@@ -53,8 +53,8 @@ import com.mobile.gameofsecret.data.AdId
 import com.mobile.gameofsecret.ui.components.BannerAdCard
 import com.mobile.gameofsecret.ui.components.BannerAddView
 import com.mobile.gameofsecret.ui.components.FAB
+import com.mobile.gameofsecret.ui.components.GameAnimationFromRaw
 import com.mobile.gameofsecret.ui.components.Header
-import com.mobile.gameofsecret.ui.components.PreHeader
 import com.mobile.gameofsecret.ui.theme.background
 import com.mobile.gameofsecret.ui.theme.cardcolor
 import com.mobile.gameofsecret.ui.theme.textColor
@@ -87,21 +87,28 @@ fun PreScreen(
         // gamerViewModel.getGamerList()
     }
 
-    val selectedGameType = remember { mutableStateOf(DestinationScreen.RandomGame.route) }
-    val selectedType = remember { mutableStateOf(GameTypes.RANDOM.type) }
+    // ViewModel'den state'leri al (navigation'da korunur)
+    val selectedGameType = gamerViewModel.selectedGameType
+    val selectedType = gamerViewModel.selectedType
 
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .background(background)
             .padding(WindowInsets.systemBars.asPaddingValues()), topBar = {
-            PreHeader(navController, stringResource(R.string.app_name))
+            Header(navController, stringResource(R.string.app_name))
         }, floatingActionButton = {
             FAB(onClick = {
-                navigateTo(navController, selectedGameType.value)
-                scope.launch {
-                    quizViewModel.getRandomDareQuestion()
-                    quizViewModel.getRandomTruthQuestion()
+                if (selectedType.value == GameTypes.GROUP) {
+                    // Grup Oyunu - doğrudan oda oluşturma ekranına git
+                    navigateTo(navController, DestinationScreen.CreateGroupGame.route)
+                } else {
+                    // Lokal modlar - oyuncu ekleme ekranına git ve seçili modu parametre olarak geçir
+                    navigateTo(navController, DestinationScreen.Menu.createRoute(selectedGameType.value))
+                    scope.launch {
+                        quizViewModel.getRandomDareQuestion()
+                        quizViewModel.getRandomTruthQuestion()
+                    }
                 }
             }, text = stringResource(R.string.play))
         }, floatingActionButtonPosition = FabPosition.Center
@@ -117,56 +124,101 @@ fun PreScreen(
                     .fillMaxSize()
                     .weight(1f)
                     .background(background),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                // Üst kısım - Animasyon
                 item {
-                    Column(modifier = Modifier.padding(start = 4.dp, end = 4.dp)) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(150.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        GameAnimationFromRaw(
+                            rawResId = R.raw.thinking_people,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+                }
+
+                // Başlık
+                item {
+                    Text(
+                        text = stringResource(R.string.select_game_mode),
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.W600,
+                        color = textColor,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                    )
+                }
+
+                // Oyun modu kartları
+                item {
+                    Column(modifier = Modifier.padding(horizontal = 12.dp)) {
                         for (type in GameTypes.entries) {
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .wrapContentHeight()
-                                    .padding(4.dp)
+                                    .padding(vertical = 4.dp)
                                     .border(
-                                        width = if (selectedType.value == type.type) 2.dp else 0.dp,
-                                        color = if (selectedType.value == type.type) Color.Cyan else Color.Transparent,
-                                        shape = RoundedCornerShape(8.dp)
+                                        width = if (selectedType.value == type) 2.dp else 0.dp,
+                                        color = if (selectedType.value == type) Color.Cyan else Color.Transparent,
+                                        shape = RoundedCornerShape(10.dp)
                                     ),
                                 colors = cardcolor,
-                                elevation = CardDefaults.elevatedCardElevation(12.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.elevatedCardElevation(6.dp),
                                 onClick = {
-                                    //selectroute oluşutracak navigate etmeyecek
-                                    //tskmenudeki matııkla seçili olanın borderını renklendir
                                     selectedGameType.value = type.route
-                                    selectedType.value = type.type
+                                    selectedType.value = type
                                 }
                             ) {
                                 val typeName = getGameTypeName(type)
                                 val typeDesc = getGameTypeDescription(type)
                                 val typeImage = getGameTypeImage(type)
-                                Row(modifier = Modifier.padding(8.dp)) {
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
                                     Image(
                                         painter = painterResource(typeImage),
                                         contentDescription = typeName,
-                                        modifier = Modifier.size(90.dp)
+                                        modifier = Modifier.size(50.dp)
                                     )
-                                    Column(modifier = Modifier.padding(8.dp)) {
-                                        Text(text = typeName, fontWeight = FontWeight.W600)
-                                        Text(text = typeDesc, fontWeight = FontWeight.W200)
+                                    Column(
+                                        modifier = Modifier
+                                            .padding(start = 10.dp)
+                                    ) {
+                                        Text(
+                                            text = typeName,
+                                            fontWeight = FontWeight.W600,
+                                            fontSize = 15.sp,
+                                            color = textColor
+                                        )
+                                        Text(
+                                            text = typeDesc,
+                                            fontWeight = FontWeight.W300,
+                                            fontSize = 12.sp,
+                                            color = textColor.copy(alpha = 0.7f)
+                                        )
                                     }
                                 }
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
 
                         // Join with Code button
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .wrapContentHeight()
-                                .padding(4.dp),
+                                .padding(vertical = 2.dp),
                             colors = cardcolor,
-                            elevation = CardDefaults.elevatedCardElevation(12.dp),
+                            shape = RoundedCornerShape(10.dp),
+                            elevation = CardDefaults.elevatedCardElevation(6.dp),
                             onClick = {
                                 navigateTo(navController, DestinationScreen.JoinGroupGame.createRoute(null))
                             }
@@ -174,13 +226,13 @@ fun PreScreen(
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(16.dp),
+                                    .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Text(
                                     text = "🔗 ${stringResource(R.string.join_with_code)}",
-                                    fontSize = 16.sp,
+                                    fontSize = 14.sp,
                                     color = textColor,
                                     fontWeight = FontWeight.Medium
                                 )
@@ -189,8 +241,8 @@ fun PreScreen(
                     }
                 }
             }
-            BannerAdCard(adUnitId = AdId)
-            Spacer(Modifier.height(100.dp))
+           // BannerAdCard(adUnitId = AdId)
+            Spacer(Modifier.height(70.dp))
         }
     }
 }

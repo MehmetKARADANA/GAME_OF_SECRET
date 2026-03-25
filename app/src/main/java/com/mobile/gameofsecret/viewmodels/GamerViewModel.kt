@@ -14,6 +14,8 @@ import com.mobile.gameofsecret.data.model.Gamer
 import com.mobile.gameofsecret.data.roomdb.GamerDatabase
 import com.mobile.gameofsecret.data.roomdb.getDatabase
 import kotlinx.coroutines.Dispatchers
+import com.mobile.gameofsecret.DestinationScreen
+import com.mobile.gameofsecret.ui.screens.GameTypes
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,6 +35,10 @@ class GamerViewModel(application: Application) : BaseViewModel(application) {
     val gamerList: StateFlow<List<Gamer>> = _gamerList.asStateFlow()
     val currentGamer = mutableStateOf<Gamer?>(null)
     val selectedGamer = mutableStateOf<Gamer>(Gamer(""))
+
+    // Seçili oyun modu state'i
+    val selectedGameType = mutableStateOf(DestinationScreen.RandomGame.route)
+    val selectedType = mutableStateOf(GameTypes.RANDOM)
 
     init {
         //  getGamerList()

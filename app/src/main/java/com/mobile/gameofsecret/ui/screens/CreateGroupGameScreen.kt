@@ -129,24 +129,22 @@ fun CreateGroupGameScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Oyuncu sayısı grid
+            // Oyuncu sayısı grid - ilk satır (2-6)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                playerCountOptions.chunked(5).forEach { row ->
-                    row.forEach { count ->
-                        SelectableChip(
-                            text = count.toString(),
-                            isSelected = createGameState.maxPlayers == count,
-                            onClick = { groupGameViewModel.updateMaxPlayers(count) },
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
+                playerCountOptions.take(5).forEach { count ->
+                    SelectableChip(
+                        text = count.toString(),
+                        isSelected = createGameState.maxPlayers == count,
+                        onClick = { groupGameViewModel.updateMaxPlayers(count) },
+                        modifier = Modifier.weight(1f)
+                    )
                 }
             }
 
-            // İkinci satır
+            // Oyuncu sayısı grid - ikinci satır (7-10)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -280,14 +278,10 @@ fun SelectableChip(
     Card(
         modifier = modifier
             .height(48.dp)
-            .border(
-                width = if (isSelected) 2.dp else 1.dp,
-                color = if (isSelected) Color.Cyan else Color.White.copy(alpha = 0.3f),
-                shape = RoundedCornerShape(8.dp)
-            )
             .clickable { onClick() },
         colors = if (isSelected) cardcolor3 else cardcolor,
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isSelected) 8.dp else 4.dp)
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),

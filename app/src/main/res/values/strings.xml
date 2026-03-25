@@ -45,6 +45,7 @@
     <string name="wheel_for_selection">Use the wheel to select a task or a person.</string>
     <string name="loading_question">Loading question…</string>
     <string name="contineu">Next</string>
+    <string name="select_game_mode">Select Game Mode</string>
 
     <!-- Group Game Strings -->
     <string name="group_game">Group Game</string>

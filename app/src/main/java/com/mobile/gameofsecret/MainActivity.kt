@@ -52,7 +52,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 sealed class DestinationScreen(var route: String) {
-    data object Menu : DestinationScreen("menu")
+    data object Menu : DestinationScreen("menu/{selectedMode}") {
+        fun createRoute(selectedMode: String) = "menu/$selectedMode"
+    }
     data object Pre : DestinationScreen("pre")
     data object Settings : DestinationScreen("settings")
     data object SerialGame : DestinationScreen("serial")
@@ -183,7 +185,7 @@ class MainActivity : BaseActivity() {
         val startDestination = when {
             deepLinkGameCode != null -> DestinationScreen.JoinGroupGame.createRoute(deepLinkGameCode)
             shouldNavigateToLanguages -> DestinationScreen.Languages.route
-            else -> DestinationScreen.Menu.route
+            else -> DestinationScreen.Pre.route
         }
 
         // Deep link kullanıldıktan sonra sıfırla
@@ -198,7 +200,9 @@ class MainActivity : BaseActivity() {
 
 
             composable(DestinationScreen.Menu.route) {
-                MenuScreen(navController, gamerViewModel)
+                val selectedMode = it.arguments?.getString("selectedMode") ?: DestinationScreen.RandomGame.route
+                MenuScreen(navController, gamerViewModel,// selectedMode,
+             quizViewModel)
             }
 
             composable(DestinationScreen.Settings.route) {

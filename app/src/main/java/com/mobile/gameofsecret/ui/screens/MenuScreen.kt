@@ -61,17 +61,30 @@ import com.mobile.gameofsecret.ui.theme.textColor
 import com.mobile.gameofsecret.ui.theme.textFieldColor
 import com.mobile.gameofsecret.ui.utils.navigateTo
 import com.mobile.gameofsecret.viewmodels.GamerViewModel
+import com.mobile.gameofsecret.viewmodels.QuizViewModel
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.rememberCoroutineScope
 
 @Composable
-fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
+fun MenuScreen(
+    navController: NavController,
+    gamerViewModel: GamerViewModel,
+  //  selectedMode: String,
+    quizViewModel: QuizViewModel
+) {
 
     BackHandler {
-        navController.popBackStack()
+        navController.navigate(DestinationScreen.Pre.route) {
+            popUpTo(DestinationScreen.Menu.route) { inclusive = true }
+        }
     }
+
+    val scope = rememberCoroutineScope()
     val gamer1 = stringResource(R.string.gamer1)
     val gamer2 = stringResource(R.string.gamer2)
 
     val dbList by gamerViewModel.gamerList.collectAsState(initial = emptyList())
+    val selectedMode by gamerViewModel.selectedGameType
 
     val userFields = remember(dbList) {
         val initialList =
@@ -88,7 +101,12 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
         floatingActionButton = {
             FAB(onClick = {
                 gamerViewModel.resetGamers(userFields) {
-                    navigateTo(navController, DestinationScreen.Pre.route)
+                    // Doğrudan seçili oyun moduna git
+                    navigateTo(navController, selectedMode)
+                    scope.launch {
+                        quizViewModel.getRandomDareQuestion()
+                        quizViewModel.getRandomTruthQuestion()
+                    }
                 }
             }, text = stringResource(R.string.start))
         },
@@ -150,26 +168,6 @@ fun MenuScreen(navController: NavController, gamerViewModel: GamerViewModel) {
                                     color = textColor,
                                     modifier = Modifier.padding(8.dp)
                                 )
-
-                                // Grup modu uyarısı - kartın içinde görünür
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 8.dp, vertical = 4.dp)
-                                        .background(
-                                            color = Color(0xFF2196F3).copy(alpha = 0.15f),
-                                            shape = RoundedCornerShape(8.dp)
-                                        )
-                                        .padding(12.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text(
-                                        text = stringResource(R.string.group_mode_player_info),
-                                        fontSize = 13.sp,
-                                        color = Color(0xFF64B5F6),
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                }
 
                                 LaunchedEffect(userFields.size) {
                                     if (userFields.size < 2) {
