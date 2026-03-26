@@ -74,7 +74,7 @@ fun CreateGroupGameScreen(
             // Bilgi kartı
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                colors = cardcolor3,
+                colors = cardcolor4,
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
@@ -279,7 +279,7 @@ fun SelectableChip(
         modifier = modifier
             .height(48.dp)
             .clickable { onClick() },
-        colors = if (isSelected) cardcolor3 else cardcolor,
+        colors = if (isSelected) cardcolor4 else cardcolor,
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = if (isSelected) 8.dp else 4.dp)
     ) {

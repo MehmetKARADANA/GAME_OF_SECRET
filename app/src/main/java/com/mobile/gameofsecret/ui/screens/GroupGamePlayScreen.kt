@@ -85,7 +85,7 @@ fun GroupGamePlayScreen(
                     onClick = {
                         showExitDialog = false
                         groupGameViewModel.leaveGame(gameCode) {
-                            navController.navigate(DestinationScreen.Menu.route) {
+                            navController.navigate(DestinationScreen.Pre.route) {
                                 popUpTo(0) { inclusive = true }
                             }
                         }

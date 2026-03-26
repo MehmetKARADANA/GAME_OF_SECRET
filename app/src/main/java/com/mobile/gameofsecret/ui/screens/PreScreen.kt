@@ -1,12 +1,8 @@
 package com.mobile.gameofsecret.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,42 +13,26 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FabPosition
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.mobile.gameofsecret.DestinationScreen
 import com.mobile.gameofsecret.R
-import com.mobile.gameofsecret.data.AdId
-import com.mobile.gameofsecret.ui.components.BannerAdCard
-import com.mobile.gameofsecret.ui.components.BannerAddView
-import com.mobile.gameofsecret.ui.components.FAB
 import com.mobile.gameofsecret.ui.components.GameAnimationFromRaw
 import com.mobile.gameofsecret.ui.components.Header
 import com.mobile.gameofsecret.ui.theme.background
@@ -80,38 +60,16 @@ fun PreScreen(
     navController: NavController,
     quizViewModel: QuizViewModel
 ) {
-
     val scope = rememberCoroutineScope()
-
-    LaunchedEffect(Unit) {
-        // gamerViewModel.getGamerList()
-    }
-
-    // ViewModel'den state'leri al (navigation'da korunur)
-    val selectedGameType = gamerViewModel.selectedGameType
-    val selectedType = gamerViewModel.selectedType
 
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
             .background(background)
-            .padding(WindowInsets.systemBars.asPaddingValues()), topBar = {
+            .padding(WindowInsets.systemBars.asPaddingValues()),
+        topBar = {
             Header(navController, stringResource(R.string.app_name))
-        }, floatingActionButton = {
-            FAB(onClick = {
-                if (selectedType.value == GameTypes.GROUP) {
-                    // Grup Oyunu - doğrudan oda oluşturma ekranına git
-                    navigateTo(navController, DestinationScreen.CreateGroupGame.route)
-                } else {
-                    // Lokal modlar - oyuncu ekleme ekranına git ve seçili modu parametre olarak geçir
-                    navigateTo(navController, DestinationScreen.Menu.createRoute(selectedGameType.value))
-                    scope.launch {
-                        quizViewModel.getRandomDareQuestion()
-                        quizViewModel.getRandomTruthQuestion()
-                    }
-                }
-            }, text = stringResource(R.string.play))
-        }, floatingActionButtonPosition = FabPosition.Center
+        }
     ) {
         Column(
             modifier = Modifier
@@ -161,25 +119,30 @@ fun PreScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .wrapContentHeight()
-                                    .padding(vertical = 4.dp)
-                                    .border(
-                                        width = if (selectedType.value == type) 2.dp else 0.dp,
-                                        color = if (selectedType.value == type) Color.Cyan else Color.Transparent,
-                                        shape = RoundedCornerShape(10.dp)
-                                    ),
+                                    .padding(vertical = 5.dp),
                                 colors = cardcolor,
-                                shape = RoundedCornerShape(10.dp),
-                                elevation = CardDefaults.elevatedCardElevation(6.dp),
+                                shape = RoundedCornerShape(12.dp),
+                                elevation = CardDefaults.elevatedCardElevation(4.dp),
                                 onClick = {
-                                    selectedGameType.value = type.route
-                                    selectedType.value = type
+                                    if (type == GameTypes.GROUP) {
+                                        navigateTo(navController, DestinationScreen.CreateGroupGame.route)
+                                    } else {
+                                        // MenuScreen'in hangi oyun modunda olduğunu bilmesi için
+                                        gamerViewModel.selectedGameType.value = type.route
+                                        navigateTo(navController, DestinationScreen.Menu.createRoute(type.route))
+                                        scope.launch {
+                                            quizViewModel.getRandomDareQuestion()
+                                            quizViewModel.getRandomTruthQuestion()
+                                        }
+                                    }
                                 }
                             ) {
                                 val typeName = getGameTypeName(type)
                                 val typeDesc = getGameTypeDescription(type)
                                 val typeImage = getGameTypeImage(type)
+
                                 Row(
-                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
+                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Image(
@@ -188,8 +151,7 @@ fun PreScreen(
                                         modifier = Modifier.size(50.dp)
                                     )
                                     Column(
-                                        modifier = Modifier
-                                            .padding(start = 10.dp)
+                                        modifier = Modifier.padding(start = 12.dp)
                                     ) {
                                         Text(
                                             text = typeName,
@@ -242,7 +204,7 @@ fun PreScreen(
                 }
             }
            // BannerAdCard(adUnitId = AdId)
-            Spacer(Modifier.height(70.dp))
+            Spacer(Modifier.height(16.dp))
         }
     }
 }

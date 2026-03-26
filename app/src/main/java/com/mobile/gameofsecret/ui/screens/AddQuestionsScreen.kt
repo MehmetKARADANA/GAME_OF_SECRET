@@ -83,7 +83,7 @@ fun AddQuestionsScreen(
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                colors = cardcolor3,
+                colors = cardcolor4,
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Column(

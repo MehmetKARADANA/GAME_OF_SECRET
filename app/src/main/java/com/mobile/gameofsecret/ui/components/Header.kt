@@ -82,10 +82,9 @@ fun Header(navController: NavController,header: String) {
                 .padding(end = 12.dp)
                 .size(24.dp)
                 .clickable {
-                    navigateTo(
-                        navController = navController,
-                        route = DestinationScreen.Settings.route
-                    )
+                    navController.navigate(DestinationScreen.Settings.route) {
+                        popUpTo(DestinationScreen.Pre.route) { inclusive = false }
+                    }
                 }
         )
     }
@@ -127,10 +126,9 @@ fun PreHeader(navController: NavController,header : String) {
                 .padding(end = 12.dp)
                 .size(24.dp)
                 .clickable {
-                    navigateTo(
-                        navController = navController,
-                        route = DestinationScreen.Settings.route
-                    )
+                    navController.navigate(DestinationScreen.Settings.route) {
+                        popUpTo(DestinationScreen.Pre.route) { inclusive = false }
+                    }
                 }
         )
     }
