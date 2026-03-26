@@ -1,8 +1,14 @@
 package com.mobile.gameofsecret.ui.screens
 
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,9 +28,15 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -142,7 +154,9 @@ fun PreScreen(
                                 val typeImage = getGameTypeImage(type)
 
                                 Row(
-                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 12.dp, vertical = 10.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Image(
@@ -151,7 +165,9 @@ fun PreScreen(
                                         modifier = Modifier.size(50.dp)
                                     )
                                     Column(
-                                        modifier = Modifier.padding(start = 12.dp)
+                                        modifier = Modifier
+                                            .weight(1f)
+                                            .padding(start = 12.dp, end = 8.dp)
                                     ) {
                                         Text(
                                             text = typeName,
@@ -165,6 +181,49 @@ fun PreScreen(
                                             fontSize = 12.sp,
                                             color = textColor.copy(alpha = 0.7f)
                                         )
+                                    }
+
+                                    // Modern "Yeni" badge for Group Game
+                                    if (type == GameTypes.GROUP) {
+                                        val infiniteTransition = rememberInfiniteTransition(label = "badge")
+                                        val scale by infiniteTransition.animateFloat(
+                                            initialValue = 1f,
+                                            targetValue = 1.08f,
+                                            animationSpec = infiniteRepeatable(
+                                                animation = tween(800),
+                                                repeatMode = RepeatMode.Reverse
+                                            ),
+                                            label = "scale"
+                                        )
+
+                                        Box(
+                                            modifier = Modifier
+                                                .scale(scale)
+                                                .shadow(
+                                                    elevation = 6.dp,
+                                                    shape = RoundedCornerShape(20.dp),
+                                                    ambientColor = Color(0xFFE91E63).copy(alpha = 0.4f),
+                                                    spotColor = Color(0xFFE91E63).copy(alpha = 0.4f)
+                                                )
+                                                .clip(RoundedCornerShape(20.dp))
+                                                .background(
+                                                    brush = Brush.horizontalGradient(
+                                                        colors = listOf(
+                                                            Color(0xFFE91E63),
+                                                            Color(0xFFFF5722)
+                                                        )
+                                                    )
+                                                )
+                                                .padding(horizontal = 10.dp, vertical = 4.dp)
+                                        ) {
+                                            Text(
+                                                text = stringResource(R.string.new_badge),
+                                                color = Color.White,
+                                                fontSize = 11.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                letterSpacing = 0.5.sp
+                                            )
+                                        }
                                     }
                                 }
                             }

@@ -103,5 +103,6 @@
     <string name="host_managing_game">The host is managing the game on their device. Please wait or leave.</string>
     <string name="remaining_questions">Remaining questions: %1$d</string>
     <string name="group_mode_player_info">ℹ️ If you select Group Game, you don\'t need to add players here.</string>
+    <string name="new_badge">NEW</string>
 
 </resources>

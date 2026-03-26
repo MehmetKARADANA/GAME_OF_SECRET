@@ -101,11 +101,21 @@ fun CreateGroupGameScreen(
 
             OutlinedTextField(
                 value = createGameState.hostName,
-                onValueChange = { groupGameViewModel.updateHostName(it) },
+                onValueChange = {
+                    if (it.length <= 10) {
+                        groupGameViewModel.updateHostName(it)
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = { Text(stringResource(R.string.enter_your_name), color = Color.Gray) },
                 leadingIcon = {
                     Icon(Icons.Default.Person, contentDescription = null, tint = Color.White)
+                },
+                supportingText = {
+                    Text(
+                        text = "${createGameState.hostName.length}/10",
+                        color = Color.White.copy(alpha = 0.6f)
+                    )
                 },
                 colors = textFieldColor(),
                 shape = RoundedCornerShape(12.dp),

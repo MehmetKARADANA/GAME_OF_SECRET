@@ -140,7 +140,7 @@ fun JoinGroupGameScreen(
             OutlinedTextField(
                 value = playerName,
                 onValueChange = {
-                    if (it.length <= 20) {
+                    if (it.length <= 10) {
                         playerName = it
                         errorMessage = null
                     }
@@ -149,6 +149,12 @@ fun JoinGroupGameScreen(
                 placeholder = { Text(stringResource(R.string.enter_your_name), color = Color.Gray) },
                 leadingIcon = {
                     Icon(Icons.Default.Person, contentDescription = null, tint = Color.White)
+                },
+                supportingText = {
+                    Text(
+                        text = "${playerName.length}/10",
+                        color = Color.White.copy(alpha = 0.6f)
+                    )
                 },
                 colors = textFieldColor(),
                 shape = RoundedCornerShape(12.dp),

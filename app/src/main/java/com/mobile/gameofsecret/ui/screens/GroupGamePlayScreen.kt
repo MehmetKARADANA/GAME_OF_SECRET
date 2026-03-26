@@ -106,15 +106,27 @@ fun GroupGamePlayScreen(
     if (showFinishedDialog) {
         AlertDialog(
             onDismissRequest = { },
-            title = { Text(stringResource(R.string.game_finished_title)) },
+            containerColor = background,
+            titleContentColor = Color.White,
+            textContentColor = Color.White,
+            title = {
+                Text(
+                    text = stringResource(R.string.game_finished_title),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 22.sp
+                )
+            },
             text = {
                 Column {
-                    Text(stringResource(R.string.game_finished_message))
+                    Text(
+                        text = stringResource(R.string.game_finished_message),
+                        color = Color.White
+                    )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = stringResource(R.string.total_questions_played, game?.questions?.size ?: 0),
                         fontSize = 14.sp,
-                        color = Color.Gray
+                        color = Color.White.copy(alpha = 0.7f)
                     )
                 }
             },
@@ -123,7 +135,7 @@ fun GroupGamePlayScreen(
                     onClick = {
                         showFinishedDialog = false
                         groupGameViewModel.leaveGame(gameCode) {
-                            navController.navigate(DestinationScreen.Menu.route) {
+                            navController.navigate(DestinationScreen.Pre.route) {
                                 popUpTo(0) { inclusive = true }
                             }
                         }
@@ -343,7 +355,7 @@ fun GroupGamePlayScreen(
                     QuestionDisplay(
                         question = question,
                         playerName = selectedPlayerName,
-                        showAuthor = game.showQuestionAuthor,
+                        showAuthor = false, // Soruyu yazan kişi gizli
                         onNextQuestion = {
                             showQuestion = false
                             groupGameViewModel.moveToNextQuestion(gameCode, null)
@@ -364,20 +376,11 @@ fun QuestionDisplay(
     showAuthor: Boolean,
     onNextQuestion: () -> Unit
 ) {
-    val questionType = try {
-        QuestionType.valueOf(question.type)
-    } catch (e: Exception) {
-        QuestionType.TRUTH
-    }
-
     val difficulty = try {
         DifficultyLevel.valueOf(question.difficulty)
     } catch (e: Exception) {
         DifficultyLevel.MEDIUM
     }
-
-    val typeColor = if (questionType == QuestionType.TRUTH) Color(0xFF4CAF50) else Color(0xFFE53935)
-    val typeName = if (questionType == QuestionType.TRUTH) stringResource(R.string.truth) else stringResource(R.string.dare)
 
     val difficultyColor = when (difficulty) {
         DifficultyLevel.EASY -> Color(0xFF4CAF50)
@@ -393,9 +396,9 @@ fun QuestionDisplay(
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardColors(
-                containerColor = typeColor.copy(alpha = 0.2f),
+                containerColor = difficultyColor.copy(alpha = 0.2f),
                 contentColor = Color.White,
-                disabledContainerColor = typeColor.copy(alpha = 0.2f),
+                disabledContainerColor = difficultyColor.copy(alpha = 0.2f),
                 disabledContentColor = Color.White
             ),
             shape = RoundedCornerShape(12.dp)
@@ -415,46 +418,22 @@ fun QuestionDisplay(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Soru tipi badge
-                Row(
-                    horizontalArrangement = Arrangement.Center
+                // Zorluk badge
+                Card(
+                    colors = CardColors(
+                        containerColor = difficultyColor,
+                        contentColor = Color.White,
+                        disabledContainerColor = difficultyColor,
+                        disabledContentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(16.dp)
                 ) {
-                    Card(
-                        colors = CardColors(
-                            containerColor = typeColor,
-                            contentColor = Color.White,
-                            disabledContainerColor = typeColor,
-                            disabledContentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(16.dp)
-                    ) {
-                        Text(
-                            text = typeName,
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    // Zorluk badge
-                    Card(
-                        colors = CardColors(
-                            containerColor = difficultyColor.copy(alpha = 0.3f),
-                            contentColor = difficultyColor,
-                            disabledContainerColor = difficultyColor.copy(alpha = 0.3f),
-                            disabledContentColor = difficultyColor
-                        ),
-                        shape = RoundedCornerShape(16.dp)
-                    ) {
-                        Text(
-                            text = difficulty.name.lowercase().replaceFirstChar { it.uppercase() },
-                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Medium
-                        )
-                    }
+                    Text(
+                        text = difficulty.name.lowercase().replaceFirstChar { it.uppercase() },
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }

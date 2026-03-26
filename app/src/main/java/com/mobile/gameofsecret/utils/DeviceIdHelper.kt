@@ -66,10 +66,10 @@ object DeviceIdHelper {
     }
 
     /**
-     * Oyuncu adını doğrular
+     * Oyuncu adını doğrular (çark taşması önlemek için max 10 karakter)
      */
     fun isValidPlayerName(name: String): Boolean {
-        return name.trim().length in 2..20
+        return name.trim().length in 2..10
     }
 
     /**

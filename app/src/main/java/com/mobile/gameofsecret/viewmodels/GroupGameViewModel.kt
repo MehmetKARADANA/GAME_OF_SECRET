@@ -71,7 +71,7 @@ class GroupGameViewModel(application: Application) : BaseViewModel(application) 
         val state = _createGameState.value
 
         if (!DeviceIdHelper.isValidPlayerName(state.hostName)) {
-            _createGameState.value = state.copy(error = "Lütfen geçerli bir isim girin (2-20 karakter)")
+            _createGameState.value = state.copy(error = "Lütfen geçerli bir isim girin (2-10 karakter)")
             return
         }
 
@@ -150,7 +150,7 @@ class GroupGameViewModel(application: Application) : BaseViewModel(application) 
         }
 
         if (!DeviceIdHelper.isValidPlayerName(playerName)) {
-            onError("Lütfen geçerli bir isim girin (2-20 karakter)")
+            onError("Lütfen geçerli bir isim girin (2-10 karakter)")
             return
         }
 
@@ -557,56 +557,11 @@ class GroupGameViewModel(application: Application) : BaseViewModel(application) 
     // ============== OYUNDAN AYRILMA ==============
 
     fun leaveGame(gameCode: String, onSuccess: () -> Unit) {
-        viewModelScope.launch {
-            try {
-                val gameDoc = db.collection(GROUP_GAMES).document(gameCode).get().await()
-                val game = parseGameDocument(gameDoc)
-
-                if (game == null) {
-                    onSuccess()
-                    return@launch
-                }
-
-                // Oyuncuyu bul
-                val playerToRemove = game.players.find { it.deviceId == _deviceId }
-
-                if (playerToRemove != null) {
-                    // Host ayrılıyorsa oyunu sil
-                    if (playerToRemove.isHost) {
-                        db.collection(GROUP_GAMES)
-                            .document(gameCode)
-                            .delete()
-                            .await()
-                        Log.d(TAG, "Host ayrıldı, oyun silindi: $gameCode")
-                    } else {
-                        // Normal oyuncu ayrılıyor
-                        val updatedPlayers = game.players.filter { it.deviceId != _deviceId }
-                        val updatedQuestions = game.questions.filter { it.addedBy != _deviceId }
-
-                        db.collection(GROUP_GAMES)
-                            .document(gameCode)
-                            .update(
-                                mapOf(
-                                    "players" to updatedPlayers.map { it.toMap() },
-                                    "questions" to updatedQuestions.map { it.toMap() },
-                                    "updatedAt" to System.currentTimeMillis()
-                                )
-                            )
-                            .await()
-                        Log.d(TAG, "Oyuncu ayrıldı: $gameCode")
-                    }
-                }
-
-                stopListeningToGame()
-                _currentGameCode.value = null
-                onSuccess()
-
-            } catch (e: Exception) {
-                Log.e(TAG, "Oyundan ayrılma hatası", e)
-                handleException(e)
-                onSuccess() // Hata olsa bile çık
-            }
-        }
+        // Sadece ekrandan ayrıl, Firebase'den oyuncu silme
+        stopListeningToGame()
+        _currentGameCode.value = null
+        Log.d(TAG, "Oyuncu ekrandan ayrıldı: $gameCode")
+        onSuccess()
     }
 
     // ============== YARDIMCI METODLAR ==============
