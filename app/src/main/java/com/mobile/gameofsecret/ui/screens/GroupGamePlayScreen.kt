@@ -246,17 +246,19 @@ fun GroupGamePlayScreen(
                 .background(background)
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.weight(1f))
 
-            // Çark veya Soru gösterimi
+            // Çark gösterimi
             AnimatedVisibility(
                 visible = !showQuestion,
                 enter = fadeIn() + scaleIn(),
                 exit = fadeOut() + scaleOut()
             ) {
                 Column(
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     // Çark gösterimi
@@ -275,7 +277,7 @@ fun GroupGamePlayScreen(
 
                     Box(
                         modifier = Modifier
-                            .size(260.dp)
+                            .size(280.dp)
                             .rotate(rotation.value)
                             .border(6.dp, circleColor, CircleShape)
                     ) {
@@ -316,32 +318,6 @@ fun GroupGamePlayScreen(
                                 .background(Color.White, CircleShape)
                         )
                     }
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    // Çevir butonu
-                    Button(
-                        onClick = spinWheel,
-                        enabled = !isSpinning,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(56.dp),
-                        colors = buttonColors1,
-                        shape = RoundedCornerShape(12.dp)
-                    ) {
-                        if (isSpinning) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(24.dp),
-                                color = Color.Black
-                            )
-                        } else {
-                            Text(
-                                text = stringResource(R.string.spin_the_wheel),
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-                    }
                 }
             }
 
@@ -355,7 +331,7 @@ fun GroupGamePlayScreen(
                     QuestionDisplay(
                         question = question,
                         playerName = selectedPlayerName,
-                        showAuthor = false, // Soruyu yazan kişi gizli
+                        showAuthor = false,
                         onNextQuestion = {
                             showQuestion = false
                             groupGameViewModel.moveToNextQuestion(gameCode, null)
@@ -365,6 +341,27 @@ fun GroupGamePlayScreen(
             }
 
             Spacer(modifier = Modifier.weight(1f))
+
+            // Çevir butonu - her zaman görünür, soru gösterilirken gizli
+            if (!showQuestion) {
+                Button(
+                    onClick = spinWheel,
+                    enabled = !isSpinning,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    colors = buttonColors1,
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.spin_the_wheel),
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
+            }
         }
     }
 }

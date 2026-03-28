@@ -5,9 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -51,23 +49,30 @@ fun WaitingRoomScreen(
     val context = LocalContext.current
     var showQRCode by remember { mutableStateOf(false) }
     var showLeaveDialog by remember { mutableStateOf(false) }
+    var showGameFinishedDialog by remember { mutableStateOf(false) }
     var startError by remember { mutableStateOf<String?>(null) }
+    var hasNavigatedToGame by remember { mutableStateOf(false) }
 
     // Oyun dinlemeyi başlat
     LaunchedEffect(gameCode) {
         groupGameViewModel.startListeningToGame(gameCode)
     }
 
-    // Oyun başladığında yönlendir - SADECE HOST
+    // Oyun başladığında yönlendir - SADECE HOST (sadece bir kez)
     LaunchedEffect(waitingRoomState.game?.status) {
-        if (waitingRoomState.game?.status == GameStatus.PLAYING.name) {
+        if (waitingRoomState.game?.status == GameStatus.PLAYING.name && !hasNavigatedToGame) {
             if (groupGameViewModel.isCurrentDeviceHost()) {
+                hasNavigatedToGame = true
                 // Sadece host oyun ekranına gider
                 navController.navigate(DestinationScreen.GroupGamePlay.createRoute(gameCode)) {
                     popUpTo(DestinationScreen.WaitingRoom.route) { inclusive = true }
                 }
             }
             // Diğer oyuncular waiting room'da kalır ve "Oyun devam ediyor" mesajı görür
+        }
+        // Oyun bittiğinde misafir oyuncuları bilgilendir
+        if (waitingRoomState.game?.status == GameStatus.FINISHED.name) {
+            showGameFinishedDialog = true
         }
     }
 
@@ -90,7 +95,7 @@ fun WaitingRoomScreen(
                     onClick = {
                         showLeaveDialog = false
                         groupGameViewModel.leaveGame(gameCode) {
-                            navController.navigate(DestinationScreen.Menu.route) {
+                            navController.navigate(DestinationScreen.Pre.route) {
                                 popUpTo(0) { inclusive = true }
                             }
                         }
@@ -111,6 +116,9 @@ fun WaitingRoomScreen(
     if (showQRCode) {
         AlertDialog(
             onDismissRequest = { showQRCode = false },
+            containerColor = background,
+            titleContentColor = Color.White,
+            textContentColor = Color.White,
             title = { Text(stringResource(R.string.scan_to_join), textAlign = TextAlign.Center) },
             text = {
                 Column(
@@ -126,13 +134,52 @@ fun WaitingRoomScreen(
                         text = gameCode,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
-                        letterSpacing = 4.sp
+                        letterSpacing = 4.sp,
+                        color = Color.White
                     )
                 }
             },
             confirmButton = {
                 TextButton(onClick = { showQRCode = false }) {
-                    Text(stringResource(R.string.close))
+                    Text(stringResource(R.string.close), color = Color.White)
+                }
+            }
+        )
+    }
+
+    // Oyun bitti dialog (misafir oyuncular için)
+    if (showGameFinishedDialog) {
+        AlertDialog(
+            onDismissRequest = { },
+            containerColor = background,
+            titleContentColor = Color.White,
+            textContentColor = Color.White,
+            title = {
+                Text(
+                    text = stringResource(R.string.game_finished_title),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 22.sp
+                )
+            },
+            text = {
+                Text(
+                    text = stringResource(R.string.game_finished_message),
+                    color = Color.White
+                )
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showGameFinishedDialog = false
+                        groupGameViewModel.leaveGame(gameCode) {
+                            navController.navigate(DestinationScreen.Pre.route) {
+                                popUpTo(0) { inclusive = true }
+                            }
+                        }
+                    },
+                    colors = buttonColors1
+                ) {
+                    Text(stringResource(R.string.back_to_menu))
                 }
             }
         )
@@ -193,7 +240,7 @@ fun WaitingRoomScreen(
                         game = game,
                         onLeave = {
                             groupGameViewModel.leaveGame(gameCode) {
-                                navController.navigate(DestinationScreen.Menu.route) {
+                                navController.navigate(DestinationScreen.Pre.route) {
                                     popUpTo(0) { inclusive = true }
                                 }
                             }
@@ -241,22 +288,24 @@ fun WaitingRoomScreen(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 // Kopyala
-                                OutlinedButton(
+                                Button(
                                     onClick = {
                                         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                         val clip = ClipData.newPlainText("Game Code", game.gameCode)
                                         clipboard.setPrimaryClip(clip)
                                         Toast.makeText(context, context.getString(R.string.code_copied), Toast.LENGTH_SHORT).show()
                                     },
-                                    colors = ButtonDefaults.outlinedButtonColors(
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color.White.copy(alpha = 0.15f),
                                         contentColor = Color.White
-                                    )
+                                    ),
+                                    shape = RoundedCornerShape(8.dp)
                                 ) {
                                     Text(stringResource(R.string.copy))
                                 }
 
                                 // Paylaş
-                                OutlinedButton(
+                                Button(
                                     onClick = {
                                         val shareIntent = Intent(Intent.ACTION_SEND).apply {
                                             type = "text/plain"
@@ -266,9 +315,11 @@ fun WaitingRoomScreen(
                                         }
                                         context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_via)))
                                     },
-                                    colors = ButtonDefaults.outlinedButtonColors(
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color.White.copy(alpha = 0.15f),
                                         contentColor = Color.White
-                                    )
+                                    ),
+                                    shape = RoundedCornerShape(8.dp)
                                 ) {
                                     Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(16.dp))
                                     Spacer(modifier = Modifier.width(4.dp))
@@ -276,11 +327,13 @@ fun WaitingRoomScreen(
                                 }
 
                                 // QR Kod
-                                OutlinedButton(
+                                Button(
                                     onClick = { showQRCode = true },
-                                    colors = ButtonDefaults.outlinedButtonColors(
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color.White.copy(alpha = 0.15f),
                                         contentColor = Color.White
-                                    )
+                                    ),
+                                    shape = RoundedCornerShape(8.dp)
                                 ) {
                                     Text("QR")
                                 }
@@ -380,15 +433,16 @@ fun WaitingRoomScreen(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         // Ayrıl butonu
-                        OutlinedButton(
+                        Button(
                             onClick = { showLeaveDialog = true },
                             modifier = Modifier
                                 .weight(1f)
                                 .height(56.dp),
-                            colors = ButtonDefaults.outlinedButtonColors(
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFE53935).copy(alpha = 0.2f),
                                 contentColor = Color(0xFFE53935)
                             ),
-                            border = BorderStroke(1.dp, Color(0xFFE53935))
+                            shape = RoundedCornerShape(12.dp)
                         ) {
                             Text(stringResource(R.string.leave))
                         }
@@ -516,12 +570,13 @@ fun GameInProgressScreen(
         Spacer(modifier = Modifier.height(48.dp))
 
         // Ayrıl butonu
-        OutlinedButton(
+        Button(
             onClick = onLeave,
-            colors = ButtonDefaults.outlinedButtonColors(
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFE53935).copy(alpha = 0.2f),
                 contentColor = Color(0xFFE53935)
             ),
-            border = BorderStroke(1.dp, Color(0xFFE53935))
+            shape = RoundedCornerShape(12.dp)
         ) {
             Text(stringResource(R.string.leave_game_title))
         }
@@ -538,12 +593,7 @@ fun PlayerListItem(
 
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .border(
-                width = if (isCurrentDevice) 2.dp else 0.dp,
-                color = if (isCurrentDevice) Color.Cyan else Color.Transparent,
-                shape = RoundedCornerShape(8.dp)
-            ),
+            .fillMaxWidth(),
         colors = if (isReady) {
             CardColors(
                 containerColor = Color(0xFF4CAF50).copy(alpha = 0.2f),

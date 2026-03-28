@@ -25,8 +25,8 @@ val switchColor = Color(0xFF007AFF)
 val buttonColors1 = ButtonColors(
     containerColor = Color.White,
     contentColor = Color.Black,
-    disabledContainerColor = Color.Transparent,
-    disabledContentColor = Color.Gray
+    disabledContainerColor = Color.White.copy(alpha = 0.3f),
+    disabledContentColor = Color.Black.copy(alpha = 0.5f)
 )
 val buttonColors2 = ButtonColors(
     containerColor = Color(0xFF2196F3), // Koyu mor-mavi arka plan

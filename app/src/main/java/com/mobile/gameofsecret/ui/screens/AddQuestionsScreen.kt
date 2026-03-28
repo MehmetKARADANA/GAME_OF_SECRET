@@ -311,14 +311,9 @@ fun DifficultyChip(
     Card(
         modifier = modifier
             .height(40.dp)
-            .border(
-                width = if (isSelected) 2.dp else 1.dp,
-                color = if (isSelected) difficultyColor else Color.White.copy(alpha = 0.3f),
-                shape = RoundedCornerShape(8.dp)
-            )
             .clickable { onClick() },
         colors = CardColors(
-            containerColor = if (isSelected) difficultyColor.copy(alpha = 0.3f) else background,
+            containerColor = if (isSelected) difficultyColor.copy(alpha = 0.3f) else Color.White.copy(alpha = 0.1f),
             contentColor = Color.White,
             disabledContainerColor = background,
             disabledContentColor = Color.Gray
