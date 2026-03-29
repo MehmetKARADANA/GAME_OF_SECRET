@@ -13,5 +13,5 @@ const val GROUP_GAMES="group_games"  // Grup oyunları koleksiyonu
 // Banner reklamlarının gösterilmesi için Banner Ad Unit ID formatına (/ işareti ile) değiştirilmelidir.
 // Örnek: "ca-app-pub-1155449509530334/1234567890"
 // AdMob konsolundan Banner Ad Unit ID'nizi alıp buraya yapıştırın.
-const val AdId="ca-app-pub-3940256099942544/6300978111"
+const val AdId="ca-app-pub-1155449509530334~3814961198"
 //ca-app-pub-1155449509530334/3814961198
